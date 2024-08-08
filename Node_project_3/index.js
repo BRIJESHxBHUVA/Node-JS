@@ -49,30 +49,25 @@ app.post("/AddData", function (req, res) {
     res.redirect('/')
  })
 
- app.get("/EditData", function(req, res){   
-    const id = req.query.userid
-    let EditedData = StudentData.filter((el, i)=> {
-        return el.taskid == id
-    })
 
-   return res.render("tutorial",{
-    editstudentdata : EditedData[0]
-    })
- })
+app.get("/EditData", function (req, res) {
+    const id = req.query.userid;
+    const studentToEdit = StudentData.find((el) => el.taskid == id);
+    res.render("edit", {
+        student: studentToEdit
+    });
+});
 
- app.post("/EditData", function(req, res){
-    const id = req.query.userid
-
-    let result = StudentData.filter((el, i)=> {
-        if(el.taskid == id){
-            el.taskname = req,body.name
+app.post("/EditData", function (req, res) {
+    const id = req.query.userid;
+    StudentData = StudentData.map((el) => {
+        if (el.taskid == id) {
+            el.taskname = req.body.name;
         }
-        return el
-    })
-        StudentData = result
-        res.redirect("/")
- })
-
+        return el;
+    });
+    res.redirect("/");
+});
 
 app.listen(2000, ()=> {
     console.log("Server is running on port 2000")

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Edit Student Data</title>
     <style>
-        body{
+        body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: lightslategray;
+
         }
         h1{
             padding: 10px;
@@ -22,7 +22,7 @@
             text-align: center;
             /* box-shadow: inset 0px 0px 12px 6px aqua; */
         }
-        form{
+        form {
             height: 200px;
             width: 300px;
             border: 1px solid black;
@@ -31,14 +31,14 @@
             padding: 15px;
             background-color: cadetblue;
         }
-        input{
+        input {
             padding: 10px;
             margin: 15px 0px;
             border-radius: 8px;
             border: none;
             outline: none;
         }
-        button{
+        button {
             padding: 10px;
             margin: 15px 0px;
             background-color: black;
@@ -49,7 +49,7 @@
         table{
             padding: 10px;
             border: 1px solid #000;
-            margin: 5px 0px;
+            margin: 15px 0px;
         }
         th{
             padding: 5px;
@@ -66,10 +66,10 @@
     </style>
 </head>
 <body>
-    <h1>Student Data</h1>
-    <form action="/AddData" method="post">
-        <input placeholder="Enter ID" name="id">
-        <input placeholder="Enter Name" name="name">
+    <h1>Edit Student Data</h1>
+    <form action="/EditData?userid=<%= student.taskid %>" method="post">
+        <input placeholder="Enter ID" name="id" value="<%= student.taskid %>" readonly>
+        <input placeholder="Enter Name" name="name" value="<%= student.taskname %>">
         <button>Submit</button>
     </form>
 
@@ -77,21 +77,14 @@
         <tr>
         <th>ID</th>
         <th>Name</th>
-        <th colspan="2">Action</th>
     </tr>
     
-        <%students.map((el, i)=> {%>
             <tr>
-                <td><%= el.taskid %></td>
-                <td><%= el.taskname %></td>
-                <td><a href="/DeteteData?userid=<%= el.taskid %>">delete</a> </td>
-                <td><a href="/EditData?userid=<%= el.taskid %>">Edit</a> </td>
+                <td><%= student.taskid %></td>
+                <td><%= student.taskname %></td>
+           
             </tr>
-       <% })%>
-        
-
    
     </table>
-
 </body>
 </html>
