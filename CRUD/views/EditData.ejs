@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Page</title>
+
+    <style>
+         *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .main{
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: lightseagreen;
+        }
+        form{
+            width: 300px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            border-radius: 8px;
+        }
+        input{
+            padding: 5px;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+            margin: 10px 0px;
+        }
+        button{
+            padding: 5px 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 10px 0px;
+        }
+        h3{
+            margin: 10px 0px;
+            text-decoration: underline orangered 2px;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <form action="/Edit?id=<%=EditData.id%>" method="post">
+            <h3>Employee Edit Data Form</h3>
+            <input type="text" placeholder="Enter employee name" name="name" value="<%=EditData.name%>" >
+            <input type="text" placeholder="Enter employee age" name="age" value="<%=EditData.age%>" >
+            <input type="text" placeholder="Enter employee job type" name="job" value="<%=EditData.job%>" >
+            <input type="text" placeholder="Enter employee salary" name="salary" value="<%=EditData.salary%>" >
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employe Data</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .main{
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: lightseagreen;
+        }
+        form{
+            width: 300px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            border-radius: 8px;
+        }
+        input{
+            padding: 5px;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+            margin: 10px 0px;
+        }
+        button{
+            padding: 5px 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 10px 0px;
+        }
+        h3{
+            margin: 10px 0px;
+            text-decoration: underline orangered 2px;
+            color: white;
+        }
+        table{
+           background-color: lightcoral; 
+           border-radius: 8px;
+           padding: 2px;
+        }
+        th{
+            padding: 5px;
+            background-color: black;
+            color: white;
+        }
+        td{
+            padding: 5px;
+            background-color: white;
+            color: black;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <form action="/Insert" method="post">
+            <h3>Employee Data Form</h3>
+            <input type="text" placeholder="Enter employee name" name="name" >
+            <input type="text" placeholder="Enter employee age" name="age">
+            <input type="text" placeholder="Enter employee job type" name="job">
+            <input type="text" placeholder="Enter employee salary" name="salary">
+            <button type="submit">Submit</button>
+        </form>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Job Type</th>
+                <th>Salary</th>
+                <th colspan="2">Action</th>
+            </tr>
+
+            <%data.map((el, i)=>{%>
+                <tr>
+                    <td><%=i+1%></td>
+                    <td><%=el.name%></td>
+                    <td><%=el.age%></td>
+                    <td><%=el.job%></td>
+                    <td><%=el.salary%></td>
+                    <td><a href="/Delete?id=<%=el.id%>">Delete</a></td>
+                    <td><a href="/Edit?id=<%=el.id%>">Edit</a></td>
+                </tr>    
+            <%})%>
+
+        </table>
+    </div>
+</body>
+</html>

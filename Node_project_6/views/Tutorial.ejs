@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main">
+        <form action="/Insert" method="post">
+            <input type="text" placeholder="Enter your name" name="name">
+            <input type="text" placeholder="Enter your jobtype" name="job">
+            <input type="text" placeholder="Enter your salary" name="salary">
+            <button type="submit">Submit</button>
+        </form>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>JobType</th>
+                <th>Salary</th>
+                <th>Action</th>
+            </tr>
+            <% data.map((el, i)=>{%>
+
+                <tr>
+                    <td><%=i+1%></td>
+                    <td><%=el.name%></td>
+                    <td><%=el.job%></td>
+                    <td><%=el.salary%></td>
+                    <td><a href="/Delete?id=<%el.id%>">Delete</a></td>
+                </tr>
+
+                <%}) %>
+        </table>
+    </div>
+</body>
+
+</html>
