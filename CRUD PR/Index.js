@@ -4,7 +4,7 @@ app.use(express.urlencoded());
 const db = require('./Server')
 const BookModel = require('./DetailsSchema')
 app.set('view engine', 'ejs')
-const port = 3000
+const port = 8000
 
 app.get('/', (req, res)=> {
     res.render('Loading')
