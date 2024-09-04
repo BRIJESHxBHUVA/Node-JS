@@ -11,11 +11,11 @@ app.use('/', require('./Routes/Routing'));
 
 app.use('/image', express.static(path.join(__dirname, 'image')));
 
-app.listen(port, (err)=>{
-    if(err){
-        console.log('Server starting error says: ', err)
-    }
-    else{
+app.listen(port, ()=>{
+    try{
         console.log(`Server starting on port ${port}`);
+    }
+    catch(err){
+        console.log('Server starting error says: ', err)
     }
 })
