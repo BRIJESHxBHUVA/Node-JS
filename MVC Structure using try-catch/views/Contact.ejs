@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="./slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./slick/slick-theme.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+    <title>Contact</title>
+    <style type="text/css">
+        .heading {
+            width: 100%;
+            /* border: 1px solid black; */
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .slide {
+            height: auto;
+            width: 100%;
+            /* border: 1px solid black; */
+            display: flex;
+            align-items: center;
+            /* justify-content: space-evenly; */
+        }
+
+
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .slider {
+            height: 100%;
+            margin: 100px auto;
+        }
+
+        .regular {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            overflow-x: scroll;
+        }
+
+        .regular .img-fluid {
+            margin: 0px 15px;
+        }
+
+        .slick-slide {
+            margin: 0px 20px;
+        }
+
+        .slick-slide img {
+            width: 100%;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+            color: black;
+        }
+
+
+        .slick-slide {
+            transition: all ease-in-out .3s;
+            /* opacity: .2; */
+        }
+
+        .slick-active {
+            /* opacity: .5; */
+        }
+
+        .slick-current {
+            /* opacity: 1; */
+        }
+
+
+
+        .footer {
+            height: auto;
+            width: 100%;
+            padding: 20px 0;
+            /* border: 1px solid black; */
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .container {
+            box-shadow: 0px 0px 18px black;
+            border-radius: 12px;
+        }
+
+        .bighdr {
+            height: 370px;
+            width: 100%;
+            /* border: 1px solid black; */
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background: url(image/1.jpg);
+            background-size: cover;
+            /* background-repeat: no-repeat; */
+        }
+
+        .section1 {
+            height: 580px;
+            width: 100%;
+            /* border: 1px solid black; */
+            background-color: #f7f7f7;
+        }
+
+        .boxes {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+        }
+
+        .boxes .p {
+            font-size: 19px;
+        }
+
+        .box {
+            height: 277px;
+            width: 350px;
+        }
+
+        .section2 {
+            height: 610px;
+            width: 100%;
+            /* border: 1px solid black; */
+        }
+
+        .card img {
+            width: 175px;
+        }
+
+        .contact-sec {
+            height: 20vh;
+            width: 100%;
+            /* border: 1px solid black; */
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar navbar-expand-lg text-center fixed-top bg-dark" style="height: auto; opacity: 0.8;">
+        <div class="container border border-dark">
+            <div class="navbar-brand">
+                <h2 class="text-light">Alime</h2>
+            </div>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-support">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="collapse navbar-collapse justify-content-evenly" id="navbar-support" style="height: auto;">
+                <ul class="nav text-center">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link text-light">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link ms-4 dropdown-toggle text-center  text-light" type="button"
+                            data-bs-toggle="dropdown">Pages</a>
+
+
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item"><a href="">Home</a></li>
+                            <li class="dropdown-item"><a href="">About</a></li>
+                            <li class="dropdown-item"><a href="">Gallery</a></li>
+                            <li class="dropdown-item"><a href="">Blog</a></li>
+                            <li class="dropdown-item"><a href="">Blog Details</a></li>
+                            <li class="dropdown-item"><a href="">Contact</a></li>
+                            <li class="dropdown-item"><a href="">Dropdown</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/about" class="nav-link ms-4 text-light">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/gallery" class="nav-link ms-4 text-light">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/blog" class="nav-link ms-4 text-light">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link ms-4 text-light">Contact</a>
+                    </li>
+                </ul>
+                </navs>
+        </div>
+    </header>
+
+    <div class="bighdr">
+        <h1 class="text-light">Contact</h1>
+    </div><br><br>
+    <div class="contact-sec" style="height: 20vh;">
+        <div class="container h-100 d-flex justify-content-evenly">
+            <div class=" w-50 h-25 ms-5">
+                <h1>Let’s Work<br>
+                    Together</h1>
+            </div>
+            <div class="container" style="height: 20vh;">
+                <div class=" w-50 h-25 m-auto">
+                    <label>Email</label>
+                    <label>Visit Us</label><br>
+                    <p class="fw-bold">info.deercreative@gmail.com</p>
+                    <p class="fw-bold">60-49 Road 11378 New York</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="space" style="height: 50px;"></div>
+        <div class="container" style="height: 600px;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.2277062372955!2d70.76239567591173!3d22.269362644015033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959cb514294f86d%3A0x6691df40d7aec448!2sFSTAG%20(G.%20P.%20Bhuva%20%26%20Co.%20%26%20Samir%20Virani%20%26%20Co.!5e0!3m2!1sen!2sin!4v1692275974819!5m2!1sen!2sin"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="heading"><br><br>
+
+            <h2 class="display-5">Follow Instagram</h2><br>
+            <a href="" class="text-dark">@Alime_photographer</a><br>
+        </div>
+        <div class="slide">
+
+            <section class="regular slider">
+                <img src="image/img12.jpg" class="img-fluid">
+
+
+                <img src="image/img13.jpg" class="img-fluid">
+
+
+                <img src="image/img14.jpg" class="img-fluid">
+
+
+                <img src="image/img15.jpg" class="img-fluid">
+
+
+                <img src="image/img16.jpg" class="img-fluid">
+
+
+                <img src="image/img17.jpg" class="img-fluid">
+            </section>
+
+
+        </div>
+        <div class="footer">
+            <div class="container d-flex justify-content-evenly align-items-center">
+                <p class="fs-5">Copyright ©2023 All rights reserved | This template is made with by Colorlib</p>
+                <p class="display-6 fw-bold">Alime</p>
+                <i class="fa-brands fa-facebook-f fs-5"></i>
+                <i class="fa-brands fa-twitter fs-5"></i>
+                <i class="fa-brands fa-linkedin-in fs-5"></i>
+                <i class="fa-brands fa-instagram fs-5"></i>
+            </div>
+        </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="./slick/slick.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+
+    var swiper = new Swiper(".mySwiper", {
+
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+
+</script>
+
+<script type="text/javascript">
+    $(document).on('ready', function () {
+
+
+        $(".regular").slick({
+            dots: true,
+            infinite: true,
+            slidesToShow: 6,
+            slidesToScroll: 3
+        });
+    });
+</script>
+
+</html>
