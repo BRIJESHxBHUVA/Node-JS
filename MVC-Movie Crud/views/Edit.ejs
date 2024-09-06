@@ -3,16 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
+    <style>
+            * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .main {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            background: lightgoldenrodyellow;
+        }
+
+        form {
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px;
+            background-color: black;
+            border-radius: 12px;
+        }
+        .data{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            margin: 10px 0px;
+        }
+
+        input {
+            width: 40%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+        }
+        input::placeholder{
+            text-align: center;
+        }
+        img{
+            border-radius: 12px;
+        }
+
+        button {
+            width: 50%;
+            padding: 10px 0;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+        }
+        .addbtn{
+           background-color: black;
+           color: white;
+           position: absolute;
+           top: 1%;
+           right: 1%;
+           width: auto;
+           font-size: 16px;
+           padding-left: 5px;
+           padding-right: 5px;
+        }
+        a{
+            color: white;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <form action="/editdata?id=<%=editData.id%>" method="post" enctype="multipart/form-data">
-        <input type="text" placeholder="Enter Movie Name" name="name" value="<%=editData.name%>">
-        <input type="text" placeholder="Enter Movie Category" name="category" value="<%=editData.category%>">
-        <input type="text" placeholder="Enter Movie Rating" name="rating" value="<%=editData.rating%>">
-        <img src="../movieimages/<%=editData.image%>" alt="" width="100">
-        <input type="file" placeholder="Enter Image" name="image">
-        <button type="submit">Submit</button>
-    </form>
+    <div class="main">
+        <button class="addbtn"><a href="/">Back to Home &nbsp; <i class="fa-solid fa-house-chimney" style="color: greenyellow; font-size: 18px;"></i></a></button>
+        <form action="/editdata?id=<%=editData.id%>" method="post" enctype="multipart/form-data">
+            <h3 style="text-decoration: underline orangered 3px; color: white;">Book Edit Data Form</h3>
+            <br>
+            <div class="data">
+                <input type="text" placeholder="Enter Movie Name" name="name" value="<%=editData.name%>">
+                <input type="text" placeholder="Enter Movie Category" name="category" value="<%=editData.category%>">
+            </div>
+            <div class="data">
+                <input type="text" placeholder="Enter Movie Rating" name="rating" value="<%=editData.rating%>">
+                <input type="file" placeholder="Enter Image" style="background-color: white;" name="image">
+            </div><br>
+            <img src="../movieimages/<%=editData.image%>"  alt="" width="100" height="100">
+            <br>
+            <button type="submit">Submit</button><br>
+        </form>
+    </div>
 </body>
 </html>

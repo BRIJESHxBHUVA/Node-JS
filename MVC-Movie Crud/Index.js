@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express();
-const port = 3000;
+const port = 5000;
 const db = require('./Server/Server')
 const Modal = require('./Model/Modal')
 const path = require('path')
@@ -9,6 +9,7 @@ app.set('view engine', 'ejs');
 
 app.use('/', require('./Routes/Routing'))
 app.use('/movieimages', express.static(path.join(__dirname, 'movieimages')))
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
 app.listen(port, ()=> {

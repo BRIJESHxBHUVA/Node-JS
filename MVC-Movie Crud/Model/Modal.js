@@ -9,7 +9,7 @@ const ModelSchema = mongoose.Schema({
         require: true
     },
     rating: {
-        type: String,
+        type: Number,
         require: true
     },
     image: {
