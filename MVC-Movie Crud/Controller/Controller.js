@@ -4,8 +4,32 @@ const fs = require('fs')
 
 module.exports.home = async (req, res)=> {  
     try{
-        const data = await Modal.find({})
-        res.render('Home', {data})
+        let {search} = req.query;
+        let {sort} = req.body
+        let filter = {}
+
+        console.log('Search:', search);
+        console.log('Sort:', sort);
+
+        if(search){
+            filter.name = { $regex: search, $options: 'i'}
+        }
+
+        let sortOptions  = {}
+        if(sort === 'ratingAsc'){
+            sortOptions.rating = 1
+        }else if(sort === 'ratingDesc'){
+            sortOptions.rating = -1
+        }
+        else if(sort === 'nameAsc'){
+            sortOptions.name = 1
+        }else if(sort === 'nameDesc'){
+            sortOptions.name = -1
+        }
+        console.log('Sort Options:', sortOptions);
+
+        const data = await Modal.find(filter).sort(sortOptions)
+        res.render('Home', {data, search, sort})
     }catch(err){  
         console.log('Data not found.')
     }
@@ -17,7 +41,13 @@ module.exports.add = (req, res)=> {
 
 module.exports.adddata = async (req, res)=> {
     try{
-        req.body.image = req.file.filename
+        if(req.body.imageUrl && req.body.image !== ''){
+            req.body.image = req.body.imageUrl
+        }
+        else if(req.file){
+            req.body.image = req.file.filename
+        }
+        
         const data = await Modal.create(req.body)
         res.redirect('/')
     }catch(err){  
@@ -28,8 +58,11 @@ module.exports.adddata = async (req, res)=> {
 module.exports.deletedata = async (req, res)=> {
     try{
         const imagedata = await Modal.findById(req.query.id);
-        const oldImage = path.join(__dirname, '../movieimages/', imagedata.image);
-        fs.unlinkSync(oldImage);
+        if(imagedata.image && !imagedata.image.startsWith('http')){
+            const oldImage = path.join(__dirname, '../movieimages/', imagedata.image);
+            fs.unlinkSync(oldImage);
+        }
+        
         // if(imagedata && imagedata.image){
         //     const oldImage = path.join(__dirname, '../movieimages/', imagedata.image);
         //     if(fs.existsSync(oldImage)){
@@ -58,14 +91,17 @@ module.exports.editeddata = async (req, res)=> {
         const product = await Modal.findById(req.query.id);
 
         if(req.file){
-            if(product.image){
+            if(product.image && !product.image.startsWith('http')){
                 const oldImage = path.join(__dirname, '../movieimages/', product.image);
                 if(fs.existsSync(oldImage)){
                     fs.unlinkSync(oldImage);
                 }
             }
             req.body.image = req.file.filename
-        }else{
+        } else if(req.body.imageUrl && req.body.imageUrl !== ""){
+            req.body.image = req.body.imageUrl
+        }
+        else{
             req.body.image = product.image
         }
         const EditedData = await Modal.findByIdAndUpdate(req.query.id, req.body);
