@@ -78,7 +78,7 @@
             margin: 10px 0;
         }
 
-        input {
+        input, label {
             width: 48%;
             padding: 12px;
             border: none;
@@ -88,13 +88,14 @@
             font-size: 1rem;
             outline: none;
             transition: background 0.3s;
+            cursor: pointer;
         }
 
         input::placeholder {
             color: #ddd;
         }
 
-        input:focus {
+       label, input:focus {
             background: rgba(255, 255, 255, 0.5);
         }
 
@@ -263,7 +264,8 @@
             </div>
             <div class="data">
                 <input type="text" placeholder="Enter Movie Rating" name="rating" value="<%=editData.rating%>">
-                <input type="file" id="image" placeholder="Enter Image" name="image">
+                <label for="image" id="lable">Upload Movie Poster</label>
+                <input type="file" id="image" placeholder="Enter Image" name="image" style="display: none;">
                 <input type="text" id="imageURL" style="display: none;" placeholder="Enter Movie Poster URL" name="imageUrl">
             </div><br>
             <img src="<%=editData.image.startsWith('http') ? editData.image : ('../movieimages/' + editData.image)%>"  alt="" width="100" height="100">
@@ -277,16 +279,17 @@
 
     <script>
         const image = document.getElementById("image")
+        const lable = document.getElementById("lable")
         const URLimage = document.getElementById('imageURL')
         const urlbtn = document.getElementById("urlbtn")
         urlbtn.addEventListener('click', (event)=>{
             event.preventDefault(); 
-            if(image.style.display !== 'none'){
-                image.style.display = 'none'
+            if(lable.style.display !== 'none'){
+                lable.style.display = 'none'
                 URLimage.style.display = 'block'
                 urlbtn.textContent = 'Toggle to Image File'
             }else{
-                image.style.display = 'block'
+                lable.style.display = 'block'
                 URLimage.style.display = 'none'
                 urlbtn.textContent = 'Toggle to Image URL'
             }

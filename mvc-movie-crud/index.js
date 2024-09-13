@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express();
-const port = 3000;
+const port = 5000;
 const db = require('./server/server')
 const Modal = require('./model/modal')
 const path = require('path')

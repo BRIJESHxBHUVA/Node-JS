@@ -5,7 +5,7 @@ const fs = require('fs')
 module.exports.home = async (req, res)=> {  
     try{
         let {search} = req.query;
-        let {sort} = req.body
+        let {sort} = req.query
         let filter = {}
 
         console.log('Search:', search);
