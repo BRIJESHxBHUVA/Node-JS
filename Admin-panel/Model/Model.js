@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
+
 const ModelSchema = mongoose.Schema({
-    name:{
-        type:String,
-        required: true,
-    },
+
     email:{
         type:String,
         required:true
@@ -12,11 +10,33 @@ const ModelSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    confirmps: {
-        type:String,
-        required: true,
+})
+
+const ProductSchema = mongoose.Schema({
+
+    image: {
+        type: String
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    company: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
     }
+
 })
 
 const Modal = mongoose.model('Data', ModelSchema)
-module.exports = Modal
+const Product = mongoose.model('Product', ProductSchema)
+
+module.exports = {Modal, Product}
