@@ -3,6 +3,8 @@ const routes = express.Router();
 const controller = require('../Controller/Controller')
 const multer = require('multer');
 const path = require('path');
+const passport = require('../Server/Passport');
+// const passport = require('passport')
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -17,7 +19,7 @@ const uploadpic = multer({storage : storage}).single('image')
 
 routes.get('/', controller.login)
 
-routes.post('/login', controller.userlogin)
+routes.post('/login', passport.authenticate("local", {failureRedirect: "/"}), controller.userlogin)
 
 routes.post('/addproductdata', uploadpic, controller.addProduct)
 
@@ -27,13 +29,15 @@ routes.get('/edit', controller.editProduct)
 
 routes.post('/editproductdata', uploadpic, controller.editedProduct)
 
-routes.get('/logout', controller.userlogout)
+// routes.get('/logout',   controller.userlogout)
 
-routes.get('/dashboard',controller.isAuthenticated, controller.dashboard)
+// routes.get('/dashboard',controller.isAuthenticated, controller.dashboard)
+routes.get('/dashboard', controller.dashboard)
 
-routes.get('/charts',controller.isAuthenticated, controller.charts)
+// routes.get('/charts', controller.isAuthenticated, controller.charts)
+routes.get('/charts', controller.charts)
 
-routes.get('/widgets',controller.isAuthenticated, controller.widgets)
+// routes.get('/widgets',controller.isAuthenticated, controller.widgets)
 
 routes.get('/tables', controller.tables)
 
