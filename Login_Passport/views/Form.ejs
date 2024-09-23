@@ -32,25 +32,36 @@
             <h5 class="card-title fw-semibold mb-4">Forms</h5>
             <div class="card">
               <div class="card-body">
-                <form action="/insert" method="post">
+                <form action="<%= editdata ? '/edit?id='+ editdata._id : '/insert' %> " method="post" enctype="multipart/form-data">
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Product Name</label>
-                    <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=editdata ? editdata.name : '' %>">
                     <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Product Price</label>
-                    <input type="text" class="form-control" name="price" id="exampleInputPassword1">
+                    <input type="text" class="form-control" name="price" id="exampleInputPassword1" value="<%=editdata ? editdata.price : ''%>">
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Product Category</label>
-                    <input type="text" class="form-control" name="category" id="exampleInputPassword1">
+                    <input type="text" class="form-control" name="category" id="exampleInputPassword1" value="<%=editdata ? editdata.category : ''%>">
                   </div>
                   <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                   </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <div class="mb-3 form-check">
+                    <input type="file" name="image" class="form-control" id="exampleCheck1">
+                    <label for="exampleCheck1" name="image" class="form-label" for="exampleCheck1">Choose file...</label>
+                  </div>
+                  <% if (editdata) { %>
+                    <div class="mb-3 form-check">
+                      <img src="../images/<%= editdata.image %>" alt="" height="100">
+                      <label for="exampleCheck1" name="image" class="form-label" for="exampleCheck1">Previous Image</label>
+                    </div>
+                  <% } %>
+                  
+                  <button type="submit" class="btn btn-primary"><%=editdata ? 'Update' : 'Submit' %></button>
                 </form>
               </div>
             </div>

@@ -1,16 +1,47 @@
-const express = require('express')
+const express = require("express");
 const route = express.Router();
+const controller = require("../Controller/Controller");
+const passport = require("passport");
+const multer = require("multer");
+const paht = require("path");
+const path = require("path");
 
-const controller = require('../Controller/Controller')
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images/");
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
 
-route.get('/', controller.login)
+const uploadpic = multer({ storage: storage }).single("image");
 
-route.get('/dashboard', controller.dashboard)
+route.get("/", controller.login);
 
-route.get('/form', controller.form)
+route.get("/logout", controller.logout);
 
-route.get('/table', controller.table)
+route.post(
+  "/login",
+  passport.authenticate("local", { failureRedirect: "/" }),
+  controller.adminlogin
+);
 
-route.post('/insert', controller.insert)
+route.get("/dashboard", passport.chechauth, controller.dashboard);
 
-module.exports = route
+route.get("/form", passport.chechauth, controller.form);
+
+route.get("/table", passport.chechauth, controller.table);
+
+route.post("/insert", passport.chechauth, uploadpic, controller.insert);
+
+route.get("/delete", controller.delete);
+
+route.get("/edit", passport.chechauth, controller.edit);
+
+route.post("/edit", uploadpic, controller.editedproduct);
+
+module.exports = route;

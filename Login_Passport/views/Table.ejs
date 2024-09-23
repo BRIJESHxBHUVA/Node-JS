@@ -8,6 +8,30 @@
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/seodashlogo.png" />
   <link rel="stylesheet" href="../../node_modules/simplebar/dist/simplebar.min.css">
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
+
+  <style>
+    table{
+      width: 50%;
+      text-align: center;
+    }
+    th{
+      border: 1px solid grey;
+      padding: 5px;
+    }
+    td{
+      padding: 5px;
+      border: 1px solid grey;
+    }
+    a{
+      text-decoration: none;
+    }
+    a:nth-child(1){
+      color: red;
+    }
+    a:nth-child(2){
+      color: grey;
+    }
+  </style>
 </head>
 
 <body>
@@ -19,7 +43,7 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img">
+          <a href="/dashboard" class="text-nowrap logo-img">
             <img src="../assets/images/logos/logo-light.svg" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -45,19 +69,24 @@
             <table>
                 <tr>
                     <th>ID</th>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
                     <th>Category</th>
+                    <th colspan="2">Action</th>
                 </tr>
                 <tbody>
-                    <%data.map((el, i)=>{%>
+                  <% data.forEach((el, i) => { %>
                         <tr>
-                            <td><%=i+1%></td>
-                            <td><%=el.name%></td>
-                            <td><%=el.price%></td>
-                            <td><%=el.category%></td>
+                            <td><%= i+1 %></td>
+                            <td><img src="../images/<%=el.image%>" alt="" height="70" width="100"></td>
+                            <td><%= el.name %></td>
+                            <td><%= el.price %></td>
+                            <td><%= el.category %></td>
+                            <td><a href="/delete?id=<%=el.id%>">Delete</a></td>
+                            <td><a href="/edit?id=<%=el.id%>">Edit</a></td>
                         </tr>
-                    <%})%>
+                    <% }) %>
                 </tbody>
             </table>
           </div>

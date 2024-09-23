@@ -5,6 +5,10 @@ const Schema = mongoose.Schema({
         type: String,
         require: true
     },
+    image: {
+        type: String,
+        required: true
+    },
     price: {
         type: Number,
         require: true
@@ -15,6 +19,18 @@ const Schema = mongoose.Schema({
     },
 })
 
-const Admin = mongoose.model('Passport', Schema)
+const LoginSchema = mongoose.Schema({
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+})
 
-module.exports = Admin;
+const Admin = mongoose.model('Passport', Schema)
+const Login = mongoose.model('Admin', LoginSchema)
+
+module.exports = { Admin, Login };
