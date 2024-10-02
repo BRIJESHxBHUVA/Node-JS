@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const db = require('./Server/Server')
-const port = 3000
+const port = 5000
 const passport = require('passport')
 const localst = require('./Log/Passport')
 let session = require('express-session')
@@ -24,6 +24,8 @@ app.use(passport.session());
 app.use(passport.setauthuser)
 
 app.use('/', require('./Route/Routing'))
+app.use('/category', require('./Route/CategoryRoutes'))
+app.use('/category/subcategory', require('./Route/SubCategoryRoutes'))
 
 
 app.use(express.static(path.join(__dirname, 'public')))

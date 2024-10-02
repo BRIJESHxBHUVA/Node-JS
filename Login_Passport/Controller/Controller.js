@@ -1,24 +1,97 @@
 const { Admin, Login } = require("../Model/Model");
 const fs = require("fs");
 const path = require("path");
+const Mailer = require('../Server/Mailer')
 
 module.exports.login = (req, res) => {
   try {
-    res.render("Login");
+   res.render("Login");
   } catch (err) {
     console.log("Login Page Rendering Error..", err);
   }
 };
 
+module.exports.updatepassword = (req, res) => {
+  res.render('UpdatePassword')
+}
+
+module.exports.changePasswords = async(req, res) => {
+  const userinfo = await Login.findById(req.user.id)
+  console.log(userinfo)
+  if(userinfo){
+    if(userinfo.password == req.body.oldps){
+      if(userinfo.password != req.body.newps){
+        if(req.body.newps == req.body.confirmps){
+          const updatepassword = await Login.findByIdAndUpdate(userinfo.id, {password: req.body.newps})
+          updatepassword ? res.redirect('/logout') + console.log('Password Change'): console.log('password is not changed.')
+        }else{
+          console.log('New Password and Confirm Password Must be Same.')
+          res.redirect('/dashboard')
+        }
+      }else{
+        console.log('Old Password and New Password Must be Different.')
+        res.redirect('/dashboard')
+      }
+    }else{
+      console.log('Old Password is Incorrect.')
+      res.redirect('/dashboard')
+    }
+  }else{
+    console.log('User Not Found')
+    res.redirect('/dashboard')
+  }
+}
+
+module.exports.forgotpassword = (req, res) => {
+  res.render('ForgotPassword')
+}
+
+module.exports.sendOTP = async (req, res) => {
+  const adminData = await Login.findOne({email: req.body.email})
+  console.log(adminData)
+  if(adminData){
+    const otp = Math.floor(100000 + Math.random() * 900000)
+    Mailer.sendOtp(req.body.email, otp)
+    req.session.otp = otp 
+    req.session.adminID = adminData.id
+    res.render('CreatePassword', {otp})
+  }else{
+    req.redirect('/')
+    console.log('Incorrect Email.')
+  }
+}
+
+module.exports.resetpassword = async(req, res)=> {
+
+  let otp = req.session.otp 
+  let adminID = req.session.adminID   
+  console.log(otp);
+  console.log(adminID);
+  console.log(req.body);
+  
+  if(req.body.otp == otp){
+    if(req.body.newpassword == req.body.confirmpassword){
+      const updatepassword = await Login.findByIdAndUpdate(adminID, {password: req.body.newpassword})
+      updatepassword ? res.redirect('/') + console.log('Password Change'): console.log('password is not update')
+    }else{  
+      console.log('New Password and Confirm Password Must be Same.')
+      res.redirect('/')
+    }
+  }else{
+    console.log('Incorrect OTP')
+    res.redirect('/')
+  }
+}
+
 module.exports.adminlogin = async (req, res) => {
   try {
     const Data = await Login.findOne({ email: req.body.email });
-    console.log(Data);
     if (Data) {
       if (Data.password == req.body.password) {
         res.redirect("/dashboard");
       } else {
         res.redirect("/");
+        console.log('Email and Password Incorrect')
       }
     } else {
       console.log("User Not Found.");
@@ -30,7 +103,9 @@ module.exports.adminlogin = async (req, res) => {
 };
 
 module.exports.logout = async (req, res) => {
-  res.redirect("/");
+  req.session.destroy((err)=> {
+    err ? console.log('Logout error', err) : res.redirect('/')
+  });
 };
 
 module.exports.dashboard = (req, res) => {
@@ -92,7 +167,6 @@ module.exports.edit = async (req, res) => {
     editdata
       ? res.render("Form", { editdata })
       : console.log("Data is not available.");
-    console.log(editdata);
   } catch (error) {
     console.log("Data is not go for edit process.");
   }
@@ -117,3 +191,8 @@ module.exports.editedproduct = async (req, res) => {
     console.log("Data is not edited.");
   }
 };
+
+
+
+
+

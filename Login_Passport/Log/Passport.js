@@ -30,7 +30,7 @@ passport.deserializeUser(async (id, done)=> {
     }
 })
 
-passport.chechauth = (req, res, next)=> {
+passport.chechauth = (req, res, next)=> {   
     if(req.isAuthenticated()){
         next();
     }else{

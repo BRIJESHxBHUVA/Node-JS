@@ -24,6 +24,10 @@ route.get("/", controller.login);
 
 route.get("/logout", controller.logout);
 
+route.get('/updatepassword', controller.updatepassword)
+
+route.post('/resetpassword' ,controller.changePasswords)
+
 route.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/" }),
@@ -41,6 +45,12 @@ route.post("/insert", passport.chechauth, uploadpic, controller.insert);
 route.get("/delete", controller.delete);
 
 route.get("/edit", passport.chechauth, controller.edit);
+
+route.get('/forgotpassword', controller.forgotpassword)
+
+route.post('/sendotp', controller.sendOTP)
+
+route.post('/newpassword', controller.resetpassword)
 
 route.post("/edit", uploadpic, controller.editedproduct);
 

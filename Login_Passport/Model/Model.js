@@ -20,6 +20,14 @@ const Schema = mongoose.Schema({
 })
 
 const LoginSchema = mongoose.Schema({
+    fname: {
+         type: String,
+         require: true 
+    },
+    lname: {
+        type: String,
+        require: true
+    },
     email: {
         type: String,
         required: true
@@ -27,8 +35,9 @@ const LoginSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
 })
+
 
 const Admin = mongoose.model('Passport', Schema)
 const Login = mongoose.model('Admin', LoginSchema)
