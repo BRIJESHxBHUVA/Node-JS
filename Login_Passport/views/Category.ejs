@@ -32,19 +32,25 @@
             <h5 class="card-title fw-semibold mb-4">Forms</h5>
             <div class="card">
               <div class="card-body">
-                <form action="/" method="post" enctype="multipart/form-data">
+                <form action="<%= editdata ? '/category/edit?id='+ editdata._id : '/category/insertcategory' %> " method="post" enctype="multipart/form-data">
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Category Name</label>
-                    <input type="text" class="form-control" name="categoryname" id="exampleInputEmail1" aria-describedby="emailHelp" >
-                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                    <input type="text" class="form-control" name="categoryname" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=editdata ? editdata.categoryname : '' %>">
                   </div>
                  
-                  <div class="mb-3 form-check">
+                  <div class="mb-3">
                     <input type="file" name="categoryimage" class="form-control" id="exampleCheck1">
                     <label for="exampleCheck1" name="categoryimage" class="form-label" for="exampleCheck1">Choose file...</label>
                   </div>
+
+                  <% if (editdata) { %>
+                    <div class="mb-3">
+                      <img src="../images/categoryimage/<%= editdata.categoryimage %>" alt="" height="100" width="100">
+                      <label for="exampleCheck1" name="image" class="form-label" for="exampleCheck1">Previous Image</label>
+                    </div>
+                  <% } %>
                   
-                  <button type="submit" class="btn btn-primary">Add Category</button>
+                  <button type="submit" class="btn btn-primary"><%=editdata ? 'Update Category' : 'Add Category' %></button>
                 </form>
               </div>
             </div>

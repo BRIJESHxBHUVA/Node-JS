@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SeoDash Free Bootstrap Admin Template by Adminmart</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/seodashlogo.png" />
-  <link rel="stylesheet" href="../../node_modules/simplebar/dist/simplebar.min.css">
-  <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  <link rel="shortcut icon" type="image/png" href="/assets/images/logos/seodashlogo.png" />
+  <link rel="stylesheet" href="/node_modules/simplebar/dist/simplebar.min.css">
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
 </head>
 
 <body>
@@ -32,19 +32,23 @@
             <h5 class="card-title fw-semibold mb-4">Forms</h5>
             <div class="card">
               <div class="card-body">
-                <form action="/" method="post" enctype="multipart/form-data">
-                  <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Category Name</label>
-                    <input type="text" class="form-control" name="categoryname" id="exampleInputEmail1" aria-describedby="emailHelp" >
-                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
-                  </div>
+                <form action="<%= editdata ? '/category/subcategory/edit?id='+ editdata._id : '/category/subcategory/insertsubcategory' %> " method="post">
                  
-                  <div class="mb-3 form-check">
-                    <input type="file" name="categoryimage" class="form-control" id="exampleCheck1">
-                    <label for="exampleCheck1" name="categoryimage" class="form-label" for="exampleCheck1">Choose file...</label>
+                  <div class="mb-3">
+                    <label class="form-label" >Select Category</label>
+                    <select name="categoryid" id="">
+                      <%categories.map((el)=>{%>
+                        <option value="<%=el._id%>"><%=el.categoryname%></option>
+                      <%})%>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Enter Subcategory</label>
+                    <input type="text" class="form-control" name="productcategory" value="<%=editdata ? editdata.productcategory : '' %>" id="exampleInputEmail1" aria-describedby="emailHelp" >
                   </div>
                   
-                  <button type="submit" class="btn btn-primary">Add Category</button>
+                  <button type="submit" class="btn btn-primary"><%=editdata ? 'Update Subcategory' : 'Add Subcategory' %></button>
                 </form>
               </div>
             </div>

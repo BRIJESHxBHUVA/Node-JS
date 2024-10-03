@@ -30,6 +30,7 @@ app.use('/category/subcategory', require('./Route/SubCategoryRoutes'))
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use('/images/categoryimage/', express.static(path.join(__dirname, 'images/categoryimage')))
 
 app.listen(port, (err) => {
     if (err) {
