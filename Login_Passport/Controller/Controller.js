@@ -2,6 +2,9 @@ const { Admin, Login } = require("../Model/Model");
 const fs = require("fs");
 const path = require("path");
 const Mailer = require('../Server/Mailer')
+const SubCategory = require('../Model/SubCategory')
+const Category = require('../Model/Category')
+
 
 module.exports.login = (req, res) => {
   try {
@@ -116,9 +119,13 @@ module.exports.dashboard = (req, res) => {
   }
 };
 
-module.exports.form = (req, res) => {
+module.exports.form = async (req, res) => {
   try {
-    res.render("Form", { editdata: null });
+    const category = await Category.find({});
+    const subcategory = await SubCategory.find({});
+    res.render("Form", { editdata: null, category, subcategory });
+    console.log(category)
+    console.log(subcategory)
   } catch (error) {
     console.log("Form Rendering Error ", error);
   }
@@ -129,8 +136,9 @@ module.exports.insert = async (req, res) => {
     if (req.file) {
       req.body.image = req.file.filename;
     }
-    await Admin.create(req.body);
-    res.redirect("/table");
+   const product = await Admin.create(req.body);
+    product ? res.redirect("/table") : console.log('Product is not added.')
+    console.log(req.body)
   } catch (error) {
     console.log("Insert Data Error", error);
   }
@@ -139,6 +147,7 @@ module.exports.insert = async (req, res) => {
 module.exports.table = async (req, res) => {
   try {
     const data = await Admin.find({});
+    
     data ? res.render("Table", { data }) : res.write("Data not found");
   } catch (error) {
     console.log("Table Rendering Error ", error);
@@ -164,8 +173,10 @@ module.exports.delete = async (req, res) => {
 module.exports.edit = async (req, res) => {
   try {
     const editdata = await Admin.findById(req.query.id);
+    const category = await Category.find({})
+    const subcategory = await SubCategory.find({})
     editdata
-      ? res.render("Form", { editdata })
+      ? res.render("Form", { editdata, category, subcategory })
       : console.log("Data is not available.");
   } catch (error) {
     console.log("Data is not go for edit process.");

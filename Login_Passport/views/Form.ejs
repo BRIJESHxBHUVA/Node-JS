@@ -44,9 +44,18 @@
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Product Category</label>
-                    <input type="text" class="form-control" name="category" id="exampleInputPassword1" value="<%=editdata ? editdata.category : ''%>">
                     <select name="category" id="">
-                      <option value=""></option>
+                      <%category.map((el)=>{%>
+                        <option value="<%=el._id%>"><%=el.categoryname%></option>
+                      <%}) %>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Product Subcategory</label>
+                    <select name="subcategory" id="">
+                      <%subcategory.map((el)=>{%>
+                        <option value="<%=el._id%>"><%=el.productcategory%></option>
+                      <%})%>
                     </select>
                   </div>
                   <div class="mb-3 form-check">

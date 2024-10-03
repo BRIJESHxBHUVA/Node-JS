@@ -15,9 +15,14 @@ const Schema = mongoose.Schema({
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'SubCategory',
+        ref: 'Category',
         require: true
     },
+    subcategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SubCategory',
+        required: true
+    }
 })
 
 const LoginSchema = mongoose.Schema({
