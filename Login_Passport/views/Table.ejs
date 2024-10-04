@@ -71,8 +71,9 @@
                     <th>ID</th>
                     <th>Image</th>
                     <th>Name</th>
-                    <th>Price</th>
                     <th>Category</th>
+                    <th>SubCategory</th>
+                    <th>Price</th>
                     <th colspan="2">Action</th>
                 </tr>
                 <tbody>
@@ -81,8 +82,9 @@
                             <td><%= i+1 %></td>
                             <td><img src="../images/<%=el.image%>" alt="" height="70" width="100"></td>
                             <td><%= el.name %></td>
-                            <td><%= el.price %></td>
-                            <td><%= el.category %></td>
+                            <td><%= el.category.categoryname %></td>
+                            <td><%= el.subcategory.productcategory %></td>
+                            <td><%= el.price %></td> 
                             <td><a href="/delete?id=<%=el.id%>">Delete</a></td>
                             <td><a href="/edit?id=<%=el.id%>">Edit</a></td>
                         </tr>

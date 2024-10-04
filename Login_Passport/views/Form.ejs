@@ -54,10 +54,10 @@
                     <label for="exampleInputPassword1" class="form-label">Product Subcategory</label>
                     <select name="subcategory" id="">
                       <%subcategory.map((el)=>{%>
-                        <option value="<%=el._id%>"><%=el.productcategory%></option>
+                          <option value="<%=el._id %>"><%=el.productcategory%></option>
                       <%})%>
                     </select>
-                  </div>
+                  </div> 
                   <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>

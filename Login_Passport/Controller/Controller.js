@@ -122,9 +122,8 @@ module.exports.dashboard = (req, res) => {
 module.exports.form = async (req, res) => {
   try {
     const category = await Category.find({});
-    const subcategory = await SubCategory.find({});
+    const subcategory = await SubCategory.find({})
     res.render("Form", { editdata: null, category, subcategory });
-    console.log(category)
     console.log(subcategory)
   } catch (error) {
     console.log("Form Rendering Error ", error);
@@ -138,7 +137,6 @@ module.exports.insert = async (req, res) => {
     }
    const product = await Admin.create(req.body);
     product ? res.redirect("/table") : console.log('Product is not added.')
-    console.log(req.body)
   } catch (error) {
     console.log("Insert Data Error", error);
   }
@@ -146,8 +144,8 @@ module.exports.insert = async (req, res) => {
 
 module.exports.table = async (req, res) => {
   try {
-    const data = await Admin.find({});
-    
+    const data = await Admin.find({}).populate("category").populate("subcategory")
+    console.log(data)
     data ? res.render("Table", { data }) : res.write("Data not found");
   } catch (error) {
     console.log("Table Rendering Error ", error);
