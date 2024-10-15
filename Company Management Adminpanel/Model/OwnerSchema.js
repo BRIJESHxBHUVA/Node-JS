@@ -20,6 +20,7 @@ const OwnerSchema = mongoose.Schema({
         type: String,
         required: true
     }
+ 
 })
 
 const owner = mongoose.model('Owner', OwnerSchema);
