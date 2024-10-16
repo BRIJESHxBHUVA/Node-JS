@@ -19,7 +19,7 @@ Delete account :-
 
 View all account :-
 1. View company owner account - ok
-2. View manager account - ok
+2. View manager account - ok 
 3. View employee account - ok
 
 Login all account :-
