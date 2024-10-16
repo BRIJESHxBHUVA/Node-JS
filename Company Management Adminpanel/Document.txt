@@ -1,31 +1,31 @@
 Create All account :-
-1. Create company owner account
-2. Create manager account
-3. Create employee account
+1. Create company owner account - ok
+2. Create manager account - ok
+3. Create employee account - ok
 
 Reset all account password :-
-1. Reset company owner account password
-2. Reset manager account password
-3. Reset employee account password
+1. Reset company owner account password - ok
+2. Reset manager account password - ok
+3. Reset employee account password - ok
 
 Forgot all account password :-
-1. Forgot company owner account password
-2. Forgot manager account password
-3. Forgot employee account password
+1. Forgot company owner account password - ok
+2. Forgot manager account password - ok
+3. Forgot employee account password - ok
 
 Delete account :-
-1. Delete manager account
-2. Delete employee account
+1. Delete manager account - ok
+2. Delete employee account - ok
 
 View all account :-
-1. View company owner account
-2. View manager account
-3. View employee account
+1. View company owner account - ok
+2. View manager account - ok
+3. View employee account - ok
 
 Login all account :-
-1. Login company owner account
-2. Login manager account
-3. Login employee account
+1. Login company owner account - ok
+2. Login manager account - ok
+3. Login employee account - ok
 
 Note:-
 Owner can handle manager account 

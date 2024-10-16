@@ -5,11 +5,26 @@ const app = express();
 const db = require('./Server/Server')
 const PORT = 1800
 const path = require('path')
+let session = require('express-session')
 // dotenv.config()
 app.use(express.urlencoded());
 app.use(express.json())
+
+app.use(session({
+    name: 'company',
+    secret: 'keyboard',
+    resave: true,
+    saveUninitialized: false,
+    cookie: {maxAge: 100 * 100 * 60}
+}))
+
 app.use('/company', require('./Routes/Routing'))
-app.use('/Images' ,express.static(path.join(__dirname, 'Images')))
+app.use('/company/manager', require('./Routes/ManagersRouting'))
+app.use('/company/employee', require('./Routes/EmployeeRouting'))
+
+app.use('/Images/owner' ,express.static(path.join(__dirname, 'Images/owner')))
+app.use('/Images/manager' ,express.static(path.join(__dirname, 'Images/manager')))
+app.use('/Images/employee' ,express.static(path.join(__dirname, 'Images/employee')))
 
 app.listen(PORT, (err)=>{
     if(err) {
