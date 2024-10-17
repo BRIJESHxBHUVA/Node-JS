@@ -26,10 +26,12 @@ const Context = ({ children }) => {
     image: '',
   })
 
-  const [getemployee, setGetemployee] = useState(null)
+  const [getemployee, setGetemployee] = useState([])
+  const [findowner, setFindOwner] = useState([])
+  const [findmanager, setFindManager] = useState([])
 
   return (
-    <AppContext.Provider value={{owner, setOwner, manager, setManager, employee, setEmployee, getemployee, setGetemployee}}>
+    <AppContext.Provider value={{owner, setOwner, manager, setManager, employee, setEmployee, getemployee, setGetemployee, findowner, setFindOwner, findmanager, setFindManager}}>
         {children}
     </AppContext.Provider>
  )

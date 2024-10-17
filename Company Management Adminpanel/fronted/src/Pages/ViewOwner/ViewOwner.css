@@ -1,14 +1,15 @@
 .viewdata{
     width: 80%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     align-items: center;
     justify-content: end;
     overflow: auto;
 }
 table{
-    border: 1px solid black;
-    width: 80%;
+    /* border: 1px solid black; */
+    width: 70%;
+    text-align: center;
 }
 th{
     padding: 5px;

@@ -8,7 +8,7 @@ const AddOwner = () => {
 
   const HandleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name == "image") {
+    if (name === "image") {
       setOwner((prevstate) => ({
         ...prevstate,
         [name]: files[0],

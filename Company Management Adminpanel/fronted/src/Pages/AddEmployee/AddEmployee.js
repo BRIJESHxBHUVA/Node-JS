@@ -9,7 +9,7 @@ const AddEmployee = () => {
 
     const HandleChange = (e) => {
       const { name, value, files } = e.target;
-      if (name == "image") {
+      if (name === "image") {
         setEmployee((prevstate) => ({
           ...prevstate,
           [name]: files[0],
