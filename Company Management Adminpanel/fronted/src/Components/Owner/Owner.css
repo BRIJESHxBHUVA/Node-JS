@@ -1,0 +1,48 @@
+.owner{
+    height: 93.9vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.aside{
+    width: 15%;
+    height: 100%;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: wheat;
+}
+.nav{
+   width: 100%;
+}
+.view{
+    padding: 10px;
+    /* border: 1px solid black; */
+    margin: 25px 0px;
+}
+.view:hover{
+    background-color: white;
+}
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0px 10px;
+}
+select{
+    color: black;
+    font-size: 15px;
+    margin: 0px 10px;
+}
+.main{
+    width: 85%;
+    height: 100%;
+    /* border: 1px solid black; */
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

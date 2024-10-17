@@ -4,6 +4,8 @@ const path = require('path')
 const fs = require("fs")
 const Mailer = require('../Middleware/Mailer')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const moment = require('moment')
 
 module.exports.getmanager = async (req, res)=> {
     try {
@@ -42,6 +44,9 @@ module.exports.addmanager = async (req, res)=> {
         if(req.file){
             req.body.image = req.file.filename
         }
+        req.body.password = await bcrypt.hash(req.body.password, 10)
+        req.body.createdAT = moment().format('LLLL')
+
         const data = await manager.create(req.body)
         res.status(200).json({ success: true, message: 'Manager registered successfully.', data })
 
@@ -130,8 +135,8 @@ module.exports.login = async (req, res)=> {
         const user = await manager.findOne({email: req.body.email})
         console.log(user)
         if(user){
-            if(req.body.password == user.password){
-                const token = jwt.sign({user: user}, 'admin', {expiresIn: '1h'})
+            if(bcrypt.compare(req.body.password, user.password)){
+                const token = jwt.sign({user: {_id: user._id}}, 'admin', {expiresIn: '7d'})
                 res.status(206).json({ success: true, message: 'Login successfully.', token })
                 console.log(token)
             }else{

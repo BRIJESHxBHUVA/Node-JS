@@ -28,5 +28,6 @@ Login all account :-
 3. Login employee account - ok
 
 Note:-
-Owner can handle manager account 
-Manager can handle employee account
+Owner can view his, manager and employee account 
+Manager can view his and employee account
+employee can only view his account

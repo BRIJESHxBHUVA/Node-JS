@@ -6,9 +6,11 @@ const db = require('./Server/Server')
 const PORT = 1800
 const path = require('path')
 let session = require('express-session')
+const cors = require('cors')
 // dotenv.config()
 app.use(express.urlencoded());
 app.use(express.json())
+app.use(cors())
 
 app.use(session({
     name: 'company',

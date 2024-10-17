@@ -2,13 +2,16 @@ const owner = require('../Model/OwnerSchema')
 const path = require('path')
 const fs = require('fs')
 const manager = require('../Model/ManagerSchema')
+const employee = require('../Model/EmployeeSchema')
 const Mailer = require('../Middleware/Mailer')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const moment = require('moment')
 
 module.exports.getowner = async (req, res)=> { 
     try {
         const data = await owner.find({}) 
-        res.status(205).json({ message: 'Owner get successfully',  data })
+        res.status(205).json({ success: true, message: 'Owner get successfully',  data })
         if(data.length <= 0) {
             res.status(300).json({success: false, message: 'Owner not found'})
         }
@@ -20,12 +23,25 @@ module.exports.getowner = async (req, res)=> {
 module.exports.getmanager = async (req, res)=> { 
     try {
         const data = await manager.find({}) 
-        res.status(205).json({ message: 'Manager get successfully',  data })
+        res.status(205).json({ success: true, message: 'Manager get successfully',  data })
 
         if(data.length <= 0) {
             res.status(300).json({success: false, message: 'Manager not found'})
         }
     } catch (error) {        
+        res.status(400).json({success: false, message: 'Error while data getting', error})
+    }
+}
+
+module.exports.getemployee = async (req, res)=> {
+    try {
+        const data = await employee.find({})
+        res.status(205).json({ success: true, message: 'Employee get successfully',  data })
+
+        if(data.length <= 0) {
+            res.status(300).json({success: false, message: 'Employee not found'})
+        }
+    } catch (error) {
         res.status(400).json({success: false, message: 'Error while data getting', error})
     }
 }
@@ -39,6 +55,9 @@ module.exports.addowner = async (req, res) => {
         if(req.file){ 
             req.body.image = req.file.filename
         }
+        req.body.password = await bcrypt.hash(req.body.password, 10)
+        req.body.createdAT = moment().format('LLLL')
+
         const data = await owner.create(req.body)
         res.status(201).json({message: "Owner registered successfully", data})
     } catch (error) {
@@ -132,9 +151,10 @@ module.exports.login = async (req, res)=>{
     try {
         const user = await owner.findOne({email: req.body.email})
         if(user){
-            if(req.body.password == user.password){
-                const token = jwt.sign({user: user}, 'admin', {expiresIn: '1h'})
+            if( bcrypt.compare(req.body.password, user.password)){
+                const token = jwt.sign({user: {_id: user._id}}, 'admin', {expiresIn: '7d'})
                 res.status(206).json({ success: true, message: 'Login successfully.', token })
+                console.log(token)
             }else{
                 res.status(401).json({ success: false, message: 'Invalid password.'})
             }

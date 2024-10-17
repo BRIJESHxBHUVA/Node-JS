@@ -1,0 +1,20 @@
+.viewdata{
+    width: 80%;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    overflow: auto;
+}
+table{
+    border: 1px solid black;
+    width: 80%;
+}
+th{
+    padding: 5px;
+    border: 1px solid black;
+}
+td{
+    padding: 5px;
+    border: 1px solid black;
+}

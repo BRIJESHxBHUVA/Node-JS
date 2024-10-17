@@ -2,6 +2,8 @@ const express = require('express')
 const manager = express.Router()
 const multer = require('multer')
 const managerCTL = require('../Controller/ManagerCTL')
+const auth = require('../Middleware/Authentication')
+const managerauth = require('../Middleware/ManagerAuth')
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -14,7 +16,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage}).single('image')
 
-manager.get('/getmanager', managerCTL.getmanager)
+manager.get('/getmanager', managerauth ,managerCTL.getmanager)
 manager.get('/getemployee', managerCTL.getemployee)
 manager.post('/addmanager', upload ,managerCTL.addmanager)
 manager.delete('/deletemanager', managerCTL.deletemanager)

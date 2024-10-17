@@ -19,6 +19,10 @@ const EmployeeSchema = mongoose.Schema({
     image: {
         type: String,
         required: true
+    },
+    createdAT: {
+        type: String,
+        required: true
     }
 })
 
