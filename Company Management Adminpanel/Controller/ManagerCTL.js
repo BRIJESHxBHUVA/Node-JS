@@ -63,7 +63,7 @@ module.exports.deletemanager = async (req, res)=> {
             fs.unlinkSync(oldImage)
         }
         const data = await manager.findByIdAndDelete(req.query.id)
-        res.status(208).json({ success: true, message: 'Manager deleted successfully.' });
+        res.status(200).json({ success: true, message: 'Manager deleted successfully.' });
 
     } catch (error) {
         res.status(400).json({ success: false, message: error.message })
@@ -118,7 +118,7 @@ module.exports.forgotpassword = async (req, res)=> {
         if(req.body.otp == otp){
             if(req.body.newps == req.body.confirmps){
                 const data = await manager.findByIdAndUpdate(managerId, {password: req.body.newps})
-                res.status(203).json({ success: true, message: 'password changed successfully.', data })
+                res.status(200).json({ success: true, message: 'password changed successfully.', data })
             }else{
                 res.status(400).json({ success: false, message: 'new password and confirm password are must be same'})
             }
@@ -137,7 +137,7 @@ module.exports.login = async (req, res)=> {
         if(user){
             if(bcrypt.compare(req.body.password, user.password)){
                 const token = jwt.sign({user: {_id: user._id}}, 'admin', {expiresIn: '7d'})
-                res.status(206).json({ success: true, message: 'Login successfully.', token })
+                res.status(200).json({ success: true, message: 'Login successfully.', token })
                 console.log(token)
             }else{
                 res.status(401).json({ success: false, message: 'Invalid password.'})

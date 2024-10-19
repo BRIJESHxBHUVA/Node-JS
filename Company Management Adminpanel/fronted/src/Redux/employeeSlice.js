@@ -13,9 +13,6 @@ const employeeSlice = createSlice({
     name: 'employee',
     initialState,
     reducers: {
-        setEmployee: (state, action)=> {
-            return {...state, ...action.payload}
-        },
         setEmployeesList: (state, action)=> {
             state.employees = action.payload
         }

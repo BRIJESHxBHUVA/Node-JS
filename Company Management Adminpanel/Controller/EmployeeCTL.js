@@ -13,7 +13,7 @@ module.exports.getemployee = async (req, res) => {
     if (data.length <= 0) {
       res.status(300).json({ success: false, message: "Employee not found" });
     }
-    res.status(205).json({ success: true, message: "Employee get successfully", data });
+    res.status(200).json({ success: true, message: "Employee get successfully", data });
 
   } catch (error) {
     res.status(404).json({ success: false, message: error.message });
@@ -33,7 +33,7 @@ module.exports.addemployee = async (req, res) => {
         req.body.createdAT = moment().format('LLLL')
 
     const data = await employee.create(req.body);
-    res.status(201).json({ message: "Employee registered successfully", data });
+    res.status(200).json({ message: "Employee registered successfully", data });
   } catch (error) {
     res.status(404).json({ success: false, message: error.message });
   }
@@ -48,7 +48,7 @@ module.exports.deleteemployee = async (req, res)=> {
             fs.unlinkSync(oldImage)
         }
         const data = await employee.findByIdAndDelete(req.query.id)
-        res.status(208).json({ success: true, message: 'Manager deleted successfully.' });
+        res.status(200).json({ success: true, message: 'Manager deleted successfully.' });
         
     } catch (error) {
         res.status(404).json({ success: false, message: error.message });
@@ -103,7 +103,7 @@ module.exports.forgotpassword = async (req, res)=> {
     if(req.body.otp == otp){
       if(req.body.newps == req.body.confirmps){
         const data = await employee.findByIdAndUpdate(employeeId, {password: req.body.newps})
-        res.status(203).json({ success: true, message: 'password changed successfully.', data })
+        res.status(200).json({ success: true, message: 'password changed successfully.', data })
       }else{
         res.status(400).json({ success: false, message: 'new password and confirm password are must be same'})
       }
@@ -123,7 +123,7 @@ module.exports.login = async (req, res)=> {
     if(user){
       if(bcrypt.compare(req.body.password, user.password)){
         const token = jwt.sign({user: {_id: user._id}}, 'admin', {expiresIn: '7d'})
-        res.status(206).json({ success: true, message: 'Login successfully.', token })
+        res.status(200).json({ success: true, message: 'Login successfully.', token })
         console.log(token)
       }else{
         res.status(401).json({ success: false, message: 'Invalid password.'})

@@ -2,18 +2,22 @@ import React, { useContext, useEffect, useState } from 'react'
 import './ViewEmployee.css'
 import axios from 'axios'
 import { AppContext } from '../../Context'
+import { useDispatch, useSelector } from 'react-redux'
+import { setEmployeesList } from '../../Redux/employeeSlice'
 
 const ViewEmployee = () => {
 
-  const { getemployee, setGetemployee } = useContext(AppContext)
+  const dispatch = useDispatch();
+  const employees = useSelector((state)=> state.employee.employees)
 
   const getEmployeeData = async () => {
     try {
       const response = await axios.get('http://localhost:1800/company/employee/getemployee')
         .then((res) => {
-          setGetemployee(res.data.data)
-          console.log(getemployee)
+          dispatch(setEmployeesList(res.data.data))
+      
         })
+        console.log(response)
     } catch (error) {
       console.log(error)
     }
@@ -37,8 +41,8 @@ const ViewEmployee = () => {
         </thead>
         <tbody>
           {
-            getemployee ?
-              getemployee.map((e, i) => (
+            employees?
+            employees.map((e, i) => (
                 <tr key={i}>
                   <td>{e.name}</td>
                   <td>{e.email}</td>
