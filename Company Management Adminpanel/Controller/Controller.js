@@ -11,10 +11,10 @@ const moment = require('moment')
 module.exports.getowner = async (req, res)=> { 
     try {
         const data = await owner.find({}) 
-        res.status(205).json({ success: true, message: 'Owner get successfully',  data })
         if(data.length <= 0) {
             res.status(300).json({success: false, message: 'Owner not found'})
         }
+        res.status(205).json({ success: true, message: 'Owner get successfully',  data })
     } catch (error) {        
         res.status(400).json({success: false, message: 'Error while data getting', error})
     }

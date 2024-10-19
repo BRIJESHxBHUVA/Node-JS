@@ -1,11 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import './AddEmployee.css'
 import { AppContext } from '../../Context';
 import axios from 'axios'
 
 const AddEmployee = () => {
 
-    const { employee, setEmployee } = useContext(AppContext)
+    const [employee, setEmployee] = useState({
+      name: '',
+      email: '',
+      phone: '',
+      password: '',
+      image: '',
+    })
+    
 
     const HandleChange = (e) => {
       const { name, value, files } = e.target;

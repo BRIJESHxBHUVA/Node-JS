@@ -9,11 +9,12 @@ const moment = require('moment')
 module.exports.getemployee = async (req, res) => {
   try {
     const data = await employee.find({});
-    res.status(205).json({ message: "Employee get successfully", data: data });
-
+    
     if (data.length <= 0) {
       res.status(300).json({ success: false, message: "Employee not found" });
     }
+    res.status(205).json({ success: true, message: "Employee get successfully", data });
+
   } catch (error) {
     res.status(404).json({ success: false, message: error.message });
   }

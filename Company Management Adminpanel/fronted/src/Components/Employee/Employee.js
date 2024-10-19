@@ -5,15 +5,26 @@ import ViewEmployee from '../../Pages/ViewEmployee/ViewEmployee'
 import AddEmployee from '../../Pages/AddEmployee/AddEmployee'
 import { AppContext } from '../../Context'
 import axios from 'axios'
+import {useSelector, useDispatch} from 'react-redux'
+import { setEmployeesList } from '../../Redux/employeeSlice'
 
 const Employee = () => {
 
-    const {getemployee, setGetemployee} = useContext(AppContext)
+    const dispatch = useDispatch()
+    const employee = useSelector((state)=> state.employee.employees)
 
     const getData = async()=> {
-        const response = await axios.get('http://localhost:1800/company/manager/getemployee')
-        setGetemployee(response.data.data)
-        console.log(response.data.data)
+
+        try {
+
+            const response = await axios.get('http://localhost:1800/company/manager/getemployee')
+            dispatch(setEmployeesList(response.data.data))
+            console.log(response)
+
+        } catch (error) {
+            console.error('Error fetching employees:', error);
+        }
+       
     }
 
     useEffect(()=>{
