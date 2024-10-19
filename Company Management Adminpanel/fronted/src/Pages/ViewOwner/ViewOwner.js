@@ -1,10 +1,28 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect} from 'react'
 import './ViewOwner.css'
 import { AppContext } from '../../Context'
+import axios from 'axios'
 
 const ViewOwner = () => {
 
-  const {getemployee} = useContext(AppContext)
+  const {findowner, setFindOwner} = useContext(AppContext)
+
+  const getOwnerData = async () => {
+    try {
+      const response = await axios.get('http://localhost:1800/company/employee/getemployee')
+        .then((res) => {
+          setFindOwner(res.data.data)
+          console.log(findowner)
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  
+  }
+
+  useEffect(() => {
+    getOwnerData()
+  }, [])
 
 
   return (
@@ -20,13 +38,12 @@ const ViewOwner = () => {
             </tr>
             </thead>
             <tbody>
-              {getemployee && getemployee.map((el, i)=> (
+              {findowner && findowner.map((el, i)=> (
                 <tr key={i}>
                   <td>{el.name}</td>
                   <td>{el.email}</td>
                   <td>{el.phone}</td>
                   <td>{el.password}</td>
-                  {console.log(getemployee.name)}
                 </tr>
               ))}
             </tbody>

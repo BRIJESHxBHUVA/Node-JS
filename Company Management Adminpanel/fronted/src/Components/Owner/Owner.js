@@ -4,7 +4,6 @@ import { Route, Routes, Link } from 'react-router-dom'
 import ViewOwner from '../../Pages/ViewOwner/ViewOwner'
 import ViewManager from '../../Pages/ViewManager/ViewManager'
 import ViewEmployee from '../../Pages/ViewEmployee/ViewEmployee'
-import axios from 'axios'
 import AddOwner from '../../Pages/AddOwner/AddOwner'
 
 

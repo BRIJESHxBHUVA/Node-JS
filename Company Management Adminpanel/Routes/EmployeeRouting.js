@@ -16,7 +16,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage}).single('image')
 
+<<<<<<< HEAD
 employee.get('/getemployee' ,employeeCTL.getemployee)
+=======
+employee.get('/getemployee', employeeauth ,employeeauth ,employeeCTL.getemployee)
+>>>>>>> c821c00caa2532c0ce377328905dc5b28e1c94b9
 employee.post('/addemployee', upload ,employeeCTL.addemployee)
 employee.delete('/deleteemployee', employeeCTL.deleteemployee)
 employee.put('/resetpassword', employeeCTL.resetpassword)
