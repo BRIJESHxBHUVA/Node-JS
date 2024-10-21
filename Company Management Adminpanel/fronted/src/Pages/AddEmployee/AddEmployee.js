@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import './AddEmployee.css'
-import { AppContext } from '../../Context';
-import axios from 'axios'
+import { addEmployees } from '../../Redux/employeeSlice';
+import { useDispatch, useSelector } from 'react-redux'
 
 const AddEmployee = () => {
 
@@ -12,6 +12,10 @@ const AddEmployee = () => {
       password: '',
       image: '',
     })
+
+    const dispatch = useDispatch()
+
+    const {loading, error} = useSelector((state)=> state.employee)
     
 
     const HandleChange = (e) => {
@@ -30,28 +34,19 @@ const AddEmployee = () => {
     };
   
     const HandleSubmit = async (e) => {
-      try {
+     
         e.preventDefault();
-        const response = await axios.post(
-          "http://localhost:1800/company/employee/addemployee",
-          employee,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        console.log("Response:", response.data);
-        console.log(employee);
-      } catch (error) {
-        console.error("Error uploading owner data:", error);
-      }
+        dispatch(addEmployees(employee))
     };
 
 
 
   return (
     <div className="add">
+
+      {loading && <p>Loading...</p> }
+      {error && <p>{error}</p>}
+
       <form action="" onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Employee Full Name</label>

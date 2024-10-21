@@ -1,11 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useState } from 'react'
 import './AddManager.css'
-import { AppContext } from '../../Context';
 import axios from 'axios'
+import { addManagers } from '../../Redux/managerSlice';
+import {useDispatch, useSelector} from 'react-redux'
 
 const AddManager = () => {
 
-    const { manager, setManager } = useContext(AppContext)
+  const [manager, setManager] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    image: '',
+  })
+
+  const dispatch = useDispatch()
 
     const HandleChange = (e) => {
       const { name, value, files } = e.target;
@@ -23,22 +32,9 @@ const AddManager = () => {
     };
   
     const HandleSubmit = async (e) => {
-      try {
+    
         e.preventDefault();
-        const response = await axios.post(
-          "http://localhost:1800/company/manager/addmanager",
-          manager,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        console.log("Response:", response.data);
-        console.log(manager);
-      } catch (error) {
-        console.error("Error uploading owner data:", error);
-      }
+        dispatch(addManagers(manager))
     };
 
 

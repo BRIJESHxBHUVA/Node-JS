@@ -4,9 +4,14 @@ import { Link, Route, Routes } from 'react-router-dom'
 import ViewManager from '../../Pages/ViewManager/ViewManager'
 import ViewEmployee from '../../Pages/ViewEmployee/ViewEmployee'
 import AddManager from '../../Pages/AddManager/AddManager'
+import Header from '../Header/Header'
 
 const Manager = () => {
   return (
+
+    <>
+    
+    <Header/>
     <div className='owner'>
         <div className="aside">
             <div className="nav">
@@ -44,6 +49,8 @@ const Manager = () => {
             </Routes>
         </div>
     </div>
+
+    </>
   )
 }
 

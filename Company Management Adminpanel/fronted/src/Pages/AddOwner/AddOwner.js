@@ -1,10 +1,20 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import "./AddOwner.css";
-import { AppContext } from "../../Context";
-import axios from "axios";
+import { addOwner } from "../../Redux/ownerSlice";
+import {useDispatch, useSelector} from 'react-redux'
 
 const AddOwner = () => {
-  const { owner, setOwner } = useContext(AppContext);
+
+  const [owner, setOwner] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    image: '',
+  })
+
+  const dispatch = useDispatch()
+  const {loading, error} = useSelector((state)=> state.owner)
 
   const HandleChange = (e) => {
     const { name, value, files } = e.target;
@@ -13,6 +23,7 @@ const AddOwner = () => {
         ...prevstate,
         [name]: files[0],
       }));
+
     } else {
       setOwner((prevstate) => ({
         ...prevstate,
@@ -21,28 +32,20 @@ const AddOwner = () => {
     }
   };
 
-  const HandleSubmit = async (e) => {
-    try {
+  const HandleSubmit = (e) => {
+   
       e.preventDefault();
-      const response = await axios.post(
-        "http://localhost:1800/company/addowner",
-        owner,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log("Response:", response.data);
-      console.log(owner);
-    } catch (error) {
-      console.error("Error uploading owner data:", error);
-    }
+      dispatch(addOwner(owner))
   };
 
   return (
     <div className="add">
-      <form action="" onSubmit={HandleSubmit}>
+
+{loading && <p>Loading...</p>}
+{error && <p style={{ color: 'red' }}>{error}</p>}
+
+
+      <form onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Owner Full Name</label>
           <input

@@ -1,51 +1,41 @@
 import React from 'react'
 import './ViewManager.css'
-import { useEffect, useContext } from 'react'
-import axios from 'axios'
-import { AppContext } from '../../Context'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchManagers } from '../../Redux/managerSlice'
 
 const ViewManager = () => {
 
-  const {findmanager, setFindManager} = useContext(AppContext)
+  const dispatch = useDispatch()
+  const { managers, loading, error } = useSelector((state)=> state.manager)
 
-  const getManagerData = async () => {
-    try {
-      const response = await axios.get('http://localhost:1800/company/employee/getemployee')
-        .then((res) => {
-          setFindManager(res.data.data)
-          console.log(findmanager)
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  
-  }
 
   useEffect(() => {
-    getManagerData()
-  }, [])
+    dispatch(fetchManagers())
+  }, [dispatch])
 
 
 
   return (
     <div className='viewdata'>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{color: 'red'}}>{error}</p>}
     <table>
       <thead>
         <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Password</th>
             <th>Image</th>
         </tr>
         </thead>
         <tbody>
-              {findmanager && findmanager.map((el, i)=> (
-                <tr key={i}>
+              { managers.map((el, index)=> (
+                <tr key={index}>
                   <td>{el.name}</td>
                   <td>{el.email}</td>
                   <td>{el.phone}</td>
-                  <td>{el.password}</td>
+                  <td><img src={`http://localhost:1800/images/manager/${el.image}`} height='100' width='100' alt="" /></td>
                 </tr>
               ))}
             </tbody>

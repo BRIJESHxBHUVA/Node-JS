@@ -5,12 +5,16 @@ import ViewOwner from '../../Pages/ViewOwner/ViewOwner'
 import ViewManager from '../../Pages/ViewManager/ViewManager'
 import ViewEmployee from '../../Pages/ViewEmployee/ViewEmployee'
 import AddOwner from '../../Pages/AddOwner/AddOwner'
+import Header from '../Header/Header'
 
 
 const Owner = () => {
 
     
   return (
+
+    <>
+    <Header/>
     <div className='owner'>
         <div className="aside">
             <div className="nav">
@@ -53,6 +57,8 @@ const Owner = () => {
             </Routes>
         </div>
     </div>
+    
+    </>
   )
 }
 

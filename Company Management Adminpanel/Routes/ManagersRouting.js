@@ -16,7 +16,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage}).single('image')
 
-manager.get('/getmanager', managerauth ,managerCTL.getmanager)
+// manager.get('/getmanager', managerauth ,managerCTL.getmanager)
+manager.get('/getmanager' ,managerCTL.getmanager)
 manager.get('/getemployee', managerauth ,managerCTL.getemployee)
 manager.post('/addmanager', upload ,managerCTL.addmanager)
 manager.delete('/deletemanager', managerCTL.deletemanager)

@@ -1,49 +1,43 @@
-import React, { useContext, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import './ViewOwner.css'
-import { AppContext } from '../../Context'
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchOwners } from '../../Redux/ownerSlice'
+
 
 const ViewOwner = () => {
 
-  const {findowner, setFindOwner} = useContext(AppContext)
 
-  const getOwnerData = async () => {
-    try {
-      const response = await axios.get('http://localhost:1800/company/employee/getemployee')
-        .then((res) => {
-          setFindOwner(res.data.data)
-          console.log(findowner)
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  
-  }
+  const dispatch = useDispatch()
+
+  const {owners, loading, error} = useSelector((state)=> state.owner)
 
   useEffect(() => {
-    getOwnerData()
-  }, [])
+    dispatch(fetchOwners())
+  }, [dispatch])
 
 
   return (
     <div className='viewdata'>
+
+{loading && <p>Loading...</p>}
+{error && <p style={{ color: 'red' }}>{error}</p>}
+
         <table>
           <thead>
             <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Password</th>
                 <th>Image</th>
             </tr>
             </thead>
             <tbody>
-              {findowner && findowner.map((el, i)=> (
-                <tr key={i}>
+              { owners.map((el, index)=> (
+                <tr key={index}>
                   <td>{el.name}</td>
                   <td>{el.email}</td>
                   <td>{el.phone}</td>
-                  <td>{el.password}</td>
+                  <td><img src={`http://localhost:1800/images/owner/${el.image}`} alt="" height='100' width='100' /></td>
                 </tr>
               ))}
             </tbody>

@@ -3,11 +3,16 @@ import './Employee.css'
 import { Link, Routes, Route } from 'react-router-dom'
 import ViewEmployee from '../../Pages/ViewEmployee/ViewEmployee'
 import AddEmployee from '../../Pages/AddEmployee/AddEmployee'
+import Header from '../Header/Header'
 
 const Employee = () => {
 
     return ( 
+        <>
+        <Header/>
+        
         <div className='owner'>
+            
             <div className="aside">
                 <div className="nav">
                     <div className="view">
@@ -37,6 +42,7 @@ const Employee = () => {
                 </Routes>
             </div>
         </div>
+        </>
     )
 }
 

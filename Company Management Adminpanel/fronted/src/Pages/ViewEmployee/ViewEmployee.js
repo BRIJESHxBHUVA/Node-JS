@@ -1,35 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ViewEmployee.css'
-import axios from 'axios'
-import { AppContext } from '../../Context'
 import { useDispatch, useSelector } from 'react-redux'
-import { setEmployeesList } from '../../Redux/employeeSlice'
+import { fetchEmployees } from '../../Redux/employeeSlice'
+
 
 const ViewEmployee = () => {
 
   const dispatch = useDispatch();
-  const employees = useSelector((state)=> state.employee.employees)
+  const {employees, loading, error} = useSelector((state)=> state.employee)
 
-  const getEmployeeData = async () => {
-    try {
-      const response = await axios.get('http://localhost:1800/company/employee/getemployee')
-        .then((res) => {
-          dispatch(setEmployeesList(res.data.data))
-      
-        })
-        console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   useEffect(() => {
-    getEmployeeData()
-  }, [])
+    dispatch(fetchEmployees())
+  }, [dispatch])
 
 
   return (
     <div className='viewdata'>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       <table>
         <thead>
           <tr>
@@ -41,16 +30,14 @@ const ViewEmployee = () => {
         </thead>
         <tbody>
           {
-            employees?
-            employees.map((e, i) => (
-                <tr key={i}>
-                  <td>{e.name}</td>
-                  <td>{e.email}</td>
-                  <td>{e.phone}</td>
-                  <td><img src={`http://localhost:1800/images/employee/${e.image}`} height='100' width='100' alt="" /></td>
+            employees.map((el, index) => (
+                <tr key={index}>
+                  <td>{el.name}</td>
+                  <td>{el.email}</td>
+                  <td>{el.phone}</td>
+                  <td><img src={`http://localhost:1800/images/employee/${el.image}`} height='100' width='100' alt="" /></td>
                 </tr>
-              )) :
-              <p>loading....</p>
+              )) 
           }
         </tbody>
       </table>

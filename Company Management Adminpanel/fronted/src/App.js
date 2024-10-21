@@ -1,6 +1,7 @@
 import './App.css';
 import Employee from './Components/Employee/Employee';
 import Header from './Components/Header/Header';
+import Login from './Components/Login/Login';
 import Manager from './Components/Manager/Manager';
 import Owner from './Components/Owner/Owner';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -9,11 +10,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <>
-    
-   
-    <Header/>
+
+
+     {/* <Header/> */}
       <Routes>
-        <Route path='/*' element={<Owner/>} />
+        <Route path='/*' element={<Login/>} />
+        <Route path='/owner/*' element={<Owner/>} />
         <Route path='/manager/*' element={<Manager/>} />
         <Route path='/employee/*' element={<Employee/>} />
       </Routes>
