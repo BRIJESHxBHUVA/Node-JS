@@ -45,7 +45,7 @@ const AddOwner = () => {
 {error && <p style={{ color: 'red' }}>{error}</p>}
 
 
-      <form onSubmit={HandleSubmit}>
+      <form className='add-form' onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Owner Full Name</label>
           <input

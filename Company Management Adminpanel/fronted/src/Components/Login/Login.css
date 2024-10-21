@@ -7,7 +7,7 @@
 }
 .login-box{
     height: auto;
-    width: 50%;
+    width: 30%;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -21,6 +21,7 @@
     align-items: center;
     justify-content: space-evenly;
     padding: 5px 0px;
+    border-bottom: 1px solid black;
 }
 .login-option p{
     padding: 5px;
@@ -28,4 +29,9 @@
     border-radius: 18px;
     font-size: 19px;
     font-weight: 500;
+    cursor: pointer;
+}
+.login-output{
+    width: 100%;
+    margin: 10px;
 }

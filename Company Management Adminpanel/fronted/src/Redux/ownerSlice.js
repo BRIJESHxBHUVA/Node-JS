@@ -29,6 +29,20 @@ export const addOwner = createAsyncThunk('owner/addOwner', async (newOwner, {rej
     }
 })
 
+export const loginOwner = createAsyncThunk('owner/loginOwner', async (owner, {rejectWithValue})=>{
+    try {
+        const response = await axios.post('http://localhost:1800/company/login', owner, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log(response)
+        return response.data.data
+    } catch (error) {
+        return rejectWithValue(error.response?.data || 'Something went wrong')
+    }
+})
+
 const initialState = {
     owners: [],
     loading: false,
@@ -73,6 +87,22 @@ const ownerSlice = createSlice({
             state.loading = false
             state.error = action.payload
         })
+
+        // For Owner Login
+
+        builder.addCase(loginOwner.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(loginOwner.fulfilled, (state, action)=> {
+            state.loading = false
+            state.owners.push(action.payload)
+        })
+
+        builder.addCase(loginOwner.rejected, (state, action)=> {
+            state.loading = false
+            state.owners = action.payload
+        }) 
     }
 })
 

@@ -40,7 +40,7 @@ const AddManager = () => {
 
   return (
     <div className="add">
-      <form action="" onSubmit={HandleSubmit}>
+      <form action="" className='add-form' onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Manager Full Name</label>
           <input

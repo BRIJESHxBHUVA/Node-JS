@@ -31,3 +31,5 @@ Note:-
 Owner can view his, manager and employee account 
 Manager can view his and employee account
 employee can only view his account
+
+password : Dolphin@42

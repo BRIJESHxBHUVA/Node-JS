@@ -47,7 +47,7 @@ const AddEmployee = () => {
       {loading && <p>Loading...</p> }
       {error && <p>{error}</p>}
 
-      <form action="" onSubmit={HandleSubmit}>
+      <form action="" className='add-form' onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Employee Full Name</label>
           <input
