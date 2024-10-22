@@ -3,6 +3,7 @@ import './ViewManager.css'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchManagers } from '../../Redux/managerSlice'
+import { deleteManager } from '../../Redux/ownerSlice'
 
 const ViewManager = () => {
 
@@ -14,12 +15,13 @@ const ViewManager = () => {
     dispatch(fetchManagers())
   }, [dispatch])
 
-
+  const removeManager = (id) => {
+    dispatch(deleteManager(id))
+  }
 
   return (
     <div className='viewdata'>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{color: 'red'}}>{error}</p>}
+  
     <table>
       <thead>
         <tr>
@@ -27,6 +29,7 @@ const ViewManager = () => {
             <th>Email</th>
             <th>Phone</th>
             <th>Image</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -36,8 +39,11 @@ const ViewManager = () => {
                   <td>{el.email}</td>
                   <td>{el.phone}</td>
                   <td><img src={`http://localhost:1800/images/manager/${el.image}`} height='100' width='100' alt="" /></td>
+                  <td onClick={()=>{removeManager(el._id)}}>Delete</td>
                 </tr>
               ))}
+              {error && <tr><td colSpan='4'>{error}</td></tr>}
+              {loading && <tr><td colSpan='4'>Loading....</td></tr>}
             </tbody>
     </table>
 </div>

@@ -15,12 +15,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage}).single('image')
 
-// router.get('/owner', auth, controller.getowner)
-router.get('/owner', controller.getowner)
+router.get('/owner', auth, controller.getowner)
 router.get('/manager', auth, controller.getmanager)
 router.get('/employee', auth, controller.getemployee)
 router.post('/addowner', upload ,controller.addowner)
 router.delete('/deleteowner', controller.deleteowner)
+router.delete('/deletemanager', auth, controller.deletemanager)
+router.delete('/deleteemployee', auth, controller.deleteemployee)
 router.put('/resetpassword', controller.resetpassword)
 router.post('/sendotp', controller.sendOTP)
 router.put('/forgotpassword', controller.forgotpassword)

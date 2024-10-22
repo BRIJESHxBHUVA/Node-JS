@@ -2,9 +2,9 @@ import React from 'react'
 import './Manager.css'
 import { Link, Route, Routes } from 'react-router-dom'
 import ViewManager from '../../Pages/ViewManager/ViewManager'
-import ViewEmployee from '../../Pages/ViewEmployee/ViewEmployee'
 import AddManager from '../../Pages/AddManager/AddManager'
 import Header from '../Header/Header'
+import ViewEmployeeByManager from '../../Pages/ViewEmployee/ViewEmployeeByManager'
 
 const Manager = () => {
   return (
@@ -44,7 +44,7 @@ const Manager = () => {
         <div className="main">
             <Routes>
                 <Route path='viewmanager' element={ <ViewManager/> } />
-                <Route path='viewemployee' element={ <ViewEmployee/> } />
+                <Route path='viewemployee' element={ <ViewEmployeeByManager/> } />
                 <Route path='addmanager' element={ <AddManager/> } />
             </Routes>
         </div>

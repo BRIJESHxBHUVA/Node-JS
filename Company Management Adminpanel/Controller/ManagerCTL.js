@@ -135,7 +135,7 @@ module.exports.login = async (req, res)=> {
         const user = await manager.findOne({email: req.body.email})
         console.log(user)
         if(user){
-            if(bcrypt.compare(req.body.password, user.password)){
+            if(await bcrypt.compare(req.body.password, user.password)){
                 const token = jwt.sign({user: {_id: user._id}}, 'admin', {expiresIn: '7d'})
                 res.status(200).json({ success: true, message: 'Login successfully.', token })
                 console.log(token)

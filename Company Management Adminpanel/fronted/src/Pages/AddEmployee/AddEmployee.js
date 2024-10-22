@@ -44,9 +44,6 @@ const AddEmployee = () => {
   return (
     <div className="add">
 
-      {loading && <p>Loading...</p> }
-      {error && <p>{error}</p>}
-
       <form action="" className='add-form' onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Employee Full Name</label>
@@ -89,7 +86,12 @@ const AddEmployee = () => {
           <input type="file" name="image" onChange={HandleChange} />
         </div>
         <button type="submit">Submit</button>
+
+        {loading && <p>Loading...</p> }
+        {error && <p>{error}</p>}
+
       </form>
+
     </div>
   )
 }

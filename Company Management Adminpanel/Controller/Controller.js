@@ -36,7 +36,7 @@ module.exports.getmanager = async (req, res)=> {
 module.exports.getemployee = async (req, res)=> {
     try {
         const data = await employee.find({})
-        res.status(205).json({ success: true, message: 'Employee get successfully',  data })
+        res.status(200).json({ success: true, message: 'Employee get successfully',  data })
 
         if(data.length <= 0) {
             res.status(300).json({success: false, message: 'Employee not found'})
@@ -79,7 +79,43 @@ module.exports.deleteowner = async (req, res) => {
         const data = await owner.findByIdAndDelete(req.query.id);
         res.status(200).json({ success: true, message: 'Owner deleted successfully.' });
     } catch (error) {
-        res.status(404).json({ success: false, message: error.message, })
+        res.status(404).json({ success: false, message: error.message })
+    }
+}
+
+
+module.exports.deletemanager = async (req, res)=> {
+    try {
+        const deletedata = await manager.findById(req.query.id)
+
+        if(deletedata.image){
+            const oldImage = path.join(__dirname, '../Images/manager/', deletedata.image)
+            fs.unlinkSync(oldImage)
+        }
+
+        const data = await manager.findByIdAndDelete(req.query.id)
+        res.status(200).json({ success: true, message: 'Manager deleted successfully.' });
+
+    } catch (error) {
+        res.status(404).json({success: false, message: error.message})
+    }
+}
+
+
+module.exports.deleteemployee = async (req, res)=> {
+    try {
+        const deletedata = await employee.findById(req.query.id)
+
+        if(deletedata.image){
+            const oldImage = path.join(__dirname, '../Images/employee/', deletedata.image)
+            fs.unlinkSync(oldImage)
+        }
+
+        const data = await employee.findByIdAndDelete(req.query.id)
+        res.status(200).json({ success: true, message: 'Employee deleted successfully.' });
+
+    } catch (error) {
+        res.status(404).json({success: false, message: error.message})
     }
 }
 
@@ -151,7 +187,7 @@ module.exports.login = async (req, res)=>{
     try {
         const user = await owner.findOne({email: req.body.email})
         if(user){
-            if( bcrypt.compare(req.body.password, user.password)){
+            if(await bcrypt.compare(req.body.password, user.password)){
                 const token = jwt.sign({user: {_id: user._id}}, 'admin', {expiresIn: '7d'})
                 res.status(200).json({ success: true, message: 'Login successfully.', token })
                 console.log(token)

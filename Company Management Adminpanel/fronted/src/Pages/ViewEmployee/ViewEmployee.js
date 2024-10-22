@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchEmployees } from '../../Redux/employeeSlice'
 
 
+
 const ViewEmployee = () => {
 
   const dispatch = useDispatch();
@@ -17,8 +18,7 @@ const ViewEmployee = () => {
 
   return (
     <div className='viewdata'>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      
       <table>
         <thead>
           <tr>
@@ -26,6 +26,7 @@ const ViewEmployee = () => {
             <th>Email</th>
             <th>Phone</th>
             <th>Image</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -39,6 +40,8 @@ const ViewEmployee = () => {
                 </tr>
               )) 
           }
+          {loading && <tr><td colSpan='4'>Loading...</td></tr>}
+          {error && <tr><td colSpan='4'>{error}</td></tr>}
         </tbody>
       </table>
     </div>

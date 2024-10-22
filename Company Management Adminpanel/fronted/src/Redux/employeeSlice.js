@@ -1,13 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const getToken = () => {
+    return(
+        sessionStorage.getItem('employeeToken')
+    )
+}
+
 export const fetchEmployees = createAsyncThunk('employee/fetchEmployees', async (_, {rejectWithValue})=> {
     try {
-        const response = await axios.get('http://localhost:1800/company/employee/getemployee')
+        const token = getToken()
+        const response = await axios.get('http://localhost:1800/company/employee/getemployee', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         console.log(response)
+       
         return response.data.data
     } catch (error) {
-        rejectWithValue(error.response?.data || 'Something went wrong')
+       return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
 
@@ -22,7 +34,20 @@ export const addEmployees = createAsyncThunk('employee/addEmployees', async (new
         return response.data
 
     } catch (error) {
-        rejectWithValue(error.response?.data || 'Something went wrong')
+        console.log(error.response.data.message)
+       return rejectWithValue(error.response.data.message || 'Something went wrong')
+    }
+})
+
+export const loginEmployee = createAsyncThunk('employee/loginEmployee', async(employee, {rejectWithValue})=> {
+    try {
+        const response = await axios.post('http://localhost:1800/company/employee/login', employee)
+        console.log(response)
+        const token = response.data.token 
+        sessionStorage.setItem('employeeToken', token)
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)
     }
 })
 
@@ -67,7 +92,23 @@ const employeeSlice = createSlice({
 
         builder.addCase(addEmployees.rejected, (state, action)=> {
             state.loading = false
-            state.employees = action.payload
+            state.error = action.payload
+        })
+
+        // For Login Employee
+
+        builder.addCase(loginEmployee.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(loginEmployee.fulfilled, (state, action)=> {
+            state.loading = false
+            state.employees.push(action.payload)
+        })
+
+        builder.addCase(loginEmployee.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
         })
     }
 })

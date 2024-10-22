@@ -19,9 +19,6 @@ const ViewOwner = () => {
   return (
     <div className='viewdata'>
 
-{loading && <p>Loading...</p>}
-{error && <p style={{ color: 'red' }}>{error}</p>}
-
         <table>
           <thead>
             <tr>
@@ -40,6 +37,8 @@ const ViewOwner = () => {
                   <td><img src={`http://localhost:1800/images/owner/${el.image}`} alt="" height='100' width='100' /></td>
                 </tr>
               ))}
+              {loading && <tr><td colSpan='4'>Loading...</td></tr>}
+              {error && <tr><td colSpan='4'>{error}</td></tr>}
             </tbody>
         </table>
     </div>

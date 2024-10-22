@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './AddManager.css'
-import axios from 'axios'
 import { addManagers } from '../../Redux/managerSlice';
 import {useDispatch, useSelector} from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 
 const AddManager = () => {
 
@@ -15,6 +15,9 @@ const AddManager = () => {
   })
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const {error, loading} = useSelector((state)=> state.manager)
 
     const HandleChange = (e) => {
       const { name, value, files } = e.target;
@@ -83,6 +86,10 @@ const AddManager = () => {
         </div>
         <button type="submit">Submit</button>
       </form>
+      
+      {error && <p>{error}</p>}
+      {loading && <p>Loading....</p>}
+      
     </div>
   )
 }

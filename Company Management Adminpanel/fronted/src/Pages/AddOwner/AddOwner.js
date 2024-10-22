@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import "./AddOwner.css";
 import { addOwner } from "../../Redux/ownerSlice";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 
 const AddOwner = () => {
-
   const [owner, setOwner] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    image: '',
-  })
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    image: "",
+  });
 
-  const dispatch = useDispatch()
-  const {loading, error} = useSelector((state)=> state.owner)
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.owner);
 
   const HandleChange = (e) => {
     const { name, value, files } = e.target;
@@ -23,7 +22,6 @@ const AddOwner = () => {
         ...prevstate,
         [name]: files[0],
       }));
-
     } else {
       setOwner((prevstate) => ({
         ...prevstate,
@@ -33,19 +31,13 @@ const AddOwner = () => {
   };
 
   const HandleSubmit = (e) => {
-   
-      e.preventDefault();
-      dispatch(addOwner(owner))
+    e.preventDefault();
+    dispatch(addOwner(owner));
   };
 
   return (
     <div className="add">
-
-{loading && <p>Loading...</p>}
-{error && <p style={{ color: 'red' }}>{error}</p>}
-
-
-      <form className='add-form' onSubmit={HandleSubmit}>
+      <form className="add-form" onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Owner Full Name</label>
           <input
@@ -88,6 +80,10 @@ const AddOwner = () => {
         </div>
         <button type="submit">Submit</button>
       </form>
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
     </div>
   );
 };

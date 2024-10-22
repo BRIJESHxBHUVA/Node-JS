@@ -1,18 +1,45 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const getToken = ()=> {
+    return(
+        sessionStorage.getItem('adminToken')
+    )
+}
 
 export const fetchOwners = createAsyncThunk('owner/fetchOwners', async(_, {rejectWithValue})=> {
 
     try {
-        const response = await axios.get('http://localhost:1800/company/owner')
+
+        const token = getToken()
+
+        const response = await axios.get('http://localhost:1800/company/owner', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         console.log(response.data.data)
         return response.data.data
         
     } catch (error) {
-        return rejectWithValue(error.response?.data || 'Something went wrong'); 
+        return rejectWithValue(error.response.data.message || 'Something went wrong'); 
     }
 
+})
+
+export const fetchEmployees = createAsyncThunk('owner/fetchEmployees', async (_, {rejectWithValue})=> {
+    try {
+        const token = getToken()
+        const response = await axios.get('http://localhost:1800/company/employee', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        console.log(response)
+        return response.data.data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)
+    }
 })
 
 export const addOwner = createAsyncThunk('owner/addOwner', async (newOwner, {rejectWithValue})=> {
@@ -25,7 +52,7 @@ export const addOwner = createAsyncThunk('owner/addOwner', async (newOwner, {rej
         console.log(response)
         return response.data
     } catch (error) {
-        return rejectWithValue(error.response?.data || 'Something went wrong')
+        return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
 
@@ -37,14 +64,51 @@ export const loginOwner = createAsyncThunk('owner/loginOwner', async (owner, {re
             }
         })
         console.log(response)
-        return response.data.data
+        const token = response.data.token
+        sessionStorage.setItem('adminToken', token)
+        return response.data
     } catch (error) {
-        return rejectWithValue(error.response?.data || 'Something went wrong')
+        return rejectWithValue(error.response.data.message || 'Something went wrong')
+    }
+})
+
+export const deleteManager = createAsyncThunk('owner/deleteManager', async (managerID, {rejectWithValue})=> {
+    try {
+
+        const token = getToken()
+        const response = await axios.delete(`http://localhost:1800/company/deletemanager?id=${managerID}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+       return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const deleteEmployee = createAsyncThunk('owner/deleteEmployee', async (employeeID, {rejectWithValue})=> {
+    try {
+
+        const token = getToken()
+
+        const response = await axios.delete(`http://localhost:1800/company/deleteemployee?id=${employeeID}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        console.log(response)
+        return response.data
+
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)
     }
 })
 
 const initialState = {
     owners: [],
+    employees: [],
     loading: false,
     error: null,
 }
@@ -68,6 +132,23 @@ const ownerSlice = createSlice({
         });
 
         builder.addCase(fetchOwners.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+
+        // For Fetching Employee Data 
+
+        builder.addCase(fetchEmployees.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(fetchEmployees.fulfilled, (state, action)=> {
+            state.loading = false
+            state.employees = action.payload
+        })
+
+        builder.addCase(fetchEmployees.rejected, (state, action)=> {
             state.loading = false
             state.error = action.payload
         })
@@ -101,8 +182,38 @@ const ownerSlice = createSlice({
 
         builder.addCase(loginOwner.rejected, (state, action)=> {
             state.loading = false
-            state.owners = action.payload
+            state.error = action.payload
         }) 
+
+        // For Delete Manager Data
+
+        builder.addCase(deleteManager.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(deleteManager.fulfilled, (state, action)=> {
+            state.loading = false
+        })
+
+        builder.addCase(deleteManager.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+        // For Delete Employee Data
+
+        builder.addCase(deleteEmployee.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(deleteEmployee.fulfilled, (state, action)=> {
+            state.loading = false
+        })
+
+        builder.addCase(deleteEmployee.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
     }
 })
 

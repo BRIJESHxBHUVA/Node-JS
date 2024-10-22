@@ -13,8 +13,9 @@ const employeeauth = async (req, res, next)=> {
             const emply = await employee.findById(decode.user._id)
             console.log('Employee ===> ')
             console.log(emply)
+            console.log(decode.user._id)
             if (!emply) {
-                return res.status(404).json({ success: false, message: 'Manager not found.' });
+                return res.status(404).json({ success: false, message: 'Employee not found.' });
             }
             req.user = emply
             next();

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './OwnerLogin.css'
 import {useDispatch, useSelector} from 'react-redux'
 import { loginOwner } from '../../Redux/ownerSlice'
+import { useNavigate } from 'react-router-dom'
 
 
 const OwnerLogin = () => {
@@ -11,6 +12,7 @@ const OwnerLogin = () => {
   const [admin, setAdmin] = useState([])
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
 
   const handleChange = (e) =>{
@@ -28,16 +30,20 @@ const OwnerLogin = () => {
     }
   }
 
-  const HandleSubmit = (e)=> {
+  const HandleSubmit = async (e)=> {
     e.preventDefault()
-    dispatch(loginOwner(admin))
+    try {
+      const result = await dispatch(loginOwner(admin)).unwrap()     
+      if(result){
+        navigate('/owner')
+      }
+    } catch (error) {
+      console.log('Login failed', error)
+    }
   }
 
   return (
     <div className='login'>
-
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {login == false ? (
 
@@ -46,6 +52,8 @@ const OwnerLogin = () => {
         <input type="email" name='email' placeholder='Enter admin email ID' onChange={handleChange} />
         <input type="password" name='password' placeholder='Enter admin password' onChange={handleChange} />
         <button type='submit'>Login</button>
+        {loading && <p>Loading...</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
 
       ): (
@@ -58,7 +66,10 @@ const OwnerLogin = () => {
           <input type="password" name='password' placeholder='Enter admin password' />
           <input type="file" className='file' name='image' placeholder='Enter owner image' />
           <button type='submit'>Login</button>
+          {loading && <p>Loading...</p>}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
+        
       )}
 
       {login == false && <p>Create a new account? <span onClick={()=>setLogin(true)} style={{color: 'tomato'}}>Click here</span></p>}
