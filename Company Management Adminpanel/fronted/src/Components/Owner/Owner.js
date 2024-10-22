@@ -7,6 +7,7 @@ import ViewEmployee from '../../Pages/ViewEmployee/ViewEmployee'
 import AddOwner from '../../Pages/AddOwner/AddOwner'
 import Header from '../Header/Header'
 import ViewEmployeeByOwner from '../../Pages/ViewEmployee/ViewEmployeeByOwner'
+import ViewManagerByOwner from '../../Pages/ViewManager/ViewManagerByOwner'
 
 
 const Owner = () => {
@@ -52,7 +53,7 @@ const Owner = () => {
         
             <Routes>
                 <Route path='viewowner' element={<ViewOwner/>} />
-                <Route path='viewmanager' element={ <ViewManager/> } />
+                <Route path='viewmanager' element={ <ViewManagerByOwner/> } />
                 <Route path='viewemployee' element={ <ViewEmployeeByOwner/> } />
                 <Route path='addowner' element={ <AddOwner/> } />
             </Routes>

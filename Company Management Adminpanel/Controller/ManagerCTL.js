@@ -55,6 +55,26 @@ module.exports.addmanager = async (req, res)=> {
     }
 }
 
+module.exports.addemployee = async (req, res)=> {
+    try {
+        const Employee = await employee.findOne({email: req.body.email})
+        if(Employee){
+            res.status(305).json({ success: false, message: 'Email already exist.' })
+        }
+        if(req.file){
+            req.body.image = req.file.filename
+        }
+        req.body.password = await bcrypt.hash(req.body.password, 10)
+        req.body.createdAT = moment().format('LLLL')
+
+        const data = await employee.create(req.body)
+        res.status(200).json({ success: true, message: 'Employee registered successfully.', data})
+
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message })
+    }
+}
+
 module.exports.deletemanager = async (req, res)=> {
     try {
         const deletemanager = await manager.findById(req.query.id)

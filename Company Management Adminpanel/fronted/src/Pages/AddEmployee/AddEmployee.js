@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './AddEmployee.css'
-import { addEmployees } from '../../Redux/employeeSlice';
+import { addEmployee } from '../../Redux/managerSlice';
 import { useDispatch, useSelector } from 'react-redux'
+
 
 const AddEmployee = () => {
 
@@ -15,7 +16,7 @@ const AddEmployee = () => {
 
     const dispatch = useDispatch()
 
-    const {loading, error} = useSelector((state)=> state.employee)
+    const {loading, error} = useSelector((state)=> state.manager)
     
 
     const HandleChange = (e) => {
@@ -36,7 +37,7 @@ const AddEmployee = () => {
     const HandleSubmit = async (e) => {
      
         e.preventDefault();
-        dispatch(addEmployees(employee))
+        dispatch(addEmployee(employee))
     };
 
 

@@ -27,6 +27,21 @@ export const fetchOwners = createAsyncThunk('owner/fetchOwners', async(_, {rejec
 
 })
 
+export const fetchManagers = createAsyncThunk('owner/fetchManagers', async (_, {rejectWithValue})=> {
+    try {
+        const token = getToken()
+        const response = await axios.get('http://localhost:1800/company/manager', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        console.log(response)
+        return response.data.data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)
+    }
+})
+
 export const fetchEmployees = createAsyncThunk('owner/fetchEmployees', async (_, {rejectWithValue})=> {
     try {
         const token = getToken()
@@ -108,6 +123,7 @@ export const deleteEmployee = createAsyncThunk('owner/deleteEmployee', async (em
 
 const initialState = {
     owners: [],
+    managers: [],
     employees: [],
     loading: false,
     error: null,
@@ -136,6 +152,23 @@ const ownerSlice = createSlice({
             state.error = action.payload
         })
 
+
+        // For Fetching Manager Data
+
+        builder.addCase(fetchManagers.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(fetchManagers.fulfilled, (state, action)=> {
+            state.loading = false
+            state.managers = action.payload
+        })
+
+        builder.addCase(fetchManagers.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+        
 
         // For Fetching Employee Data 
 

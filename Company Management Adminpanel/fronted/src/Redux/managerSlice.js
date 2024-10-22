@@ -38,11 +38,14 @@ export const fetchEmployees = createAsyncThunk('manager/fetchEmployees', async (
     }
 })
 
-export const addManagers = createAsyncThunk('manager/addManagers', async (newManager, {rejectWithValue})=> {
+export const addEmployee = createAsyncThunk('manager/addManagers', async (newEmployee, {rejectWithValue})=> {
     try {
-        const response = await axios.post('http://localhost:1800/company/manager/addmanager', newManager, {
+        const token = getToken()
+
+        const response = await axios.post('http://localhost:1800/company/manager/addemployee', newEmployee, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
             }
         })
         console.log(response)
@@ -111,18 +114,18 @@ const managerSlice = createSlice({
         })
 
 
-        // For Post New Manager Data
+        // For Post New Employee Data
 
-        builder.addCase(addManagers.pending, (state)=> {
+        builder.addCase(addEmployee.pending, (state)=> {
             state.loading = true
         })
 
-        builder.addCase(addManagers.fulfilled, (state, action)=> {
+        builder.addCase(addEmployee.fulfilled, (state, action)=> {
             state.loading = false
-            state.managers.push(action.payload)
+            state.employees.push(action.payload)
         })
 
-        builder.addCase(addManagers.rejected, (state, action)=> {
+        builder.addCase(addEmployee.rejected, (state, action)=> {
             state.loading = false
             state.error = action.payload
         })

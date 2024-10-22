@@ -5,6 +5,7 @@ import ViewManager from '../../Pages/ViewManager/ViewManager'
 import AddManager from '../../Pages/AddManager/AddManager'
 import Header from '../Header/Header'
 import ViewEmployeeByManager from '../../Pages/ViewEmployee/ViewEmployeeByManager'
+import AddEmployee from '../../Pages/AddEmployee/AddEmployee'
 
 const Manager = () => {
   return (
@@ -28,7 +29,7 @@ const Manager = () => {
 
                 <div className="view">
                     <i className="fa-solid fa-plus"></i>
-                    <a href=""><Link to='addmanager'>ADD MANAGER</Link></a>
+                    <a href=""><Link to='addemployee'>ADD EMPLOYEE</Link></a>
                 </div>
                 <div className="view">
                     <i className="fa-solid fa-trash"></i>
@@ -45,7 +46,7 @@ const Manager = () => {
             <Routes>
                 <Route path='viewmanager' element={ <ViewManager/> } />
                 <Route path='viewemployee' element={ <ViewEmployeeByManager/> } />
-                <Route path='addmanager' element={ <AddManager/> } />
+                <Route path='addemployee' element={ <AddEmployee/> } />
             </Routes>
         </div>
     </div>
