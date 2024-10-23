@@ -6,6 +6,7 @@ import AddManager from '../../Pages/AddManager/AddManager'
 import Header from '../Header/Header'
 import ViewEmployeeByManager from '../../Pages/ViewEmployee/ViewEmployeeByManager'
 import AddEmployee from '../../Pages/AddEmployee/AddEmployee'
+import Resetpassword from '../../Pages/ManagerPassword/Resetpassword'
 
 const Manager = () => {
   return (
@@ -34,7 +35,7 @@ const Manager = () => {
             
                 <div className="view">
                 <i class="fa-solid fa-shield-halved"></i>
-                    <Link><a href="">RESET PASSWORD</a></Link>
+                    <Link to='resetpassword'><a href="">RESET PASSWORD</a></Link>
                 </div>
                
             </div>
@@ -44,6 +45,7 @@ const Manager = () => {
                 <Route path='viewmanager' element={ <ViewManager/> } />
                 <Route path='viewemployee' element={ <ViewEmployeeByManager/> } />
                 <Route path='addemployee' element={ <AddEmployee/> } />
+                <Route path='resetpassword' element={ <Resetpassword/> } />
             </Routes>
         </div>
     </div>

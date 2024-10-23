@@ -11,6 +11,7 @@ import ViewManagerByOwner from '../../Pages/ViewManager/ViewManagerByOwner'
 import AddManager from '../../Pages/AddManager/AddManager'
 import AddEmployee from '../../Pages/AddEmployee/AddEmployee'
 import AddEmployeeByAdmin from '../../Pages/AddEmployee/AddEmployeeByAdmin'
+import Resetpassword from '../../Pages/AdminPassword/Resetpassword'
 
 
 const Owner = () => {
@@ -48,7 +49,7 @@ const Owner = () => {
         
                 <div className="view">
                 <i class="fa-solid fa-shield-halved"></i>
-                   <Link><a href="">RESET PASSWORD</a></Link>
+                   <Link to='resetpassword'><a href="">RESET PASSWORD</a></Link>
                 </div>
                
             </div>
@@ -61,6 +62,7 @@ const Owner = () => {
                 <Route path='viewemployee' element={ <ViewEmployeeByOwner/> } />
                 <Route path='addmanager' element={ <AddManager/> } />
                 <Route path='addemployee' element={ <AddEmployeeByAdmin/> } />
+                <Route path='resetpassword' element={ <Resetpassword/> } />
             </Routes>
         </div>
     </div>

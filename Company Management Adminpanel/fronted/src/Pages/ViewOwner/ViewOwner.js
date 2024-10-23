@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import './ViewOwner.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchOwners } from '../../Redux/ownerSlice'
+import Loading from '../../Components/Loading/Loading'
 
 
 const ViewOwner = () => {
@@ -36,10 +37,13 @@ const ViewOwner = () => {
                   <td><img src={`http://localhost:1800/images/owner/${el.image}`} alt="" height='100' width='100' /></td>
                 </tr>
               ))}
-              {loading && <tr><td colSpan='4'>Loading...</td></tr>}
               {error && <tr><td colSpan='4'>{error}</td></tr>}
+              
+        
             </tbody>
         </table>
+        {loading && <Loading/>}
+      
     </div>
   )
 }

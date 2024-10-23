@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./AddOwner.css";
 import { addOwner } from "../../Redux/ownerSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../Components/Loading/Loading";
 
 const AddOwner = () => {
   const [owner, setOwner] = useState({
@@ -81,7 +82,7 @@ const AddOwner = () => {
         <button type="submit">Submit</button>
       </form>
 
-      {loading && <p>Loading...</p>}
+      {loading && <Loading/>}
       {error && <p>{error}</p>}
 
     </div>

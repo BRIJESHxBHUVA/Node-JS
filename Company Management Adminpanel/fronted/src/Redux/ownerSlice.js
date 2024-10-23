@@ -108,7 +108,9 @@ export const loginOwner = createAsyncThunk('owner/loginOwner', async (owner, {re
         })
         console.log(response)
         const token = response.data.token
+        const user = response.data.user._id
         sessionStorage.setItem('adminToken', token)
+        sessionStorage.setItem('userId', user)
         return response.data
     } catch (error) {
         return rejectWithValue(error.response.data.message || 'Something went wrong')
@@ -146,6 +148,19 @@ export const deleteEmployee = createAsyncThunk('owner/deleteEmployee', async (em
 
     } catch (error) {
         return rejectWithValue(error.response.data.message)
+    }
+})
+
+
+export const resetPassword = createAsyncThunk('owner/resetPassword', async (password, {rejectWithValue})=>{
+    try {
+        const token = getToken()
+        const user = sessionStorage.getItem('userId')
+        const response = await axios.put(`http://localhost:1800/company/resetpassword?id=${user}`, password )
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        rejectWithValue(error.response.data.message)
     }
 })
 
@@ -304,6 +319,22 @@ const ownerSlice = createSlice({
         })
 
         builder.addCase(deleteEmployee.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+
+        // For Admin Reset Password
+
+        builder.addCase(resetPassword.pending, (state)=> {  
+            state.loading = true
+        })
+
+        builder.addCase(resetPassword.fulfilled, (state, action)=> {
+            state.loading = false
+        })
+
+        builder.addCase(resetPassword.rejected, (state, action)=> {
             state.loading = false
             state.error = action.payload
         })

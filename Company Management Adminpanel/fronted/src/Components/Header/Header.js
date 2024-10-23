@@ -25,17 +25,23 @@ const Header = () => {
             <ul className="navbar-nav mb-lg-0">
               <li className="nav-item">
                 <Link className="nav-link" aria-current="page" to="/owner">
+                <a href="">
                   ADMIN
+                  </a>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" aria-current="page" to="/manager">
+                <a href="">
                   MANAGER
+                  </a>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/employee">
+                <a href="">
                   EMPLOYEE
+                  </a>
                 </Link>
               </li>
             </ul>

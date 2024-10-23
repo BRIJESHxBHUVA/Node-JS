@@ -3,6 +3,7 @@ import './OwnerLogin.css'
 import {useDispatch, useSelector} from 'react-redux'
 import { addOwner, loginOwner } from '../../Redux/ownerSlice'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../Components/Loading/Loading'
 
 const OwnerLogin = () => {
 
@@ -82,7 +83,7 @@ const OwnerLogin = () => {
         <input type="email" name='email' placeholder='Enter admin email ID' onChange={handleChange} />
         <input type="password" name='password' placeholder='Enter admin password' onChange={handleChange} />
         <button type='submit'>Login</button>
-        {loading && <p>Loading...</p>}
+        {loading && <Loading/>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
 
@@ -96,7 +97,7 @@ const OwnerLogin = () => {
           <input type="password" name='password' placeholder='Enter admin password' value={owner.password} onChange={handleAdminChange} />
           <input type="file" className='file' name='image' placeholder='Enter owner image' onChange={handleAdminChange} />
           <button type='submit'>Login</button>
-          {loading && <p>Loading...</p>}
+          {loading && <Loading/>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
         

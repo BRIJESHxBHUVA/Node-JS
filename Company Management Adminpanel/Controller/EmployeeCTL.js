@@ -58,10 +58,11 @@ module.exports.deleteemployee = async (req, res)=> {
 module.exports.resetpassword = async (req, res)=> {
   try {
     const userpw = await employee.findById(req.query.id)
-    if(userpw.password == req.body.oldps){
-      if(userpw.password != req.body.newps){
+    if( await bcrypt.compare(req.body.oldps, userpw.password)){
+      if(req.body.oldps != req.body.newps){
         if(req.body.newps == req.body.confirmps){
-          const data = await employee.findByIdAndUpdate(userpw.id, {password: req.body.confirmps})
+          const hashPassword = await bcrypt.hash(req.body.confirmps, 10)
+          const data = await employee.findByIdAndUpdate(userpw.id, {password: hashPassword})
           res.status(200).json({ success: true, message: 'Password change successfully.', data })
         }else{
           res.status(400).json({ success: false, message: 'new password and confirm password must be same.' })
@@ -85,6 +86,7 @@ module.exports.sendotp = async (req, res)=> {
       Mailer.sendotp(req.body.email, otp)
       req.session.otp = otp
       req.session.employeeId = useremail.id
+      console.log(otp)
       res.status(200).json({ success: true, message: 'OTP send successfully'})
     }else{
       res.status(400).json({ success: false, message: 'incorrect email.' })
@@ -102,7 +104,8 @@ module.exports.forgotpassword = async (req, res)=> {
 
     if(req.body.otp == otp){
       if(req.body.newps == req.body.confirmps){
-        const data = await employee.findByIdAndUpdate(employeeId, {password: req.body.newps})
+        const hashPassword = await bcrypt.hash(req.body.confirmps, 10)
+        const data = await employee.findByIdAndUpdate(employeeId, {password: hashPassword})
         res.status(200).json({ success: true, message: 'password changed successfully.', data })
       }else{
         res.status(400).json({ success: false, message: 'new password and confirm password are must be same'})
@@ -123,7 +126,7 @@ module.exports.login = async (req, res)=> {
     if(user){
       if(await bcrypt.compare(req.body.password, user.password)){
         const token = jwt.sign({user: {_id: user._id}}, 'admin', {expiresIn: '7d'})
-        res.status(200).json({ success: true, message: 'Login successfully.', token })
+        res.status(200).json({ success: true, message: 'Login successfully.', token, user })
         console.log(token)
       }else{
         res.status(401).json({ success: false, message: 'Invalid password.'})

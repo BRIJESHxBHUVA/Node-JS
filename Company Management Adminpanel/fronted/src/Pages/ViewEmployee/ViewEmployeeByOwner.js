@@ -3,6 +3,7 @@ import './ViewEmployee.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEmployees } from '../../Redux/ownerSlice'
 import { deleteEmployee } from '../../Redux/ownerSlice'
+import Loading from '../../Components/Loading/Loading'
 
 const ViewEmployeeByOwner = () => {
 
@@ -45,11 +46,12 @@ const ViewEmployeeByOwner = () => {
               </tr>
             )) 
         }
-        {loading && <tr><td colSpan='5'>Loading...</td></tr>}
+        
         {error && <tr><td colSpan='5'>{error}</td></tr>}
 
       </tbody>
     </table>
+    {loading && <Loading/>}
   </div>
   )
 }

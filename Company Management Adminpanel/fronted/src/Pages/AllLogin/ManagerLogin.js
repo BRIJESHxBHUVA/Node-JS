@@ -3,6 +3,7 @@ import './ManagerLogin.css'
 import { loginManager } from '../../Redux/managerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../Components/Loading/Loading'
 
 const ManagerLogin = () => {
 
@@ -42,7 +43,7 @@ const ManagerLogin = () => {
         <input type="password" name='password' placeholder='Enter manager password' onChange={handleChange} />
         <button type='submit'>Login</button>
       </form>
-      {loading && <p>loading....</p>}
+      {loading && <Loading/>}
       {error && <p>{error}</p>}
     </div>
   )

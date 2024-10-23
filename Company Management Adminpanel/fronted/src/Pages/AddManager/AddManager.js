@@ -3,6 +3,7 @@ import './AddManager.css'
 import { addManager } from '../../Redux/ownerSlice';
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../Components/Loading/Loading';
 
 const AddManager = () => {
 
@@ -86,11 +87,10 @@ const AddManager = () => {
           <input type="file" name="image" onChange={HandleChange} />
         </div>
         <button type="submit">Submit</button>
+        {error && <p>{error}</p>}
+        {loading && <Loading/>}
       </form>
-      
-      {error && <p>{error}</p>}
-      {loading && <p>Loading....</p>}
-      
+    
     </div>
   )
 }

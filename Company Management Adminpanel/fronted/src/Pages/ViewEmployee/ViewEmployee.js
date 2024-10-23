@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './ViewEmployee.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEmployees } from '../../Redux/employeeSlice'
+import Loading from '../../Components/Loading/Loading'
 
 
 
@@ -40,10 +41,11 @@ const ViewEmployee = () => {
                 </tr>
               )) 
           }
-          {loading && <tr><td colSpan='4'>Loading...</td></tr>}
+          
           {error && <tr><td colSpan='4'>{error}</td></tr>}
         </tbody>
       </table>
+      {loading && <Loading/>}
     </div>
   )
 }

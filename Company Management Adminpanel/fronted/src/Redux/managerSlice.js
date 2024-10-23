@@ -78,10 +78,25 @@ export const loginManager = createAsyncThunk('manager/loginManager', async(manag
         const response = await axios.post('http://localhost:1800/company/manager/login', manager)
         console.log(response)
         const token = response.data.token
+        const managerId = response.data.user._id
         sessionStorage.setItem('managerToken', token)
+        sessionStorage.setItem('managerId', managerId)
         return response.data
     } catch (error) {
        return rejectWithValue(error.response.data.message || 'Something went wrong')
+    }
+})
+
+
+export const resetPassword = createAsyncThunk('manager/resetPassword', async (password, {rejectWithValue})=> {
+    try {
+        const token = getToken()
+        const managerID = sessionStorage.getItem('managerId')
+        const response = await axios.put(`http://localhost:1800/company/manager/forgotpassword?id=${managerID}`)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        rejectWithValue(error.response.data.message)
     }
 })
 
@@ -177,6 +192,22 @@ const managerSlice = createSlice({
         })
 
         builder.addCase(loginManager.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+
+        // For Reset Manager Password
+
+        builder.addCase(resetPassword.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(resetPassword.fulfilled, (state, action)=> {
+            state.loading = false
+        })
+
+        builder.addCase(resetPassword.rejected, (state, action)=> {
             state.loading = false
             state.error = action.payload
         })

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './AddEmployee.css'
 import { addEmployee } from '../../Redux/ownerSlice';
 import { useDispatch, useSelector } from 'react-redux'
+import Loading from '../../Components/Loading/Loading';
 
 const AddEmployeeByAdmin = () => {
 
@@ -87,7 +88,7 @@ const AddEmployeeByAdmin = () => {
       </div>
       <button type="submit">Submit</button>
 
-      {loading && <p>Loading...</p> }
+      {loading && <Loading/>}
       {error && <p>{error}</p>}
 
     </form>

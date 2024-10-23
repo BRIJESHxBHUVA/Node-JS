@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchManagers } from '../../Redux/managerSlice'
 import { deleteManager } from '../../Redux/ownerSlice'
+import Loading from '../../Components/Loading/Loading'
 
 const ViewManager = () => {
 
@@ -40,9 +41,10 @@ const ViewManager = () => {
                 </tr>
               ))}
               {error && <tr><td colSpan='4'>{error}</td></tr>}
-              {loading && <tr><td colSpan='4'>Loading....</td></tr>}
+              
             </tbody>
     </table>
+    {loading && <Loading/>}
 </div>
   )
 }

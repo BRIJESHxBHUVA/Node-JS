@@ -3,6 +3,7 @@ import './ViewManager.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchManagers } from '../../Redux/ownerSlice'
 import { deleteManager } from '../../Redux/ownerSlice'
+import Loading from '../../Components/Loading/Loading'
 
 const ViewManagerByOwner = () => {
 
@@ -38,14 +39,14 @@ const ViewManagerByOwner = () => {
               <td>{el.name}</td>
               <td>{el.email}</td>
               <td>{el.phone}</td>
-              <td><img src={`http://localhost:1800/images/owner/${el.image}`} alt="" height='100' width='100' /></td>
+              <td><img src={`http://localhost:1800/images/manager/${el.image}`} alt="" height='100' width='100' /></td>
               <td onClick={()=>{removeManager(el._id)}}>Delete</td>
             </tr>
           ))}
-          {loading && <tr><td colSpan='4'>Loading...</td></tr>}
           {error && <tr><td colSpan='4'>{error}</td></tr>}
         </tbody>
     </table>
+    {loading && <Loading/>}
 </div>
   )
 }

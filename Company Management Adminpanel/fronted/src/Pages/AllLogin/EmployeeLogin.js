@@ -3,6 +3,7 @@ import './EmployeeLogin.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginEmployee } from '../../Redux/employeeSlice'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../Components/Loading/Loading'
 
 const EmployeeLogin = () => {
 
@@ -41,7 +42,7 @@ const EmployeeLogin = () => {
         <input type="password" placeholder='Enter employee password' name='password' onChange={handleChange} />
         <button type='submit'>Login</button>
       </form>
-      {loading && <p>Loading....</p>}
+      {loading && <Loading/>}
       {error && <p>{error}</p>}
     </div>
   )
