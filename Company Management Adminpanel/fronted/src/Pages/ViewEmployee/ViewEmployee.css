@@ -3,7 +3,7 @@
     /* border: 1px solid black; */
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
     overflow: auto;
 }
 table{

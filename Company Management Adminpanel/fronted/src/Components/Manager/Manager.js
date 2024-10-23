@@ -18,26 +18,23 @@ const Manager = () => {
             <div className="nav">
             
                 <div className="view">
-                    <i className="fa-solid fa-plus"></i>
-                    <a href=""><Link to='viewmanager'>VIEW MANAGERS</Link></a>
+                <i className="fa-solid fa-eye"></i>
+                    <Link to='viewmanager'><a href="">VIEW MANAGERS</a></Link>
+                </div>
+
+                <div className="view">
+                <i className="fa-solid fa-eye"></i>
+                    <Link to='viewemployee'><a href="">VIEW EMPLOYEES</a></Link>
                 </div>
 
                 <div className="view">
                     <i className="fa-solid fa-plus"></i>
-                    <a href=""><Link to='viewemployee'>VIEW EMPLOYEES</Link></a>
+                    <Link to='addemployee'><a href="">ADD EMPLOYEE</a></Link>
                 </div>
-
+            
                 <div className="view">
-                    <i className="fa-solid fa-plus"></i>
-                    <a href=""><Link to='addemployee'>ADD EMPLOYEE</Link></a>
-                </div>
-                <div className="view">
-                    <i className="fa-solid fa-trash"></i>
-                    <a href=""><Link>DELETE MANAGER</Link></a>
-                </div>
-                <div className="view">
-                    <i className="fa-solid fa-eye"></i>
-                    <a href=""><Link>RESET PASSWORD</Link></a>
+                <i class="fa-solid fa-shield-halved"></i>
+                    <Link><a href="">RESET PASSWORD</a></Link>
                 </div>
                
             </div>

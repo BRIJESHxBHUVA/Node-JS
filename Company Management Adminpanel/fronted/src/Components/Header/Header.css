@@ -1,0 +1,18 @@
+.navbar{
+    background-color: black;
+}
+.collapse{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navbar-nav{
+    /* border: 1px solid black; */
+}
+.nav-link{
+    color: white;
+}
+.navbar-brand{
+    color: white;
+}

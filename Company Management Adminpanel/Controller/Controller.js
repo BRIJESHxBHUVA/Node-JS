@@ -66,6 +66,47 @@ module.exports.addowner = async (req, res) => {
     
 }
 
+module.exports.addmanager = async (req, res)=> {
+    try {
+        const useremail = await manager.findOne({email: req.body.email})
+        if(useremail){
+            return res.status(400).json({message: "Email already exists"})
+        }
+        if(req.file){ 
+            req.body.image = req.file.filename
+        }
+        req.body.password = await bcrypt.hash(req.body.password, 10)
+        req.body.createdAT = moment().format('LLLL')
+
+        const data = await manager.create(req.body)
+        res.status(201).json({message: "Manager registered successfully", data})
+
+    } catch (error) {
+        res.status(404).json({ success: false, message: error })
+    }
+}
+
+
+module.exports.addemployee = async (req, res)=> {
+    try {
+        const useremail = await employee.findOne({email: req.body.email})
+        if(useremail){
+            return res.status(400).json({message: "Email already exists"})
+        }
+        if(req.file){ 
+            req.body.image = req.file.filename
+        }
+        req.body.password = await bcrypt.hash(req.body.password, 10)
+        req.body.createdAT = moment().format('LLLL')
+
+        const data = await employee.create(req.body)
+        res.status(201).json({message: "Employee registered successfully", data})
+
+    } catch (error) {
+        res.status(404).json({ success: false, message: error })
+    }
+}
+
 
 module.exports.deleteowner = async (req, res) => {
     try {

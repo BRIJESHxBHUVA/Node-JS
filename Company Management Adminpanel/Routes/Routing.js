@@ -13,12 +13,34 @@ const storage = multer.diskStorage({
     }
 })
 
+const mngstorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'Images/manager')
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
+const empstorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'Images/employee')
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
 const upload = multer({storage: storage}).single('image')
+const mngupload = multer({storage: mngstorage}).single('image')
+const empupload = multer({storage: empstorage}).single('image')
 
 router.get('/owner', auth, controller.getowner)
 router.get('/manager', auth, controller.getmanager)
 router.get('/employee', auth, controller.getemployee)
 router.post('/addowner', upload ,controller.addowner)
+router.post('/addmanager', mngupload ,controller.addmanager)
+router.post('/addemployee', empupload ,controller.addemployee)
 router.delete('/deleteowner', controller.deleteowner)
 router.delete('/deletemanager', auth, controller.deletemanager)
 router.delete('/deleteemployee', auth, controller.deleteemployee)

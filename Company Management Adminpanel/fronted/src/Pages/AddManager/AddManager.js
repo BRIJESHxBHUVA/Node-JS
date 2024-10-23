@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './AddManager.css'
-// import { addManagers } from '../../Redux/managerSlice';
+import { addManager } from '../../Redux/ownerSlice';
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 
@@ -37,7 +37,8 @@ const AddManager = () => {
     const HandleSubmit = async (e) => {
     
         e.preventDefault();
-        // dispatch(addManagers(manager))
+        dispatch(addManager(manager))
+
     };
 
 

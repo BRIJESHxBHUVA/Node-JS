@@ -18,7 +18,6 @@ const ViewOwner = () => {
 
   return (
     <div className='viewdata'>
-
         <table>
           <thead>
             <tr>

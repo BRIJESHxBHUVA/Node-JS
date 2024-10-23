@@ -71,6 +71,34 @@ export const addOwner = createAsyncThunk('owner/addOwner', async (newOwner, {rej
     }
 })
 
+export const addManager = createAsyncThunk('owner/addManager', async (newManager, {rejectWithValue})=> {
+    try {
+        const response = await axios.post('http://localhost:1800/company/addmanager', newManager, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        console.log(response)
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message || 'Something went wrong')
+    }
+})
+
+export const addEmployee = createAsyncThunk('owner/addEmployee', async (newEmployee, {rejectWithValue})=> {
+    try {
+        const response = await axios.post('http://localhost:1800/company/addemployee', newEmployee, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        console.log(response)
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message || 'Something went wrong')
+    }
+})
+
 export const loginOwner = createAsyncThunk('owner/loginOwner', async (owner, {rejectWithValue})=>{
     try {
         const response = await axios.post('http://localhost:1800/company/login', owner, {
@@ -198,6 +226,38 @@ const ownerSlice = createSlice({
         })
 
         builder.addCase(addOwner.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+        // For Posting New Manager Data 
+
+        builder.addCase(addManager.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(addManager.fulfilled, (state, action)=> {
+            state.loading = false
+            state.managers.push(action.payload)
+        })
+
+        builder.addCase(addManager.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+        // For Posting New Employee Data
+
+        builder.addCase(addEmployee.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(addEmployee.fulfilled, (state, action)=> {
+            state.loading = false
+            state.employees.push(action.payload)
+        })
+
+        builder.addCase(addEmployee.rejected, (state, action)=> {
             state.loading = false
             state.error = action.payload
         })

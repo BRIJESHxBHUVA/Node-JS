@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './ViewEmployee.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchEmployees } from '../../Redux/managerSlice'
+import { deleteEmployee, fetchEmployees } from '../../Redux/managerSlice'
 
 const ViewEmployeeByManager = () => {
 
@@ -13,7 +13,10 @@ const ViewEmployeeByManager = () => {
       dispatch(fetchEmployees())
     }, [dispatch])
   
-
+    const removeEmployee = (id) => {
+      dispatch(deleteEmployee(id))
+      console.log(id)
+    }
 
   return (
 
@@ -37,7 +40,7 @@ const ViewEmployeeByManager = () => {
                 <td>{el.email}</td>
                 <td>{el.phone}</td>
                 <td><img src={`http://localhost:1800/images/employee/${el.image}`} height='100' width='100' alt="" /></td>
-                <td>Delete</td>
+                <td onClick={()=>{removeEmployee(el._id)}}>Delete</td>
               </tr>
             )) 
         }

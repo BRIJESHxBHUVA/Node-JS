@@ -90,6 +90,21 @@ module.exports.deletemanager = async (req, res)=> {
     }
 }
 
+module.exports.deleteemployee = async (req, res)=> {
+    try {
+        const deleteemployee = await employee.findById(req.query.id)
+        if(deleteemployee){
+            const oldImage = path.join(__dirname, '../Images/employee/', deleteemployee.image)
+            fs.unlinkSync(oldImage)
+        }
+        const data = await employee.findByIdAndDelete(req.query.id)
+        res.status(200).json({ success: true, message: 'Employee deleted successfully.' });
+
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message })
+    }
+}
+
 module.exports.resetpassword = async (req, res)=> {
     try {
         const userpw = await manager.findById(req.query.id)

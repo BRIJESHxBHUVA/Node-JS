@@ -55,6 +55,24 @@ export const addEmployee = createAsyncThunk('manager/addManagers', async (newEmp
     }
 })
 
+export const deleteEmployee = createAsyncThunk('manager/deleteEmployee', async (employeeID, {rejectWithValue})=> {
+    try {
+
+        const token = getToken()
+
+        const response = await axios.delete(`http://localhost:1800/company/manager/deleteemployee?id=${employeeID}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        console.log(response)
+        return response.data
+
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)
+    }
+})
+
 export const loginManager = createAsyncThunk('manager/loginManager', async(manager, {rejectWithValue})=>{
     try {
         const response = await axios.post('http://localhost:1800/company/manager/login', manager)
@@ -126,6 +144,23 @@ const managerSlice = createSlice({
         })
 
         builder.addCase(addEmployee.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+
+        // For Delete Employee
+
+
+        builder.addCase(deleteEmployee.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(deleteEmployee.fulfilled, (state, action)=> {
+            state.loading = false
+        })
+
+        builder.addCase(deleteEmployee.rejected, (state, action)=> {
             state.loading = false
             state.error = action.payload
         })

@@ -104,6 +104,7 @@ const OwnerLogin = () => {
 
       {login == false && <p>Create a new account? <span onClick={()=>setLogin(true)} style={{color: 'tomato'}}>Click here</span></p>}
       {login == true && <p>Already have an account? <span onClick={()=>setLogin(false)} style={{color: 'tomato'}}>Login here</span></p>}
+      <p>forgot password</p>
     
     </div>
   )
