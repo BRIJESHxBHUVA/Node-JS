@@ -23,6 +23,8 @@ const ViewManagerByOwner = () => {
 
     <div className='viewdata'>
 
+    {!loading ? (
+
     <table>
       <thead>
         <tr>
@@ -46,7 +48,10 @@ const ViewManagerByOwner = () => {
           {error && <tr><td colSpan='4'>{error}</td></tr>}
         </tbody>
     </table>
-    {loading && <Loading/>}
+
+    ) : (
+      <Loading/>
+    )}
 </div>
   )
 }

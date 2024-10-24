@@ -7,6 +7,8 @@ const getToken = ()=> {
     )
 }
 
+axios.defaults.withCredentials = true
+
 export const fetchOwners = createAsyncThunk('owner/fetchOwners', async(_, {rejectWithValue})=> {
 
     try {
@@ -160,7 +162,30 @@ export const resetPassword = createAsyncThunk('owner/resetPassword', async (pass
         console.log(response.data)
         return response.data
     } catch (error) {
-        rejectWithValue(error.response.data.message)
+       return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const sendOTP = createAsyncThunk('owner/sendOTP', async (email, {rejectWithValue})=>{
+    try {
+        const response = await axios.post('http://localhost:1800/company/sendotp', email)
+        console.log(response.data)
+        const ownerID = response.data.useremail._id 
+        sessionStorage.setItem('AdminForgotPasswordId', ownerID)
+        return response.data
+    } catch (error) {
+       return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const forgotAdminPassword = createAsyncThunk('owner/forgotAdminPassword', async (newPassword, {rejectWithValue})=> {
+    try {
+        const ownerID = sessionStorage.getItem('AdminForgotPasswordId')
+        const response = await axios.put(`http://localhost:1800/company/forgotpassword?id=${ownerID}`, newPassword,)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+       return rejectWithValue(error.response.data.message)
     }
 })
 
@@ -335,6 +360,40 @@ const ownerSlice = createSlice({
         })
 
         builder.addCase(resetPassword.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+
+        // For Send OTP To Admin
+
+        builder.addCase(sendOTP.pending, (state)=>{
+            state.loading = true
+        })
+
+        builder.addCase(sendOTP.fulfilled, (state, action)=> {
+            state.loading = false
+            state.owners.push(action.payload)
+        })
+
+        builder.addCase(sendOTP.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+
+        // For Forgot Admin Passwords
+
+        builder.addCase(forgotAdminPassword.pending, (state)=>{
+            state.loading = true
+        })
+
+        builder.addCase(forgotAdminPassword.fulfilled, (state, action)=> {
+            state.loading = false
+            state.owners.push(action.payload)
+        })
+
+        builder.addCase(forgotAdminPassword.rejected, (state, action)=>{
             state.loading = false
             state.error = action.payload
         })

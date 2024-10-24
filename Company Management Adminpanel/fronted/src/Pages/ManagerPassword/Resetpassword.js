@@ -3,10 +3,12 @@ import "../AddOwner/AddOwner.css";
 import { resetPassword } from "../../Redux/managerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/Loading/Loading";
+import { useNavigate } from 'react-router-dom'
 
 
 const Resetpassword = () => {
 
+    const navigate = useNavigate()
     const [managerPassword, setManagerPassword] = useState({
         oldps: "",
         newps: "",
@@ -14,7 +16,7 @@ const Resetpassword = () => {
       });
     
       const dispatch = useDispatch();
-      const { loading, error } = useSelector((state) => state.owner);
+      const { loading, error } = useSelector((state) => state.manager);
     
       const HandleChange = (e) => {
         const { name, value } = e.target;
@@ -24,19 +26,25 @@ const Resetpassword = () => {
           }));
       };
     
-      const HandleSubmit = (e) => {
+      const HandleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(resetPassword(managerPassword));
-        console.log(managerPassword)
-        const user = sessionStorage.getItem('managerId')
-        console.log(user)
+        try {
+          const success = await dispatch(resetPassword(managerPassword)).unwrap()
+          if(success){
+            navigate('/viewmanager')
+          }
+          
+        } catch (error) {
+          console.log(error)
+        }
       };
 
 
   return (
     <div className="add">
-      <form className="add-form" onSubmit={HandleSubmit}>
+      {!loading ? (
 
+      <form className="add-form" onSubmit={HandleSubmit}>
 
         <div className="box">
           <label htmlFor="">Old Password</label>
@@ -67,10 +75,13 @@ const Resetpassword = () => {
         </div>
        
         <button type="submit">Change Password</button>
+      {error && <p>{error}</p>}
       </form>
 
-      {loading && <Loading/>}
-      {error && <p>{error}</p>}
+      ) : (
+      <Loading/>
+      )}
+
 
     </div>
   )

@@ -38,6 +38,8 @@ const AddOwner = () => {
 
   return (
     <div className="add">
+      {!loading ? (
+
       <form className="add-form" onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Owner Full Name</label>
@@ -80,10 +82,13 @@ const AddOwner = () => {
           <input type="file" name="image" onChange={HandleChange} />
         </div>
         <button type="submit">Submit</button>
+        {error && <p>{error}</p>}
       </form>
 
-      {loading && <Loading/>}
-      {error && <p>{error}</p>}
+
+      ) : (
+        <Loading/>
+      )}
 
     </div>
   );

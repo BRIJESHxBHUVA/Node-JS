@@ -7,6 +7,8 @@ const getToken = () => {
     )
 }
 
+axios.defaults.withCredentials = true;
+
 export const fetchManagers = createAsyncThunk('manager/fetchManagers', async(_, {rejectWithValue})=>{
     try {
         const token = getToken()
@@ -92,11 +94,35 @@ export const resetPassword = createAsyncThunk('manager/resetPassword', async (pa
     try {
         const token = getToken()
         const managerID = sessionStorage.getItem('managerId')
-        const response = await axios.put(`http://localhost:1800/company/manager/forgotpassword?id=${managerID}`)
+        const response = await axios.put(`http://localhost:1800/company/manager/resetpassword?id=${managerID}`, password)
+        console.log(response)
+        return response.data
+    } catch (error) {
+       return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const sendOTP = createAsyncThunk('manager/sendOTP', async (otp, {rejectWithValue})=> {
+    try {
+        const response = await axios.post('http://localhost:1800/company/manager/sendotp', otp)
+        console.log(response.data)
+        const managerID = response.data.useremail._id
+        console.log(managerID)
+        sessionStorage.setItem('ManagerForgotPasswordId', managerID)
+        return response.data
+    } catch (error) {
+       return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const forgotManagerPassword = createAsyncThunk('manager/forgotManagerPassword', async (newPassword, {rejectWithValue})=> {
+    try {
+        const managerID = sessionStorage.getItem('ManagerForgotPasswordId')
+        const response = await axios.put(`http://localhost:1800/company/manager/forgotpassword?id=${managerID}`, newPassword)
         console.log(response.data)
         return response.data
     } catch (error) {
-        rejectWithValue(error.response.data.message)
+        return rejectWithValue(error.response.data.message)
     }
 })
 
@@ -208,6 +234,23 @@ const managerSlice = createSlice({
         })
 
         builder.addCase(resetPassword.rejected, (state, action)=> {
+            state.loading = false
+            state.error = action.payload
+        })
+
+
+        // For Send OTP to Manager
+
+        builder.addCase(sendOTP.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(sendOTP.fulfilled, (state, action)=> {
+            state.loading = false
+            state.managers.push(action.payload)
+        })
+
+        builder.addCase(sendOTP.rejected, (state, action)=> {
             state.loading = false
             state.error = action.payload
         })

@@ -22,7 +22,8 @@ const ViewEmployeeByManager = () => {
   return (
 
     <div className='viewdata'>
-      
+     {!loading ? (
+
     <table>
       <thead>
         <tr>
@@ -50,7 +51,11 @@ const ViewEmployeeByManager = () => {
 
       </tbody>
     </table>
-    {loading && <Loading/>}
+
+
+     ) : (
+      <Loading/>
+     )} 
   </div>
   )
 }

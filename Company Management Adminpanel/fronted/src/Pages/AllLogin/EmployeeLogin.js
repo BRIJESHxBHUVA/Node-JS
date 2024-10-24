@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import './EmployeeLogin.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginEmployee } from '../../Redux/employeeSlice'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Loading from '../../Components/Loading/Loading'
 
 const EmployeeLogin = () => {
@@ -36,14 +36,21 @@ const EmployeeLogin = () => {
 
   return (
     <div className='login'>
-      <h3 className='login-title'>Employee Login</h3>
-      <form className='login-form' onSubmit={HandleSubmit} >
-        <input type="email" placeholder='Enter employee email ID' name='email' onChange={handleChange} />
-        <input type="password" placeholder='Enter employee password' name='password' onChange={handleChange} />
-        <button type='submit'>Login</button>
-      </form>
-      {loading && <Loading/>}
-      {error && <p>{error}</p>}
+      {!loading ? (
+
+
+        <form className='login-form' onSubmit={HandleSubmit} >
+        <h3 className='login-title mb-4'>Employee Login</h3>
+          <input type="email" placeholder='Enter employee email ID' name='email' onChange={handleChange} />
+          <input type="password" placeholder='Enter employee password' name='password' onChange={handleChange} />
+          <button type='submit'>Login</button>
+          <p>Forgot Password ? <Link to='/forgotemppassword' style={{textDecoration: 'none'}}><span style={{color: 'tomato'}}>Click here</span></Link></p>
+          {error && <p>{error}</p>}
+        </form>
+
+      ) : (
+        <Loading/>
+      )}
     </div>
   )
 }

@@ -108,21 +108,28 @@ module.exports.deleteemployee = async (req, res)=> {
 module.exports.resetpassword = async (req, res)=> {
     try {
         const userpw = await manager.findById(req.query.id)
-        if( await bcrypt.compare(req.body.oldps, userpw.password)){
-            if(req.body.oldps != req.body.newps){
-                if(req.body.newps == req.body.confirmps){
-                    const hashedPassword = await bcrypt.hash(req.body.confirmps, 10)
-                    const data = await manager.findByIdAndUpdate(userpw.id, {password: hashedPassword})
-                    res.status(200).json({ success: true, message: 'Password change successfully.', data })
+        console.log(userpw)
+        
+            if(await bcrypt.compare(req.body.oldps, userpw.password)){
+                if(req.body.oldps != req.body.newps){
+                    if(req.body.newps == req.body.confirmps){
+                        const hashedPassword = await bcrypt.hash(req.body.confirmps, 10)
+                        const data = await manager.findByIdAndUpdate(userpw.id, {password: hashedPassword})
+                        data ? res.status(200).json({ success: true, message: 'Password change successfully.', data }) :
+                        res.status(400).json({ success: false, message: 'Password not changed. Please login first.'})
+                    }else{
+                        res.status(400).json({ success: false, message: 'new password and confirm password must be same.' })
+                    }
                 }else{
-                    res.status(400).json({ success: false, message: 'new password and confirm password must be same.' })
+                    res.status(400).json({ success: false, message: 'old password and new password must be different.' })
                 }
             }else{
-                res.status(400).json({ success: false, message: 'old password and new password must be different.' })
+                res.status(400).json({ success: false, message: 'incorrect old password.' })
             }
-        }else{
-            res.status(400).json({ success: false, message: 'incorrect old password.' })
-        }
+       
+            res.status(400).json({ success: false, message: 'Manager not found. Please login first.'})
+    
+        
     } catch (error) {
         res.status(400).json({ success: false, message: error.message })
     }
@@ -137,7 +144,7 @@ module.exports.sendotp = async (req, res)=> {
             req.session.otp = otp
             req.session.managerId = useremail.id
             console.log(otp)
-            res.status(200).json({ success: true, message: 'OTP send successfully'})
+            res.status(200).json({ success: true, message: 'OTP send successfully', useremail})
         }else{
             res.status(400).json({ success: false, message: 'incorrect email.' })
         }

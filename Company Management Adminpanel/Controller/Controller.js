@@ -194,7 +194,8 @@ module.exports.sendOTP = async (req, res)=> {
             Mailer.sendotp(req.body.email, otp)
             req.session.otp = otp
             req.session.ownerId = useremail.id
-            res.status(200).json({ success: true, message: 'OTP send successfully'})
+            console.log('OTP:', req.session.otp);
+            res.status(200).json({ success: true, message: 'OTP send successfully', useremail})
         }else{
             res.status(400).json({ success: false, message: 'incorrect email.' })
         }
@@ -208,7 +209,6 @@ module.exports.forgotpassword = async (req, res)=> {
 
         const otp = req.session.otp
         const ownerId = req.session.ownerId
-
         if(req.body.otp == otp){
             if(req.body.newps == req.body.confirmps){
                 const password = await bcrypt.hash(req.body.newps, 10)

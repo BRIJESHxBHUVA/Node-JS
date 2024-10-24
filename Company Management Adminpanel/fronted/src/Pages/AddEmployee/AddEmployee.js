@@ -45,6 +45,7 @@ const AddEmployee = () => {
 
   return (
     <div className="add">
+      {!loading ? (
 
       <form action="" className='add-form' onSubmit={HandleSubmit}>
         <div className="box">
@@ -88,11 +89,14 @@ const AddEmployee = () => {
           <input type="file" name="image" onChange={HandleChange} />
         </div>
         <button type="submit">Submit</button>
-
-        {loading && <Loading/> }
+        
         {error && <p>{error}</p>}
 
       </form>
+
+      ) : (
+        <Loading/>
+      )}
 
     </div>
   )

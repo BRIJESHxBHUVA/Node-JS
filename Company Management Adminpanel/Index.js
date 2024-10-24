@@ -4,17 +4,26 @@ const db = require('./Server/Server')
 const PORT = 1800
 const path = require('path')
 let session = require('express-session')
+const bodyparser = require('body-parser')
 const cors = require('cors')
 app.use(express.urlencoded());
 app.use(express.json())
-app.use(cors())
+app.use(bodyparser.json())
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}))
+
 
 app.use(session({
     name: 'company',
     secret: 'keyboard',
-    resave: true,
+    resave: false,
     saveUninitialized: false,
-    cookie: {maxAge: 100 * 100 * 60}
+    cookie: {     
+        secure: false,          
+        maxAge: 10 * 60 * 1000,
+    }
 }))
 
 app.use('/company', require('./Routes/Routing'))

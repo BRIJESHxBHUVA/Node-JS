@@ -45,6 +45,8 @@ const AddManager = () => {
 
   return (
     <div className="add">
+      {!loading ? (
+
       <form action="" className='add-form' onSubmit={HandleSubmit}>
         <div className="box">
           <label htmlFor="">Manager Full Name</label>
@@ -88,8 +90,12 @@ const AddManager = () => {
         </div>
         <button type="submit">Submit</button>
         {error && <p>{error}</p>}
-        {loading && <Loading/>}
       </form>
+
+
+      ) : (
+        <Loading/>
+      )}
     
     </div>
   )

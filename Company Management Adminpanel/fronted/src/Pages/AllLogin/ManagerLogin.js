@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import './ManagerLogin.css'
 import { loginManager } from '../../Redux/managerSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Loading from '../../Components/Loading/Loading'
 
 const ManagerLogin = () => {
@@ -36,15 +36,20 @@ const ManagerLogin = () => {
 
   return (
     <div className='login'>
-
-      <h3 className='login-title'>Manager Login</h3>
+    {!loading ? (
+     
       <form className='login-form' onSubmit={HandleSubmit}>
+      <h3 className='login-title mb-4'>Manager Login</h3>
         <input type="email" name='email' placeholder='Enter manager email ID' onChange={handleChange} />
         <input type="password" name='password' placeholder='Enter manager password' onChange={handleChange} />
         <button type='submit'>Login</button>
-      </form>
-      {loading && <Loading/>}
+        <p>Forgot Password ? <Link to='/forgotmngpassword' style={{textDecoration: 'none'}}><span style={{color: 'tomato'}}>Click here</span></Link></p>
       {error && <p>{error}</p>}
+      </form>
+
+    ) : (
+      <Loading/>
+    )}
     </div>
   )
 }

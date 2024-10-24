@@ -19,6 +19,8 @@ const ViewOwner = () => {
 
   return (
     <div className='viewdata'>
+      {!loading ? (
+
         <table>
           <thead>
             <tr>
@@ -38,11 +40,15 @@ const ViewOwner = () => {
                 </tr>
               ))}
               {error && <tr><td colSpan='4'>{error}</td></tr>}
-              
-        
+            
             </tbody>
         </table>
-        {loading && <Loading/>}
+
+
+      ) : (
+        <Loading/>
+      )}
+
       
     </div>
   )

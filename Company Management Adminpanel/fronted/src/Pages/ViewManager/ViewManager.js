@@ -19,7 +19,9 @@ const ViewManager = () => {
 
   return (
     <div className='viewdata'>
-  
+      
+    {!loading ? (
+
     <table>
       <thead>
         <tr>
@@ -44,7 +46,11 @@ const ViewManager = () => {
               
             </tbody>
     </table>
-    {loading && <Loading/>}
+
+
+    ) : (
+      <Loading/>
+    )}
 </div>
   )
 }

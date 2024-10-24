@@ -19,7 +19,8 @@ const ViewEmployee = () => {
 
   return (
     <div className='viewdata'>
-      
+      {!loading ? (
+
       <table>
         <thead>
           <tr>
@@ -45,7 +46,12 @@ const ViewEmployee = () => {
           {error && <tr><td colSpan='4'>{error}</td></tr>}
         </tbody>
       </table>
-      {loading && <Loading/>}
+
+
+      ) : (
+        <Loading/>
+      )}
+  
     </div>
   )
 }

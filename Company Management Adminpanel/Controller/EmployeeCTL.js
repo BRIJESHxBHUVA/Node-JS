@@ -87,7 +87,7 @@ module.exports.sendotp = async (req, res)=> {
       req.session.otp = otp
       req.session.employeeId = useremail.id
       console.log(otp)
-      res.status(200).json({ success: true, message: 'OTP send successfully'})
+      res.status(200).json({ success: true, message: 'OTP send successfully', useremail})
     }else{
       res.status(400).json({ success: false, message: 'incorrect email.' })
     }

@@ -4,6 +4,9 @@ import OwnerLogin from '../../Pages/AllLogin/OwnerLogin'
 import { Routes, Route, Link } from 'react-router-dom'
 import ManagerLogin from '../../Pages/AllLogin/ManagerLogin'
 import EmployeeLogin from '../../Pages/AllLogin/EmployeeLogin'
+import Forgotpassword from '../../Pages/AdminPassword/Forgotpassword'
+import Forgotmanagerpassword from '../../Pages/ManagerPassword/Forgotmanagerpassword'
+import Forgotemployeepassword from '../../Pages/EmployeePassword/Forgotemployeepassword'
 
 const Login = () => {
   return (
@@ -11,9 +14,9 @@ const Login = () => {
         <div className="login-box">
             <div className="login-option">
 
-                <Link to='adminlogin'><p>Admin</p></Link>
-                <Link to='managerlogin'><p>Manager</p></Link>
-                <Link to='employeelogin'><p>Employee</p></Link>
+                <Link to='adminlogin' className='link'><p>Admin</p></Link>
+                <Link to='managerlogin' className='link'><p>Manager</p></Link>
+                <Link to='employeelogin' className='link'><p>Employee</p></Link>
             
             </div>
             <div className="login-output">
@@ -22,6 +25,9 @@ const Login = () => {
                 <Route path="/adminlogin" element={<OwnerLogin />} />
                 <Route path="/managerlogin" element={<ManagerLogin/>} />
                 <Route path="/employeelogin" element={<EmployeeLogin/>} />
+                <Route path="/forgotpassword" element={<Forgotpassword/>} />
+                <Route path='/forgotmngpassword' element={ <Forgotmanagerpassword/> } />
+                <Route path='/forgotemppassword' element={ <Forgotemployeepassword/> } />
               </Routes>
               
             </div>

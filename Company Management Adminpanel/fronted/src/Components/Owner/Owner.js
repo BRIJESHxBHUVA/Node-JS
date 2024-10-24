@@ -27,29 +27,29 @@ const Owner = () => {
         
                 <div className="view">
                 <i className="fa-solid fa-eye"></i>
-                    <Link to='viewowner'><a href="">VIEW ADMINS</a></Link>
+                    <Link to='viewowner'>VIEW ADMINS</Link>
                 </div>
                 <div className="view">
                 <i className="fa-solid fa-eye"></i>
-                    <Link to='viewmanager'><a href="">VIEW MANAGERS</a></Link>
+                    <Link to='viewmanager'>VIEW MANAGERS</Link>
                 </div>
                 <div className="view">
                 <i className="fa-solid fa-eye"></i>
-                    <Link to='viewemployee'><a href="">VIEW EMPLOYEES</a></Link>
+                    <Link to='viewemployee'>VIEW EMPLOYEES</Link>
                 </div>
                 <div className="view">
                     <i className="fa-solid fa-plus"></i>
-                    <Link to='addmanager'><a href="">ADD MANAGER</a></Link>
+                    <Link to='addmanager'>ADD MANAGER</Link>
                 </div>
 
                 <div className="view">
                     <i className="fa-solid fa-plus"></i>
-                    <Link to='addemployee'><a href="">ADD EMPLOYEE</a></Link>
+                    <Link to='addemployee'>ADD EMPLOYEE</Link>
                 </div>
         
                 <div className="view">
-                <i class="fa-solid fa-shield-halved"></i>
-                   <Link to='resetpassword'><a href="">RESET PASSWORD</a></Link>
+                    <i className="fa-solid fa-shield-halved"></i>
+                   <Link to='resetpassword'>RESET PASSWORD</Link>
                 </div>
                
             </div>
