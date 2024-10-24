@@ -30,6 +30,7 @@ const ViewOwner = () => {
                 <th>Image</th>
             </tr>
             </thead>
+            
             <tbody>
               { owners.map((el, index)=> (
                 <tr key={index}>
