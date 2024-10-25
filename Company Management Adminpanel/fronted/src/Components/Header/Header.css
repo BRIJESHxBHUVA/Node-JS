@@ -1,11 +1,6 @@
 .navbar{
     background-color: black;
-}
-.collapse{
-    /* border: 1px solid black; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 8vh;
 }
 .nav-link{
     color: white;
@@ -16,4 +11,233 @@
 }
 .navbar-brand{
     color: white;
+}
+.profile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    padding: 5px;
+    border-radius: 18px;
+    box-shadow: 0px 0px 10px white;
+    cursor: pointer;
+}
+.profile .dp{
+    height: 60px;
+    width: 60px;
+    border: 1px solid white;
+    border-radius: 50%;
+    margin: 0px 10px;
+}
+.dp img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: contain;
+}
+.profile .name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.name .p{
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 18px;
+    box-shadow: 0px 0px 5px white;
+    margin: 0px 0px;
+}
+.userprofile{
+    height: 100vh;
+    width: 100%;
+    z-index: 2000;
+    position: absolute;
+    top: 0;
+    background-color: rgba(22, 21, 21, 0.146);
+    display: grid;
+    place-items: center;
+   }
+
+.userprofile .user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px black;
+    background-color: white;
+    position: relative;
+}
+.user .userhead{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    width: 100%;
+}
+.userhead .userdp{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+.userdp img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: fill;
+}
+.userhead .userid{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-left: 50px;
+}
+.userid .username{
+    margin: 0;
+}
+.userid .userpost{
+    margin: 0;
+}
+.user .userbody{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 5px;
+    width: 100%;
+}
+.user .userfooter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    width: 100%;
+}
+.userfooter .btn{
+    margin: 0px 10px;
+}
+.user .close{
+    padding: 0px 5px;
+    background-color: black;
+    border-radius: 4px;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+}
+.close i{
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+}
+.edit{
+    padding: 0px 5px;
+    border-radius: 4px;
+    position: absolute;
+    top: 2%;
+    right: 10%;
+    cursor: pointer;
+}
+.edit i{
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+}
+.navbar-toggler{
+    width: 70px;
+    display: block;
+}
+.header{
+    width: 100%;
+    padding: 10px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid white;
+}
+.header .option img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+ .option span{
+    font-size: 18px;
+    font-weight: 500;
+}
+.option i{
+    font-size: 20px;
+}
+span .Link{
+    color: black;
+}
+
+.sidebar{
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(22, 21, 21, 0.146);
+    z-index: 2000;
+    position: absolute;
+    top: 0;
+    transition: 1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar-close{
+    padding: 0px 5px;
+    background-color: white;
+    border-radius: 4px;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+}
+.sidebar .menubar{
+    height: 80%;
+    width: 100%;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.menubar .menu-opt{
+    margin: 10px 0px;
+    padding: 5px;
+    width: 150px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+.menu-opt .menu-link{
+    text-decoration: none;
+    color: white;
+}
+
+
+
+@media only screen and (max-width: 720px){
+    .header{
+        display: flex;
+        position: absolute;
+        bottom: 0%;
+    }
+    .navbar-toggler{
+        display: none;
+    }
+    .collapse{
+        display: none;
+    }
+    .profile{
+        box-shadow: none;
+        padding: 0;
+    }
+   .profile .name{
+        display: none;
+    }
 }

@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     background-color: whitesmoke;
+    border: 1px solid black;
 }
 .add-form{
     width: 50%;
@@ -44,4 +45,23 @@ button{
     outline: none;
     border-radius: 10px;
     margin: 10px 0px;
+}
+
+
+
+@media only screen and (max-width: 750px){
+    .add-form{
+        width: 90%;
+    }
+    .add-form .box{
+        flex-direction: column;
+        align-items: start;
+    }
+    .box label, input{
+        width: 100%;
+    }
+    .box input{
+        margin: 5px 0px;
+    }
+
 }

@@ -3,6 +3,7 @@ import "./AddOwner.css";
 import { addOwner } from "../../Redux/ownerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/Loading/Loading";
+import { useNavigate } from "react-router-dom";
 
 const AddOwner = () => {
   const [owner, setOwner] = useState({
@@ -12,6 +13,8 @@ const AddOwner = () => {
     password: "",
     image: "",
   });
+
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.owner);
@@ -31,9 +34,12 @@ const AddOwner = () => {
     }
   };
 
-  const HandleSubmit = (e) => {
+  const HandleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addOwner(owner));
+   const success = await dispatch(addOwner(owner)).unwrap()
+   if(success){
+    navigate('/')
+   }
   };
 
   return (

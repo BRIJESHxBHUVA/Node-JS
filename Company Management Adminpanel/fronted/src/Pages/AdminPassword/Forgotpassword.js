@@ -41,7 +41,7 @@ const Forgotpassword = () => {
         try {
          const success = await dispatch(forgotAdminPassword(forgotPassword)).unwrap()
          if(success){
-          navigate('/adminlogin')
+          navigate('/')
          }
           
         } catch (error) {

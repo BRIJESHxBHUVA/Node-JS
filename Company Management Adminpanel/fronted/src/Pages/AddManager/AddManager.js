@@ -38,7 +38,16 @@ const AddManager = () => {
     const HandleSubmit = async (e) => {
     
         e.preventDefault();
-        dispatch(addManager(manager))
+      const success = await dispatch(addManager(manager)).unwrap()
+      if(success){
+        setManager({
+          name: '',
+          email: '',
+          phone: '',
+          password: '',
+          image: '',
+        })
+      }
 
     };
 

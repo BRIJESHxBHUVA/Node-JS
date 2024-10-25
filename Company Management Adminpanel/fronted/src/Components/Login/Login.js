@@ -14,7 +14,7 @@ const Login = () => {
         <div className="login-box">
             <div className="login-option">
 
-                <Link to='adminlogin' className='link'><p>Admin</p></Link>
+                <Link to='/' className='link'><p>Admin</p></Link>
                 <Link to='managerlogin' className='link'><p>Manager</p></Link>
                 <Link to='employeelogin' className='link'><p>Employee</p></Link>
             
@@ -22,7 +22,7 @@ const Login = () => {
             <div className="login-output">
 
               <Routes>
-                <Route path="/adminlogin" element={<OwnerLogin />} />
+                <Route path="/" element={<OwnerLogin />} />
                 <Route path="/managerlogin" element={<ManagerLogin/>} />
                 <Route path="/employeelogin" element={<EmployeeLogin/>} />
                 <Route path="/forgotpassword" element={<Forgotpassword/>} />

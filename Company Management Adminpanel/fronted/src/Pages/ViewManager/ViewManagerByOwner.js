@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import './ViewManager.css'
+import '../../Pages/ViewOwner/ViewOwner.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchManagers } from '../../Redux/ownerSlice'
 import { deleteManager } from '../../Redux/ownerSlice'
@@ -22,8 +22,10 @@ const ViewManagerByOwner = () => {
   return (
 
     <div className='viewdata'>
-
+      
     {!loading ? (
+      
+      <div className="alldata">
 
     <table>
       <thead>
@@ -48,7 +50,7 @@ const ViewManagerByOwner = () => {
           {error && <tr><td colSpan='4'>{error}</td></tr>}
         </tbody>
     </table>
-
+</div>
     ) : (
       <Loading/>
     )}

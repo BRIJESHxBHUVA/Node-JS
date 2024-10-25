@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import './ViewEmployee.css'
+import '../../Pages/ViewOwner/ViewOwner.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEmployees } from '../../Redux/ownerSlice'
 import { deleteEmployee } from '../../Redux/ownerSlice'
@@ -25,7 +25,9 @@ const ViewEmployeeByOwner = () => {
     <div className='viewdata'>
 
     {!loading ? (
+      <div className="alldata">
 
+     
     <table>
       <thead>
         <tr>
@@ -53,7 +55,7 @@ const ViewEmployeeByOwner = () => {
 
       </tbody>
     </table>
-
+    </div>
     ) : (
       <Loading/>
     )}

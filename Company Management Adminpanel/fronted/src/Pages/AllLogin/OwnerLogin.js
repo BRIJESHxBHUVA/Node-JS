@@ -62,10 +62,12 @@ const OwnerLogin = () => {
     }
   };
 
-  const HandleCreateAdmin = (e) => {
+  const HandleCreateAdmin = async (e) => {
     e.preventDefault();
-    dispatch(addOwner(owner));
-    navigate("/owner");
+    const success = await dispatch(addOwner(owner)).unwrap()
+    if(success){  
+      setLogin(false)
+    } 
   };
 
   return (
@@ -78,12 +80,14 @@ const OwnerLogin = () => {
               type="email"
               name="email"
               placeholder="Enter admin email ID"
+              required
               onChange={handleChange}
             />
             <input
               type="password"
               name="password"
               placeholder="Enter admin password"
+              required
               onChange={handleChange}
             />
             <button type="submit">Login</button>
@@ -98,6 +102,7 @@ const OwnerLogin = () => {
               name="name"
               placeholder="Enter admin name"
               value={owner.name}
+              required
               onChange={handleAdminChange}
             />
             <input
@@ -105,6 +110,7 @@ const OwnerLogin = () => {
               name="email"
               placeholder="Enter admin email ID"
               value={owner.email}
+              required
               onChange={handleAdminChange}
             />
             <input
@@ -112,6 +118,7 @@ const OwnerLogin = () => {
               name="phone"
               placeholder="Enter owner phone no."
               value={owner.phone}
+              required
               onChange={handleAdminChange}
             />
             <input
@@ -119,6 +126,7 @@ const OwnerLogin = () => {
               name="password"
               placeholder="Enter admin password"
               value={owner.password}
+              required
               onChange={handleAdminChange}
             />
             <input
@@ -126,6 +134,7 @@ const OwnerLogin = () => {
               className="file"
               name="image"
               placeholder="Enter owner image"
+              required
               onChange={handleAdminChange}
             />
             <button type="submit">Login</button>

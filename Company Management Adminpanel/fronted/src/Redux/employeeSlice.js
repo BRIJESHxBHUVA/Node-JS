@@ -47,8 +47,10 @@ export const loginEmployee = createAsyncThunk('employee/loginEmployee', async(em
         console.log(response)
         const token = response.data.token 
         const employeeId = response.data.user._id
+        const Employee = response.data.user
         sessionStorage.setItem('employeeId', employeeId)
         sessionStorage.setItem('employeeToken', token)
+        sessionStorage.setItem('Employee', JSON.stringify(Employee))
         return response.data
     } catch (error) {
         return rejectWithValue(error.response.data.message)

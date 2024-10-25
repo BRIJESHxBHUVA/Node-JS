@@ -1,5 +1,5 @@
 import React from 'react'
-import './ViewManager.css'
+import '../../Pages/ViewOwner/ViewOwner.css'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchManagers } from '../../Redux/managerSlice'
@@ -21,7 +21,9 @@ const ViewManager = () => {
     <div className='viewdata'>
       
     {!loading ? (
+      <div className="alldata">
 
+      
     <table>
       <thead>
         <tr>
@@ -47,7 +49,7 @@ const ViewManager = () => {
             </tbody>
     </table>
 
-
+    </div>
     ) : (
       <Loading/>
     )}

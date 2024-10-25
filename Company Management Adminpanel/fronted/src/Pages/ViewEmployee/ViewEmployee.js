@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './ViewEmployee.css'
+import '../../Pages/ViewOwner/ViewOwner.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEmployees } from '../../Redux/employeeSlice'
 import Loading from '../../Components/Loading/Loading'
@@ -20,7 +20,9 @@ const ViewEmployee = () => {
   return (
     <div className='viewdata'>
       {!loading ? (
+        <div className="alldata">
 
+        
       <table>
         <thead>
           <tr>
@@ -47,7 +49,7 @@ const ViewEmployee = () => {
         </tbody>
       </table>
 
-
+      </div>
       ) : (
         <Loading/>
       )}

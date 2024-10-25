@@ -81,8 +81,10 @@ export const loginManager = createAsyncThunk('manager/loginManager', async(manag
         console.log(response)
         const token = response.data.token
         const managerId = response.data.user._id
+        const Manager = response.data.user
         sessionStorage.setItem('managerToken', token)
         sessionStorage.setItem('managerId', managerId)
+        sessionStorage.setItem('Manager', JSON.stringify(Manager))
         return response.data
     } catch (error) {
        return rejectWithValue(error.response.data.message || 'Something went wrong')

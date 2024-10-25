@@ -75,9 +75,11 @@ export const addOwner = createAsyncThunk('owner/addOwner', async (newOwner, {rej
 
 export const addManager = createAsyncThunk('owner/addManager', async (newManager, {rejectWithValue})=> {
     try {
+        const token = getToken()
         const response = await axios.post('http://localhost:1800/company/addmanager', newManager, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
             }
         })
         console.log(response)
@@ -89,9 +91,11 @@ export const addManager = createAsyncThunk('owner/addManager', async (newManager
 
 export const addEmployee = createAsyncThunk('owner/addEmployee', async (newEmployee, {rejectWithValue})=> {
     try {
+        const token = getToken()
         const response = await axios.post('http://localhost:1800/company/addemployee', newEmployee, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
             }
         })
         console.log(response)
@@ -111,8 +115,10 @@ export const loginOwner = createAsyncThunk('owner/loginOwner', async (owner, {re
         console.log(response)
         const token = response.data.token
         const user = response.data.user._id
+        const admin = response.data.user
         sessionStorage.setItem('adminToken', token)
         sessionStorage.setItem('userId', user)
+        sessionStorage.setItem('Admin', JSON.stringify(admin))
         return response.data
     } catch (error) {
         return rejectWithValue(error.response.data.message || 'Something went wrong')
@@ -158,7 +164,11 @@ export const resetPassword = createAsyncThunk('owner/resetPassword', async (pass
     try {
         const token = getToken()
         const user = sessionStorage.getItem('userId')
-        const response = await axios.put(`http://localhost:1800/company/resetpassword?id=${user}`, password )
+        const response = await axios.put(`http://localhost:1800/company/resetpassword?id=${user}`, password , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         console.log(response.data)
         return response.data
     } catch (error) {

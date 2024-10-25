@@ -3,6 +3,7 @@ import './AddEmployee.css'
 import { addEmployee } from '../../Redux/ownerSlice';
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../Components/Loading/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const AddEmployeeByAdmin = () => {
 
@@ -13,6 +14,8 @@ const AddEmployeeByAdmin = () => {
         password: '',
         image: '',
       })
+
+      const navigate = useNavigate()
   
       const dispatch = useDispatch()
   
@@ -37,7 +40,17 @@ const AddEmployeeByAdmin = () => {
       const HandleSubmit = async (e) => {
        
           e.preventDefault();
-          dispatch(addEmployee(employee))
+         const success = await dispatch(addEmployee(employee)).unwrap()
+         if(success){
+          navigate('/owner/viewemployee')
+          setEmployee({
+            name: '',
+            email: '',
+            phone: '',
+            password: '',
+            image: '',
+          })
+         }
       };
   
 

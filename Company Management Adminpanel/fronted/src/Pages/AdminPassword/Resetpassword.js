@@ -30,7 +30,7 @@ const Resetpassword = () => {
     try {
       const success = await dispatch(resetPassword(ownerPassword)).unwrap()
       if(success){
-        navigate('/viewemployee')
+        navigate('/')
       }
       
     } catch (error) {

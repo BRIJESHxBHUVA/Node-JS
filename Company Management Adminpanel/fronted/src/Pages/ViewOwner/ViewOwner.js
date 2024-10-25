@@ -20,7 +20,9 @@ const ViewOwner = () => {
   return (
     <div className='viewdata'>
       {!loading ? (
+        <div className="alldata">
 
+        
         <table>
           <thead>
             <tr>
@@ -31,7 +33,7 @@ const ViewOwner = () => {
             </tr>
             </thead>
             
-            <tbody>
+            <tbody className='table-body'>
               { owners.map((el, index)=> (
                 <tr key={index}>
                   <td>{el.name}</td>
@@ -46,11 +48,11 @@ const ViewOwner = () => {
         </table>
 
 
+      </div>
       ) : (
         <Loading/>
       )}
 
-      
     </div>
   )
 }

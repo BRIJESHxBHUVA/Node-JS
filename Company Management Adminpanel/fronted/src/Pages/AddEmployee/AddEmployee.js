@@ -3,6 +3,7 @@ import './AddEmployee.css'
 import { addEmployee } from '../../Redux/managerSlice';
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../Components/Loading/Loading';
+import { useNavigate } from 'react-router-dom';
 
 
 const AddEmployee = () => {
@@ -15,6 +16,7 @@ const AddEmployee = () => {
       image: '',
     })
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const {loading, error} = useSelector((state)=> state.manager)
@@ -38,7 +40,17 @@ const AddEmployee = () => {
     const HandleSubmit = async (e) => {
      
         e.preventDefault();
-        dispatch(addEmployee(employee))
+        const success = await dispatch(addEmployee(employee)).unwrap()
+        if(success){
+          navigate('/manager/viewemployee')
+          setEmployee({
+            name: '',
+            email: '',
+            phone: '',
+            password: '',
+            image: '',
+          })
+        }
     };
 
 

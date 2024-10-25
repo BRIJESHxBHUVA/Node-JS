@@ -41,8 +41,8 @@ const EmployeeLogin = () => {
 
         <form className='login-form' onSubmit={HandleSubmit} >
         <h3 className='login-title mb-4'>Employee Login</h3>
-          <input type="email" placeholder='Enter employee email ID' name='email' onChange={handleChange} />
-          <input type="password" placeholder='Enter employee password' name='password' onChange={handleChange} />
+          <input type="email" placeholder='Enter employee email ID' name='email' required onChange={handleChange} />
+          <input type="password" placeholder='Enter employee password' name='password' required onChange={handleChange} />
           <button type='submit'>Login</button>
           <p>Forgot Password ? <Link to='/forgotemppassword' style={{textDecoration: 'none'}}><span style={{color: 'tomato'}}>Click here</span></Link></p>
           {error && <p>{error}</p>}

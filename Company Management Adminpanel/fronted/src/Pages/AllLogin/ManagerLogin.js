@@ -40,8 +40,8 @@ const ManagerLogin = () => {
      
       <form className='login-form' onSubmit={HandleSubmit}>
       <h3 className='login-title mb-4'>Manager Login</h3>
-        <input type="email" name='email' placeholder='Enter manager email ID' onChange={handleChange} />
-        <input type="password" name='password' placeholder='Enter manager password' onChange={handleChange} />
+        <input type="email" name='email' placeholder='Enter manager email ID' required onChange={handleChange} />
+        <input type="password" name='password' placeholder='Enter manager password' required onChange={handleChange} />
         <button type='submit'>Login</button>
         <p>Forgot Password ? <Link to='/forgotmngpassword' style={{textDecoration: 'none'}}><span style={{color: 'tomato'}}>Click here</span></Link></p>
       {error && <p>{error}</p>}
