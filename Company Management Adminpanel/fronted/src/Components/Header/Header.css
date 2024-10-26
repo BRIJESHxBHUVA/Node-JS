@@ -2,16 +2,7 @@
     background-color: black;
     height: 8vh;
 }
-.nav-link{
-    color: white;
-}
-.nav-link a{
-    text-decoration: none;
-    color: white;
-}
-.navbar-brand{
-    color: white;
-}
+
 .profile{
     display: flex;
     align-items: center;
@@ -155,6 +146,7 @@
     align-items: center;
     justify-content: space-between;
     border: 1px solid white;
+    background-color: black;
 }
 .header .option img{
     height: 50px;
@@ -164,12 +156,14 @@
  .option span{
     font-size: 18px;
     font-weight: 500;
+    color: white;
 }
 .option i{
     font-size: 20px;
+    color: white;
 }
 span .Link{
-    color: black;
+    color: white;
 }
 
 .sidebar{

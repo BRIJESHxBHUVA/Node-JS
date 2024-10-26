@@ -36,10 +36,15 @@ const AddOwner = () => {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-   const success = await dispatch(addOwner(owner)).unwrap()
-   if(success){
-    navigate('/')
-   }
+    try {
+      const success = await dispatch(addOwner(owner)).unwrap()
+      if(success){
+       navigate('/')
+      }
+      
+    } catch (error) {
+      console.log(error, 'Admin Register Error') 
+    }
   };
 
   return (
@@ -53,6 +58,7 @@ const AddOwner = () => {
             type="text"
             name="name"
             value={owner.name}
+            required
             onChange={HandleChange}
           />
         </div>
@@ -62,6 +68,7 @@ const AddOwner = () => {
             type="text"
             name="email"
             value={owner.email}
+            required
             onChange={HandleChange}
           />
         </div>
@@ -71,6 +78,7 @@ const AddOwner = () => {
             type="text"
             name="phone"
             value={owner.phone}
+            required
             onChange={HandleChange}
           />
         </div>
@@ -80,12 +88,13 @@ const AddOwner = () => {
             type="text"
             name="password"
             value={owner.password}
+            required
             onChange={HandleChange}
           />
         </div>
         <div className="box">
           <label htmlFor="">Select Image</label>
-          <input type="file" name="image" onChange={HandleChange} />
+          <input type="file" required name="image" onChange={HandleChange} />
         </div>
         <button type="submit">Submit</button>
         {error && <p>{error}</p>}

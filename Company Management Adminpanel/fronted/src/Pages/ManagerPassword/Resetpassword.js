@@ -4,6 +4,8 @@ import { resetPassword } from "../../Redux/managerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/Loading/Loading";
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Resetpassword = () => {
@@ -31,7 +33,9 @@ const Resetpassword = () => {
         try {
           const success = await dispatch(resetPassword(managerPassword)).unwrap()
           if(success){
-            navigate('/viewmanager')
+            setTimeout(()=>{
+              navigate('/managerlogin')
+            },1500)
           }
           
         } catch (error) {
@@ -53,6 +57,7 @@ const Resetpassword = () => {
             name="oldps"
             value={managerPassword.oldps}
             onChange={HandleChange}
+            required
           />
         </div>
         <div className="box">
@@ -62,6 +67,7 @@ const Resetpassword = () => {
             name="newps"
             value={managerPassword.newps}
             onChange={HandleChange}
+            required
           />
         </div>
         <div className="box">
@@ -71,17 +77,31 @@ const Resetpassword = () => {
             name="confirmps"
             value={managerPassword.confirmps}
             onChange={HandleChange}
+            required
           />
         </div>
        
         <button type="submit">Change Password</button>
-      {error && <p>{error}</p>}
+      
       </form>
 
       ) : (
       <Loading/>
       )}
 
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
 
     </div>
   )

@@ -13,9 +13,6 @@ const Header = () => {
     const [user, setUser] = useState([])
     const [viewUser, setViewUser] = useState(false)
     const [menubar, setMenubar] = useState(false)
-    const [manager, setManager] = useState(false)
-    const [employee, setEmployee] = useState(false)
-    const [admin, setAdmin] = useState(false)
     const [activeRole, setActiveRole] = useState("")
 
     const navigate = useNavigate()
@@ -31,10 +28,12 @@ const Header = () => {
           const admin = JSON.parse(adminData)
           setUser(admin)
           setDp(admin.image)
-          setName(admin.email) 
+          setName(admin.name) 
           console.log(admin)
           setActiveRole('admin')
-          
+          console.log(activeRole)
+          sessionStorage.removeItem('Manager')
+          sessionStorage.removeItem('Employee')
         } catch (error) {
           console.error("Error parsing admin data: ", error)
         }
@@ -46,6 +45,9 @@ const Header = () => {
             setManagerName(manager.name)
             setUser(manager)
             setActiveRole('manager')
+            console.log(activeRole)
+            sessionStorage.removeItem('Admin')
+            sessionStorage.removeItem('Employee')
         } catch (error) {
           console.error("Error parsing manager data: ", error)
         }
@@ -56,6 +58,9 @@ const Header = () => {
           setEmployeeName(employee.name)
           setUser(employee)
           setActiveRole('employee')
+          console.log(activeRole)
+          sessionStorage.removeItem('Admin')
+          sessionStorage.removeItem('Manager')
         } catch (error) {
           console.error("Error parsing employee data: ", error)
         }
@@ -103,7 +108,7 @@ const Header = () => {
               <i className="fa-solid fa-xmark"></i>
             </div>
 
-           { activeRole === 'admin' && (<div className="menubar">
+           { activeRole === 'admin' &&  <div className="menubar">
               <div className="menu-opt">
                 <span><Link to='viewowner' className="menu-link" onClick={()=>{setMenubar(false)}}>View Admin</Link></span>
               </div>
@@ -119,11 +124,11 @@ const Header = () => {
               <div className="menu-opt">
                 <span><Link to='addemployee' className="menu-link" onClick={()=>{setMenubar(false)}}>Add Employee</Link></span>
               </div>
-            </div>)}
+            </div>}
 
             {/* For Manager Menubar  */}
 
-          { activeRole === 'manager' &&  (<div className="menubar">
+          { activeRole === 'manager' &&  <div className="menubar">
              
               <div className="menu-opt">
                 <span><Link to='viewmanager' className="menu-link" onClick={()=>{setMenubar(false)}}>View Manager</Link></span>
@@ -134,18 +139,18 @@ const Header = () => {
               <div className="menu-opt">
                 <span><Link to='addemployee' className="menu-link" onClick={()=>{setMenubar(false)}}>Add Employee</Link></span>
               </div>
-            </div>)}
+            </div>}
 
 
             {/* For Employee Menubar */}
 
 
-           {activeRole === 'employee' && (<div className="menubar">
+           {activeRole === 'employee' && <div className="menubar">
               <div className="menu-opt">
                 <span><Link to='viewemployee' className="menu-link" onClick={()=>{setMenubar(false)}}>View Employee</Link></span>
               </div>
       
-            </div>)}
+            </div>}
 
 
 
@@ -198,9 +203,9 @@ const Header = () => {
             <div className="userfooter">
           
                 <button className="btn btn-danger" onClick={()=>setViewUser(false)}><Link to='resetpassword' style={{textDecoration: 'none', color: 'white'}}>Reset Password</Link></button>
-                { activeRole === 'admin' && <button className="btn btn-dark" onClick={()=>HandleLogout()}>A Log out</button>}
-                { activeRole === 'manager' && <button className="btn btn-dark" onClick={()=>HandleManagerLogout()}>M Log out</button>}
-                { activeRole === 'employee' && <button className="btn btn-dark" onClick={()=>HandleEmployeeLogout()}>E Log out</button>}
+                { activeRole === 'admin' && <button className="btn btn-dark" onClick={()=>HandleLogout()}>Log out</button>}
+                { activeRole === 'manager' && <button className="btn btn-dark" onClick={()=>HandleManagerLogout()}>Log out</button>}
+                { activeRole === 'employee' && <button className="btn btn-dark" onClick={()=>HandleEmployeeLogout()}>Log out</button>}
             </div>
           </div>
        </div>
@@ -208,8 +213,10 @@ const Header = () => {
 
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" style={{color: 'white'}}>
+            <span>
             Company AdminPanel
+            </span>
           </a>
 
           <button
@@ -225,19 +232,19 @@ const Header = () => {
             <ul className="navbar-nav mb-lg-0 ">
               <li className="nav-item">
               
-                <Link className="nav-link" aria-current="page" to="/owner">
+                <Link className="nav-link" style={{color: 'white'}} aria-current="page" to="/owner">
                
                   ADMIN
                   
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" aria-current="page" to="/manager">
+                <Link className="nav-link" style={{color: 'white'}} aria-current="page" to="/manager">
                   MANAGER
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/employee">
+                <Link className="nav-link" style={{color: 'white'}} to="/employee">
                   EMPLOYEE
                 </Link>
               </li>
@@ -246,14 +253,14 @@ const Header = () => {
 
           <div className="profile" onClick={()=>{setViewUser(true)}}>
             <div className="dp">
-               {activeRole === 'admin' && <img src={`http://localhost:1800/Images/owner/${dp}`} alt="" />}
-               {activeRole === 'manager' && <img src={`http://localhost:1800/Images/manager/${managerDP}`} alt="" />}
-               {activeRole === 'employee' && <img src={`http://localhost:1800/Images/employee/${employeeDP}`} alt="" />}
+               {dp && <img src={`http://localhost:1800/Images/owner/${dp}`} alt="" />}
+               {managerDP && <img src={`http://localhost:1800/Images/manager/${managerDP}`} alt="" />}
+               {employeeDP && <img src={`http://localhost:1800/Images/employee/${employeeDP}`} alt="" />}
             </div>
             <div className="name">
-             {activeRole === 'admin' && <p className="p">{name}</p>}
-             {activeRole === 'manager' && <p className="p">{managerName}</p>}
-             {activeRole === 'employee' && <p className="p">{employeeName}</p>}
+             {name && <p className="p">{name}</p>}
+             {managerName && <p className="p">{managerName}</p>}
+             {employeeName && <p className="p">{employeeName}</p>}
             </div>
           </div>
         </div>

@@ -32,4 +32,9 @@ Owner can view his, manager and employee account
 Manager can view his and employee account
 employee can only view his account
 
-password : Dolphin@42
+
+Project Name :-  company-management-dashboard
+Username :- bhuvabrijesh14
+Password :- xqkkoNsKgwvU22TD
+
+Databse Connection URL :- mongodb+srv://bhuvabrijesh14:xqkkoNsKgwvU22TD@company-management-dash.7azyk.mongodb.net/?retryWrites=true&w=majority&appName=company-management-dashboard

@@ -4,6 +4,8 @@ import { addOwner, resetPassword } from "../../Redux/ownerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/Loading/Loading";
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Resetpassword = () => {
 
@@ -30,7 +32,9 @@ const Resetpassword = () => {
     try {
       const success = await dispatch(resetPassword(ownerPassword)).unwrap()
       if(success){
-        navigate('/')
+        setTimeout(()=> {
+          navigate('/')
+        },1500)
       }
       
     } catch (error) {
@@ -47,6 +51,7 @@ const Resetpassword = () => {
             <input
               type="text"
               name="oldps"
+              required
               value={ownerPassword.oldps}
               onChange={HandleChange}
             />
@@ -56,6 +61,7 @@ const Resetpassword = () => {
             <input
               type="text"
               name="newps"
+              required
               value={ownerPassword.newps}
               onChange={HandleChange}
             />
@@ -65,16 +71,32 @@ const Resetpassword = () => {
             <input
               type="text"
               name="confirmps"
+              required
               value={ownerPassword.confirmps}
               onChange={HandleChange}
             />
           </div>
           <button type="submit">Change Password</button>
-          {error && <p>{error}</p>}
+         
         </form>
       ) : (
         <Loading />
       )}
+
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
 
     </div>
   );

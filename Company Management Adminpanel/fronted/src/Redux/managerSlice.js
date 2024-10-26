@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const getToken = () => {
     return(
@@ -18,7 +20,6 @@ export const fetchManagers = createAsyncThunk('manager/fetchManagers', async(_, 
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
         return response.data.data
     } catch (error) {
         return rejectWithValue(error.response.data.message || 'Something went wrong')
@@ -33,7 +34,6 @@ export const fetchEmployees = createAsyncThunk('manager/fetchEmployees', async (
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
         return response.data.data
     } catch (error) {
         return rejectWithValue(error.response.data.message)
@@ -50,9 +50,35 @@ export const addEmployee = createAsyncThunk('manager/addManagers', async (newEmp
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
+
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
         return response.data.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+        
         return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
@@ -67,10 +93,36 @@ export const deleteEmployee = createAsyncThunk('manager/deleteEmployee', async (
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
+
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
         return response.data
 
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+
         return rejectWithValue(error.response.data.message)
     }
 })
@@ -78,7 +130,6 @@ export const deleteEmployee = createAsyncThunk('manager/deleteEmployee', async (
 export const loginManager = createAsyncThunk('manager/loginManager', async(manager, {rejectWithValue})=>{
     try {
         const response = await axios.post('http://localhost:1800/company/manager/login', manager)
-        console.log(response)
         const token = response.data.token
         const managerId = response.data.user._id
         const Manager = response.data.user
@@ -87,6 +138,20 @@ export const loginManager = createAsyncThunk('manager/loginManager', async(manag
         sessionStorage.setItem('Manager', JSON.stringify(Manager))
         return response.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+
        return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
@@ -97,9 +162,35 @@ export const resetPassword = createAsyncThunk('manager/resetPassword', async (pa
         const token = getToken()
         const managerID = sessionStorage.getItem('managerId')
         const response = await axios.put(`http://localhost:1800/company/manager/resetpassword?id=${managerID}`, password)
-        console.log(response)
+
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
         return response.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+
        return rejectWithValue(error.response.data.message)
     }
 })
@@ -111,8 +202,35 @@ export const sendOTP = createAsyncThunk('manager/sendOTP', async (otp, {rejectWi
         const managerID = response.data.useremail._id
         console.log(managerID)
         sessionStorage.setItem('ManagerForgotPasswordId', managerID)
+
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
         return response.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+
        return rejectWithValue(error.response.data.message)
     }
 })
@@ -121,9 +239,34 @@ export const forgotManagerPassword = createAsyncThunk('manager/forgotManagerPass
     try {
         const managerID = sessionStorage.getItem('ManagerForgotPasswordId')
         const response = await axios.put(`http://localhost:1800/company/manager/forgotpassword?id=${managerID}`, newPassword)
-        console.log(response.data)
+
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
         return response.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
         return rejectWithValue(error.response.data.message)
     }
 })

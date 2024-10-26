@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/Loading/Loading";
 import { forgotManagerPassword, sendOTP } from "../../Redux/managerSlice";
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Forgotpassword = () => {
 
@@ -41,7 +43,9 @@ const Forgotpassword = () => {
         try {
           const success = await dispatch(forgotManagerPassword(forgotPassword)).unwrap()
           if(success){
-            navigate('/managerlogin')
+            setTimeout(()=>{
+              navigate('/managerlogin')
+            },1500)
           }
           
         } catch (error) {
@@ -91,6 +95,7 @@ const Forgotpassword = () => {
               name="otp"
               placeholder="Enter OTP"
               value={forgotPassword.otp}
+              required
               onChange={HandleChange}
             />
             <input
@@ -98,6 +103,7 @@ const Forgotpassword = () => {
               name="newps"
               placeholder="Enter New Password"
               value={forgotPassword.newps}
+              required
               onChange={HandleChange}
             />
             <input
@@ -105,10 +111,11 @@ const Forgotpassword = () => {
               name="confirmps"
               placeholder="Enter Confirm Password"
               value={forgotPassword.confirmps}
+              required
               onChange={HandleChange}
             />
             <button type="submit">Change Password</button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+           
           </form>
 
          )   
@@ -116,6 +123,20 @@ const Forgotpassword = () => {
           ) : (
             <Loading />
           )}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
     
         </div>
       );

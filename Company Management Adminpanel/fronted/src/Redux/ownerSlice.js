@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const getToken = ()=> {
     return(
@@ -20,7 +23,6 @@ export const fetchOwners = createAsyncThunk('owner/fetchOwners', async(_, {rejec
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response.data.data)
         return response.data.data
         
     } catch (error) {
@@ -37,7 +39,6 @@ export const fetchManagers = createAsyncThunk('owner/fetchManagers', async (_, {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
         return response.data.data
     } catch (error) {
         return rejectWithValue(error.response.data.message)
@@ -52,7 +53,6 @@ export const fetchEmployees = createAsyncThunk('owner/fetchEmployees', async (_,
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
         return response.data.data
     } catch (error) {
         return rejectWithValue(error.response.data.message)
@@ -66,9 +66,30 @@ export const addOwner = createAsyncThunk('owner/addOwner', async (newOwner, {rej
                 'Content-Type': 'multipart/form-data'
             }
         })
-        console.log(response)
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return response.data
     } catch (error) {
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
@@ -82,9 +103,30 @@ export const addManager = createAsyncThunk('owner/addManager', async (newManager
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
+         toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return response.data
     } catch (error) {
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
@@ -98,9 +140,30 @@ export const addEmployee = createAsyncThunk('owner/addEmployee', async (newEmplo
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return response.data
     } catch (error) {
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
@@ -112,15 +175,26 @@ export const loginOwner = createAsyncThunk('owner/loginOwner', async (owner, {re
                 'Content-Type': 'application/json'
             }
         })
-        console.log(response)
         const token = response.data.token
         const user = response.data.user._id
         const admin = response.data.user
         sessionStorage.setItem('adminToken', token)
         sessionStorage.setItem('userId', user)
         sessionStorage.setItem('Admin', JSON.stringify(admin))
+       
         return response.data
     } catch (error) {
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
@@ -134,9 +208,30 @@ export const deleteManager = createAsyncThunk('owner/deleteManager', async (mana
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response.data)
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return response.data
     } catch (error) {
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
        return rejectWithValue(error.response.data.message)
     }
 })
@@ -151,10 +246,31 @@ export const deleteEmployee = createAsyncThunk('owner/deleteEmployee', async (em
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return response.data
 
     } catch (error) {
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return rejectWithValue(error.response.data.message)
     }
 })
@@ -169,9 +285,30 @@ export const resetPassword = createAsyncThunk('owner/resetPassword', async (pass
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response.data)
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return response.data
     } catch (error) {
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
        return rejectWithValue(error.response.data.message)
     }
 })
@@ -182,8 +319,30 @@ export const sendOTP = createAsyncThunk('owner/sendOTP', async (email, {rejectWi
         console.log(response.data)
         const ownerID = response.data.useremail._id 
         sessionStorage.setItem('AdminForgotPasswordId', ownerID)
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return response.data
-    } catch (error) {
+    } catch (error) { 
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
        return rejectWithValue(error.response.data.message)
     }
 })
@@ -192,9 +351,30 @@ export const forgotAdminPassword = createAsyncThunk('owner/forgotAdminPassword',
     try {
         const ownerID = sessionStorage.getItem('AdminForgotPasswordId')
         const response = await axios.put(`http://localhost:1800/company/forgotpassword?id=${ownerID}`, newPassword,)
-        console.log(response.data)
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
         return response.data
     } catch (error) {
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
        return rejectWithValue(error.response.data.message)
     }
 })

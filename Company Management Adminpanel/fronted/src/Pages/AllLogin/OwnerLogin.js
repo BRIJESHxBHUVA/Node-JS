@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOwner, loginOwner } from "../../Redux/ownerSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 
 const OwnerLogin = () => {
   const [login, setLogin] = useState(false);
@@ -55,7 +58,7 @@ const OwnerLogin = () => {
     try {
       const result = await dispatch(loginOwner(admin)).unwrap();
       if (result) {
-        navigate("/owner");
+        navigate("/owner/viewowner");
       }
     } catch (error) {
       console.log("Login failed", error);
@@ -64,10 +67,15 @@ const OwnerLogin = () => {
 
   const HandleCreateAdmin = async (e) => {
     e.preventDefault();
-    const success = await dispatch(addOwner(owner)).unwrap()
-    if(success){  
-      setLogin(false)
-    } 
+    try {
+      const success = await dispatch(addOwner(owner)).unwrap()
+      if(success){  
+        setLogin(false)
+      } 
+    } catch (error) {
+      console.log(error, 'Admin Register Error')
+    }
+   
   };
 
   return (
@@ -137,7 +145,7 @@ const OwnerLogin = () => {
               required
               onChange={handleAdminChange}
             />
-            <button type="submit">Login</button>
+            <button type="submit">Sign Up</button>
             {error && <p style={{ color: "red" }}>{error}</p>}
           </form>
         )
@@ -165,6 +173,21 @@ const OwnerLogin = () => {
           </span>
         </p>
       )}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
+
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const getToken = () => {
     return(
@@ -17,7 +19,6 @@ export const fetchEmployees = createAsyncThunk('employee/fetchEmployees', async 
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
        
         return response.data.data
     } catch (error) {
@@ -32,11 +33,10 @@ export const addEmployees = createAsyncThunk('employee/addEmployees', async (new
                 'Content-Type': 'multipart/form-data'
             }
         })
-        console.log(response)
         return response.data
 
     } catch (error) {
-        console.log(error.response.data.message)
+
        return rejectWithValue(error.response.data.message || 'Something went wrong')
     }
 })
@@ -44,7 +44,6 @@ export const addEmployees = createAsyncThunk('employee/addEmployees', async (new
 export const loginEmployee = createAsyncThunk('employee/loginEmployee', async(employee, {rejectWithValue})=> {
     try {
         const response = await axios.post('http://localhost:1800/company/employee/login', employee)
-        console.log(response)
         const token = response.data.token 
         const employeeId = response.data.user._id
         const Employee = response.data.user
@@ -53,6 +52,20 @@ export const loginEmployee = createAsyncThunk('employee/loginEmployee', async(em
         sessionStorage.setItem('Employee', JSON.stringify(Employee))
         return response.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+
         return rejectWithValue(error.response.data.message)
     }
 })
@@ -65,9 +78,35 @@ export const resetPassword = createAsyncThunk('employee/resetPassword', async (p
 
         const response = await axios.put(`http://localhost:1800/company/employee/resetpassword?id=${employeeId}`, password)
 
-        console.log(response)
+
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+
         return response.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
         return rejectWithValue(error.response.data.message)
     }
 })
@@ -79,8 +118,35 @@ export const sendOTP = createAsyncThunk('employee/sendOTP', async (otp, {rejectW
         const employeeID = response.data.useremail._id
         sessionStorage.setItem('EmployeeForgotPasswordId', employeeID)
         console.log(employeeID)
+
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+
         return response.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
         return rejectWithValue(error.response.data.message)
     }
 })
@@ -89,9 +155,35 @@ export const forgotEmployeePassword = createAsyncThunk('employee/forgotEmployeeP
     try {
         const employeeID = sessionStorage.getItem('EmployeeForgotPasswordId')
         const response = await axios.put(`http://localhost:1800/company/employee/forgotpassword?id=${employeeID}`, newPassword)
-        console.log(response.data)
+
+        toast.success(response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
+
         return response.data
     } catch (error) {
+
+        toast.error(error.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+
        return rejectWithValue(error.response.data.message)
     }
 })

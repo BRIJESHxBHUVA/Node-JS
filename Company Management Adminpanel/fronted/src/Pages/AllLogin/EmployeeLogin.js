@@ -27,7 +27,7 @@ const EmployeeLogin = () => {
     try {
       const result = await dispatch(loginEmployee(loginEmployees)).unwrap()  
       if(result){
-        navigate('/employee')
+        navigate('/employee/viewemployee')
       }     
     } catch (error) {
       console.log('Login Error', error)

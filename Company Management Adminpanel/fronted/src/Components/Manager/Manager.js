@@ -32,11 +32,6 @@ const Manager = () => {
                     <i className="fa-solid fa-plus"></i>
                     <Link to='addemployee'>ADD EMPLOYEE</Link>
                 </div>
-            
-                <div className="view">
-                <i className="fa-solid fa-shield-halved"></i>
-                    <Link to='resetpassword'>RESET PASSWORD</Link>
-                </div>
                
             </div>
         </div>

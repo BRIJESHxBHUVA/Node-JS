@@ -4,6 +4,8 @@ import { addEmployee } from '../../Redux/managerSlice';
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../Components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 const AddEmployee = () => {
@@ -40,17 +42,22 @@ const AddEmployee = () => {
     const HandleSubmit = async (e) => {
      
         e.preventDefault();
-        const success = await dispatch(addEmployee(employee)).unwrap()
-        if(success){
-          navigate('/manager/viewemployee')
-          setEmployee({
-            name: '',
-            email: '',
-            phone: '',
-            password: '',
-            image: '',
-          })
+        try {
+          const success = await dispatch(addEmployee(employee)).unwrap()
+          if(success){
+            
+            setEmployee({
+              name: '',
+              email: '',
+              phone: '',
+              password: '',
+              image: '',
+            })
+          }
+        } catch (error) {
+          console.log(error, 'Employee Register Error')
         }
+       
     };
 
 
@@ -67,6 +74,7 @@ const AddEmployee = () => {
             name="name"
             value={employee.name}
             onChange={HandleChange}
+            required
           />
         </div>
         <div className="box">
@@ -76,6 +84,7 @@ const AddEmployee = () => {
             name="email"
             value={employee.email}
             onChange={HandleChange}
+            required
           />
         </div>
         <div className="box">
@@ -85,6 +94,7 @@ const AddEmployee = () => {
             name="phone"
             value={employee.phone}
             onChange={HandleChange}
+            required
           />
         </div>
         <div className="box">
@@ -94,21 +104,37 @@ const AddEmployee = () => {
             name="password"
             value={employee.password}
             onChange={HandleChange}
+            required
           />
         </div>
         <div className="box">
           <label htmlFor="">Select Image</label>
-          <input type="file" name="image" onChange={HandleChange} />
+          <input type="file" required name="image" onChange={HandleChange} />
         </div>
         <button type="submit">Submit</button>
-        
-        {error && <p>{error}</p>}
+      
 
       </form>
 
       ) : (
         <Loading/>
       )}
+
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
+
 
     </div>
   )

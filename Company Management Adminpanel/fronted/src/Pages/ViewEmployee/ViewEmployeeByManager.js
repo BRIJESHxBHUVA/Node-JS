@@ -3,6 +3,8 @@ import '../../Pages/ViewOwner/ViewOwner.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteEmployee, fetchEmployees } from '../../Redux/managerSlice'
 import Loading from '../../Components/Loading/Loading'
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const ViewEmployeeByManager = () => {
 
@@ -44,7 +46,7 @@ const ViewEmployeeByManager = () => {
                 <td>{el.email}</td>
                 <td>{el.phone}</td>
                 <td><img src={`http://localhost:1800/images/employee/${el.image}`} height='100' width='100' alt="" /></td>
-                <td onClick={()=>{removeEmployee(el._id)}}>Delete</td>
+                <td><button className='btn btn-danger' style={{textWrap: 'wrap'}} onClick={()=>{removeEmployee(el._id)}}>Delete</button></td>
               </tr>
             )) 
         }
@@ -58,6 +60,22 @@ const ViewEmployeeByManager = () => {
      ) : (
       <Loading/>
      )} 
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
+
+
   </div>
   )
 }

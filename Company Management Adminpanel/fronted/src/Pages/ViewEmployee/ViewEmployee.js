@@ -3,6 +3,8 @@ import '../../Pages/ViewOwner/ViewOwner.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEmployees } from '../../Redux/employeeSlice'
 import Loading from '../../Components/Loading/Loading'
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -53,6 +55,20 @@ const ViewEmployee = () => {
       ) : (
         <Loading/>
       )}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
   
     </div>
   )

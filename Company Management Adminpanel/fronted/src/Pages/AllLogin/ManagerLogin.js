@@ -4,6 +4,8 @@ import { loginManager } from '../../Redux/managerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import Loading from '../../Components/Loading/Loading'
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const ManagerLogin = () => {
 
@@ -27,7 +29,7 @@ const ManagerLogin = () => {
     try {
       const result = await dispatch(loginManager(managerLogin)).unwrap()
       if(result){
-        navigate('/manager')
+        navigate('/manager/viewmanager')
       }
     } catch (error) {
       console.log('Login Error', error)
@@ -44,12 +46,27 @@ const ManagerLogin = () => {
         <input type="password" name='password' placeholder='Enter manager password' required onChange={handleChange} />
         <button type='submit'>Login</button>
         <p>Forgot Password ? <Link to='/forgotmngpassword' style={{textDecoration: 'none'}}><span style={{color: 'tomato'}}>Click here</span></Link></p>
-      {error && <p>{error}</p>}
+  
       </form>
 
     ) : (
       <Loading/>
     )}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
+
     </div>
   )
 }

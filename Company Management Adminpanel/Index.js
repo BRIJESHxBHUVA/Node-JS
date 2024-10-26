@@ -41,3 +41,11 @@ app.listen(PORT, (err)=>{
         console.log('Server Starting on Port :', PORT)
     }
 })
+
+
+//Name :-  company-management-dashboard
+//Username :- bhuvabrijesh14
+// password :- xqkkoNsKgwvU22TD
+
+
+// mongodb+srv://bhuvabrijesh14:xqkkoNsKgwvU22TD@company-management-dash.7azyk.mongodb.net/?retryWrites=true&w=majority&appName=company-management-dashboard

@@ -4,6 +4,8 @@ import { forgotAdminPassword, sendOTP } from "../../Redux/ownerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/Loading/Loading";
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Forgotpassword = () => {
 
@@ -41,7 +43,9 @@ const Forgotpassword = () => {
         try {
          const success = await dispatch(forgotAdminPassword(forgotPassword)).unwrap()
          if(success){
-          navigate('/')
+          setTimeout(()=>{
+            navigate('/')
+          },1500)
          }
           
         } catch (error) {
@@ -90,6 +94,7 @@ const Forgotpassword = () => {
               type="text"
               name="otp"
               placeholder="Enter OTP"
+              required
               value={forgotPassword.otp}
               onChange={HandleChange}
             />
@@ -97,6 +102,7 @@ const Forgotpassword = () => {
               type="password"
               name="newps"
               placeholder="Enter New Password"
+              required
               value={forgotPassword.newps}
               onChange={HandleChange}
             />
@@ -104,11 +110,12 @@ const Forgotpassword = () => {
               type="text"
               name="confirmps"
               placeholder="Enter Confirm Password"
+              required
               value={forgotPassword.confirmps}
               onChange={HandleChange}
             />
             <button type="submit">Change Password</button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            
           </form>
 
          )   
@@ -116,6 +123,21 @@ const Forgotpassword = () => {
           ) : (
             <Loading />
           )}
+
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ width: "300px", whiteSpace: "nowrap" }} 
+       />
     
         </div>
       );
